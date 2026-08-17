@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.env
+**/*.log
+.git
+.codebase-memory
+runtime-logs
+database/source
+database/legacy-scripts

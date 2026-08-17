@@ -1,0 +1,6 @@
+-- Catálogo del esquema vigente de ai-service.
+-- ia_conversaciones
+-- ia_generaciones
+-- ia_mensajes
+-- ia_modelos
+-- ia_prompts

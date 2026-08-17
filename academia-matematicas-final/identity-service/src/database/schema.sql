@@ -1,0 +1,2 @@
+-- Catálogo del esquema vigente de identity-service.
+-- identidad_usuarios

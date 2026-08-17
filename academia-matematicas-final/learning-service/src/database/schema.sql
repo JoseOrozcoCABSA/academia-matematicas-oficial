@@ -1,0 +1,9 @@
+-- Catálogo del esquema vigente de learning-service.
+-- aprendizaje_categorias
+-- aprendizaje_configuracion_sitio
+-- aprendizaje_lecciones
+-- aprendizaje_medios
+-- aprendizaje_medios_leccion
+-- aprendizaje_niveles_educativos
+-- aprendizaje_recursos
+-- aprendizaje_secciones_leccion

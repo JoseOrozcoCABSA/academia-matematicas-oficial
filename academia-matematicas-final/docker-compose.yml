@@ -1,0 +1,147 @@
+name: ${COMPOSE_PROJECT_NAME:-academia-matematicas-final}
+
+x-node-service: &node-service
+  restart: unless-stopped
+  environment: &service-environment
+    NODE_ENV: production
+    HOST: 0.0.0.0
+    DB_HOST: ${DB_DOCKER_HOST:-host.docker.internal}
+    DB_PORT: ${DB_PORT:-3306}
+    DB_NAME: ${DB_NAME:-academia-matematicas-soa}
+    DB_USER: ${DB_USER:?DB_USER es obligatorio}
+    DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD es obligatorio}
+    JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio}
+    INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY es obligatorio}
+    JWT_EXPIRES_IN: 8h
+  extra_hosts:
+    - host.docker.internal:host-gateway
+  networks: [academia-math]
+
+services:
+  identity-service:
+    <<: *node-service
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+      args: { SERVICE: identity-service }
+    environment:
+      <<: *service-environment
+      PORT: ${IDENTITY_PORT:-4604}
+      SERVICE_NAME: identity-service
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  learning-service:
+    <<: *node-service
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+      args: { SERVICE: learning-service }
+    environment:
+      <<: *service-environment
+      PORT: ${LEARNING_PORT:-4601}
+      SERVICE_NAME: learning-service
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  practice-service:
+    <<: *node-service
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+      args: { SERVICE: practice-service }
+    environment:
+      <<: *service-environment
+      PORT: ${PRACTICE_PORT:-4602}
+      SERVICE_NAME: practice-service
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  ai-service:
+    <<: *node-service
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+      args: { SERVICE: ai-service }
+    environment:
+      <<: *service-environment
+      PORT: ${AI_PORT:-4603}
+      SERVICE_NAME: ai-service
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OLLAMA_URL: ${OLLAMA_DOCKER_URL:-http://host.docker.internal:11434}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  api-gateway:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+      args: { SERVICE: api-gateway }
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: ${GATEWAY_PORT:-4600}
+      GATEWAY_NAME: academia-matematicas-api-gateway
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio}
+      INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY es obligatorio}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5176,http://localhost:5177,http://localhost:4610,http://localhost:4611}
+      AUTH_REQUIRED: ${AUTH_REQUIRED:-true}
+      LEARNING_SERVICE_URL: http://learning-service:${LEARNING_PORT:-4601}
+      PRACTICE_SERVICE_URL: http://practice-service:${PRACTICE_PORT:-4602}
+      AI_SERVICE_URL: http://ai-service:${AI_PORT:-4603}
+      IDENTITY_SERVICE_URL: http://identity-service:${IDENTITY_PORT:-4604}
+    depends_on:
+      identity-service: { condition: service_healthy }
+      learning-service: { condition: service_healthy }
+      practice-service: { condition: service_healthy }
+      ai-service: { condition: service_healthy }
+    ports: ["${GATEWAY_PORT:-4600}:${GATEWAY_PORT:-4600}"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks: [academia-math]
+
+  frontend-estudiantes:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        FRONTEND: frontend-estudiantes
+        VITE_API_URL: ${VITE_STUDENT_API_URL:-http://localhost:4600/api}
+    depends_on:
+      api-gateway: { condition: service_healthy }
+    ports: ["${STUDENT_DOCKER_PORT:-4610}:80"]
+    networks: [academia-math]
+
+  frontend-administracion:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        FRONTEND: frontend-administracion
+        VITE_API_URL: ${VITE_ADMIN_API_URL:-http://localhost:4600}
+    depends_on:
+      api-gateway: { condition: service_healthy }
+    ports: ["${ADMIN_DOCKER_PORT:-4611}:80"]
+    networks: [academia-math]
+
+networks:
+  academia-math:
+    driver: bridge

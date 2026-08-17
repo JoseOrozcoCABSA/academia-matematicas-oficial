@@ -1,0 +1,179 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Layers3, Pencil, Plus, Save, Trash2 } from 'lucide-react';
+import { gatewayApi } from '@/api';
+import FormEditor from '../../components/forms/FormEditor';
+import { MathPreview } from '../../components/content/ContentPreview';
+import SectionEditorPage from './SectionEditorPage';
+import { OPTION_LABELS, SELECTS } from '../../config/resourceFields';
+
+export default function LessonStructurePage({ lesson, onBack }) {
+  const [currentLesson, setCurrentLesson] = useState(lesson);
+  const [sections, setSections] = useState([]);
+  const [definitions, setDefinitions] = useState({ lesson: null, section: null });
+  const [lookups, setLookups] = useState({});
+  const [editor, setEditor] = useState(null);
+  const [editingSection, setEditingSection] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  const [sectionDraft, setSectionDraft] = useState(null);
+  const [savingSection, setSavingSection] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const contentEditorRef = useRef(null);
+
+  const load = async () => {
+    setLoading(true); setError('');
+    try {
+      const [catalog, lessonResult, sectionResult, categoryResult, mediaResult] = await Promise.all([
+        gatewayApi.resources('learning'),
+        gatewayApi.list('learning', 'aprendizaje_lecciones', 500),
+        gatewayApi.list('learning', 'aprendizaje_secciones_leccion', 500),
+        gatewayApi.list('learning', 'aprendizaje_categorias', 500),
+        gatewayApi.list('learning', 'aprendizaje_medios', 500),
+      ]);
+      const allLessons = rowsOf(lessonResult);
+      const allSections = rowsOf(sectionResult);
+      const lessonRows = allLessons.map((item) => ({ value: item.id, plainLabel: item.title, label: `${item.title} · #${item.id}` }));
+      const sectionRows = allSections.map((item) => ({ value: item.id, plainLabel: item.title, label: `${item.title} · #${item.id} · Lección #${item.lesson_id}`, lessonId: item.lesson_id, parentSectionId: item.parent_section_id }));
+      const mediaRows = rowsOf(mediaResult).map((item) => ({ value: item.id, plainLabel: item.title, label: `${item.title} · #${item.id}` }));
+      setCurrentLesson(allLessons.find((item) => String(item.id) === String(lesson.id)) || currentLesson);
+      const lessonSections = allSections.filter((item) => String(item.lesson_id) === String(lesson.id));
+      setSections(lessonSections);
+      setSelectedId((current) => lessonSections.some((item) => String(item.id) === String(current)) ? current : (lessonSections[0]?.id ?? null));
+      setDefinitions({
+        lesson: (catalog.resources || []).find((item) => item.resource === 'aprendizaje_lecciones'),
+        section: (catalog.resources || []).find((item) => item.resource === 'aprendizaje_secciones_leccion'),
+      });
+      setLookups({
+        category_id: rowsOf(categoryResult).map((item) => ({ value: item.id, plainLabel: item.name, label: `${item.name} · #${item.id}` })),
+        lesson_id: lessonRows,
+        parent_section_id: sectionRows,
+        section_id: sectionRows,
+        media_id: mediaRows,
+        hero_media_id: mediaRows,
+      });
+    } catch (reason) { setError(reason.message); }
+    finally { setLoading(false); }
+  };
+
+  useEffect(() => { void load(); }, [lesson.id]);
+  const structuredSections = useMemo(() => {
+    const parentTypes = ['presentation', 'activity', 'evaluation', 'exam'];
+    let inferredParent = null;
+    return [...sections].sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)).map((section) => {
+      if (section.parent_section_id) return { ...section, effective_parent_section_id: section.parent_section_id, inferred_parent: false };
+      if (parentTypes.includes(section.section_type)) { inferredParent = section.id; return { ...section, effective_parent_section_id: null, inferred_parent: false }; }
+      return { ...section, effective_parent_section_id: inferredParent, inferred_parent: Boolean(inferredParent) };
+    });
+  }, [sections]);
+  const selectedSection = structuredSections.find((item) => String(item.id) === String(selectedId)) || null;
+  useEffect(() => { setSectionDraft(selectedSection ? { ...selectedSection, parent_section_id: selectedSection.effective_parent_section_id || '' } : null); }, [selectedSection?.id, structuredSections]);
+
+  const saveLesson = async (data) => {
+    await gatewayApi.update('learning', 'aprendizaje_lecciones', currentLesson.id, data);
+    setEditor(null); await load();
+  };
+
+  const saveSection = async (data, file) => {
+    if (data.section_type === 'pptx' && file) {
+      const form = new FormData();
+      form.append('file', file); form.append('title', data.title || file.name); form.append('upload_context', 'content');
+      const media = await gatewayApi.uploadMedia(form);
+      data.body_html = media.file_path; data.media_id = media.id;
+    }
+    if (editor?.record) await gatewayApi.update('learning', 'aprendizaje_secciones_leccion', editor.record.id, data);
+    else await gatewayApi.create('learning', 'aprendizaje_secciones_leccion', data);
+    setEditor(null); await load();
+  };
+
+  const removeSection = async (section) => {
+    const children = structuredSections.filter((item) => String(item.effective_parent_section_id) === String(section.id));
+    if (children.length) { setError(`No puedes eliminar “${section.title}” porque contiene ${children.length} sublección(es). Reubícalas o elimínalas primero.`); return; }
+    if (!window.confirm(`¿Eliminar “${section.title}”? Esta acción no se puede deshacer.`)) return;
+    try { await gatewayApi.remove('learning', 'aprendizaje_secciones_leccion', section.id); await load(); }
+    catch (reason) { setError(reason.message); }
+  };
+
+  const descendantsOf = (id) => {
+    const found = new Set([String(id)]); let changed = true;
+    while (changed) { changed = false; structuredSections.forEach((item) => { if (item.effective_parent_section_id != null && found.has(String(item.effective_parent_section_id)) && !found.has(String(item.id))) { found.add(String(item.id)); changed = true; } }); }
+    return found;
+  };
+
+  const saveInlineSection = async () => {
+    if (!sectionDraft?.title?.trim()) { setError('Escribe el título de la sección o sublección.'); return; }
+    const invalidParents = descendantsOf(sectionDraft.id);
+    if (sectionDraft.parent_section_id && invalidParents.has(String(sectionDraft.parent_section_id))) { setError('Una sección no puede colocarse dentro de sí misma ni de una de sus sublecciones.'); return; }
+    setSavingSection(true); setError('');
+    try {
+      const data = { ...sectionDraft };
+      ['id', 'created_at', 'updated_at', 'effective_parent_section_id', 'inferred_parent'].forEach((key) => delete data[key]);
+      data.lesson_id = Number(currentLesson.id);
+      data.parent_section_id = data.parent_section_id ? Number(data.parent_section_id) : null;
+      data.media_id = data.media_id ? Number(data.media_id) : null;
+      data.duration_minutes = Number(data.duration_minutes || 0);
+      data.sort_order = Number(data.sort_order || 0);
+      data.published = Boolean(data.published);
+      data.ai_exercises_enabled = Boolean(data.ai_exercises_enabled);
+      await gatewayApi.update('learning', 'aprendizaje_secciones_leccion', sectionDraft.id, data);
+      await load();
+    } catch (reason) { setError(reason.message); }
+    finally { setSavingSection(false); }
+  };
+
+  const insertContent = (before, after, fallback) => {
+    const field = contentEditorRef.current; if (!field) return;
+    const start = field.selectionStart ?? field.value.length; const end = field.selectionEnd ?? start;
+    const selected = field.value.slice(start, end) || fallback;
+    const value = `${field.value.slice(0, start)}${before}${selected}${after}${field.value.slice(end)}`;
+    setSectionDraft((current) => ({ ...current, body_html: value }));
+    window.requestAnimationFrame(() => { field.focus(); field.setSelectionRange(start + before.length, start + before.length + selected.length); });
+  };
+  const focusInlineHtml = (position) => {
+    const field = contentEditorRef.current;
+    if (!field) return;
+    window.requestAnimationFrame(() => {
+      const offset = Math.max(0, Math.min(Number(position) || 0, field.value.length));
+      const line = field.value.slice(0, offset).split('\n').length - 1;
+      field.focus(); field.setSelectionRange(offset, offset);
+      field.scrollTop = Math.max(0, (line - 2) * 18);
+    });
+  };
+  useEffect(() => {
+    const focusFromPreview = (event) => focusInlineHtml(event.detail?.position);
+    window.addEventListener('academia-html-source-select', focusFromPreview);
+    return () => window.removeEventListener('academia-html-source-select', focusFromPreview);
+  }, [focusInlineHtml]);
+
+  const roots = structuredSections.filter((item) => !item.effective_parent_section_id || !structuredSections.some((candidate) => String(candidate.id) === String(item.effective_parent_section_id)));
+  const childrenOf = (id) => structuredSections.filter((item) => String(item.effective_parent_section_id) === String(id)).sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0));
+  const parentTypes = ['presentation', 'activity', 'evaluation', 'exam'];
+  const saveDedicatedSection = async (data) => {
+    try {
+      const clean = { ...data };
+      ['id', 'created_at', 'updated_at', 'effective_parent_section_id', 'inferred_parent'].forEach((key) => delete clean[key]);
+      await gatewayApi.update('learning', 'aprendizaje_secciones_leccion', editingSection.id, clean);
+      setEditingSection(null); await load();
+    } catch (reason) { setError(reason.message); throw reason; }
+  };
+  if (editingSection) return <SectionEditorPage section={editingSection} lesson={currentLesson} sections={structuredSections} media={lookups.media_id || []} sectionTypes={SELECTS.section_type} optionLabels={OPTION_LABELS} Preview={MathPreview} onBack={() => setEditingSection(null)} onSaved={saveDedicatedSection} />;
+  const SectionNode = ({ section, depth = 0 }) => <div className="lesson-tree-branch">
+    <article className={`lesson-tree-node depth-${Math.min(depth, 3)}${String(selectedId) === String(section.id) ? ' selected' : ''}`} onClick={() => setEditingSection(section)}>
+      <div className="lesson-tree-order">{section.sort_order ?? 0}</div>
+      <div className="lesson-tree-copy"><small>{depth ? `SUBLECCIÓN · NIVEL ${depth + 1}` : parentTypes.includes(section.section_type) ? 'SECCIÓN PADRE · PESTAÑA' : 'SIN SECCIÓN PADRE'}</small><strong>{section.title}</strong><span>{OPTION_LABELS[section.section_type] || section.section_type} · {section.duration_minutes || 0} min · {section.published ? 'Publicada' : 'Borrador'} · {childrenOf(section.id).length} elementos internos</span></div>
+      <div className="lesson-tree-actions" onClick={(event) => event.stopPropagation()}><button type="button" onClick={() => setEditingSection(section)}><Pencil /> Abrir página</button><button type="button" onClick={() => setEditor({ kind: 'section', defaults: { lesson_id: currentLesson.id, parent_section_id: section.id, published: true, sort_order: childrenOf(section.id).length + 1 } })}><Plus /> Elemento hijo</button><button type="button" className="danger" onClick={() => removeSection(section)}><Trash2 /></button></div>
+    </article>
+    {childrenOf(section.id).map((child) => <SectionNode section={child} depth={depth + 1} key={child.id} />)}
+  </div>;
+
+  return <div className="page-content lesson-structure-page">
+    <button type="button" className="lesson-back" onClick={onBack}>← Volver al listado de lecciones</button>
+    <header className="lesson-structure-header"><div><p className="eyebrow">ESTRUCTURA DE LA LECCIÓN · #{currentLesson.id}</p><h1>{currentLesson.title}</h1><p>{currentLesson.summary || 'Sin resumen capturado.'}</p><div className="lesson-context"><span>Área: {lookups.category_id?.find((item) => String(item.value) === String(currentLesson.category_id))?.plainLabel || `#${currentLesson.category_id}`}</span><span>{currentLesson.page_type === 'path' ? 'Ruta paso a paso' : 'Tema con pestañas'}</span><span>{sections.length} contenidos</span></div></div><button type="button" className="admin-secondary" onClick={() => setEditor({ kind: 'lesson', record: currentLesson })}><Pencil /> Editar datos generales</button></header>
+    <section className="lesson-workflow"><div className="active"><small>1</small><strong>Lección principal</strong><span>{currentLesson.title}</span></div><b>→</b><div><small>2</small><strong>Secciones directas</strong><span>Bloques principales</span></div><b>→</b><div><small>3</small><strong>Sublecciones</strong><span>Contenido anidado opcional</span></div></section>
+    <div className="lesson-structure-toolbar"><div><h2>Secciones padre y elementos internos</h2><p>Las secciones padre son las pestañas del alumno. Dentro de cada una agrega lecturas, videos, presentaciones, ejemplos, actividades o evaluaciones.</p></div><button type="button" className="admin-primary" onClick={() => setEditor({ kind: 'section', defaults: { lesson_id: currentLesson.id, parent_section_id: '', section_type: 'presentation', published: true, sort_order: roots.length + 1 } })}><Plus /> Nueva sección padre</button></div>
+    {error && <div className="alert error">{error}</div>}
+    {loading ? <div className="table-state">Cargando estructura…</div> : roots.length ? <div className="lesson-builder-grid"><section className="lesson-tree">{roots.sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)).map((section) => <SectionNode section={section} key={section.id} />)}</section><aside className="inline-section-editor">{sectionDraft ? <><header><div><small>EDITANDO DENTRO DE LA LECCIÓN</small><h3>{sectionDraft.title}</h3></div><span>{sectionDraft.parent_section_id ? 'Elemento hijo' : 'Sección padre'}</span></header><div className="inline-editor-grid"><label>Título<input value={sectionDraft.title || ''} onChange={(event) => setSectionDraft({ ...sectionDraft, title: event.target.value })} /></label><label>Tipo<select value={sectionDraft.section_type || 'html'} onChange={(event) => setSectionDraft({ ...sectionDraft, section_type: event.target.value })}>{SELECTS.section_type.map((type) => <option value={type} key={type}>{OPTION_LABELS[type] || type}</option>)}</select></label><label className="full">Ubicación<select value={sectionDraft.parent_section_id || ''} onChange={(event) => setSectionDraft({ ...sectionDraft, parent_section_id: event.target.value })}><option value="">Sección padre / pestaña principal</option>{roots.filter((item) => String(item.id) !== String(sectionDraft.id) && !descendantsOf(sectionDraft.id).has(String(item.id))).map((item) => <option value={item.id} key={item.id}>Dentro de: {item.title}</option>)}</select><small className="field-help">Sin padre aparecerá como pestaña. Con un padre será un elemento interno de esa sección.</small></label><label>Duración (min)<input type="number" min="0" value={sectionDraft.duration_minutes || 0} onChange={(event) => setSectionDraft({ ...sectionDraft, duration_minutes: event.target.value })} /></label><label>Orden<input type="number" value={sectionDraft.sort_order || 0} onChange={(event) => setSectionDraft({ ...sectionDraft, sort_order: event.target.value })} /></label><label>Imagen o medio<select value={sectionDraft.media_id || ''} onChange={(event) => setSectionDraft({ ...sectionDraft, media_id: event.target.value })}><option value="">Sin medio</option>{(lookups.media_id || []).map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label><label className="checkbox"><input type="checkbox" checked={Boolean(sectionDraft.published)} onChange={(event) => setSectionDraft({ ...sectionDraft, published: event.target.checked })} /> Publicada</label>{['activity', 'evaluation', 'exam'].includes(sectionDraft.section_type) && <><label className="checkbox full"><input type="checkbox" checked={Boolean(sectionDraft.ai_exercises_enabled)} onChange={(event) => setSectionDraft({ ...sectionDraft, ai_exercises_enabled: event.target.checked })} /> Incluir ejercicios generados con IA</label><label className="full">Instrucciones para la IA<textarea rows="3" value={sectionDraft.ai_prompt || ''} onChange={(event) => setSectionDraft({ ...sectionDraft, ai_prompt: event.target.value })} /></label></>}</div><div className="content-composer"><div className="content-composer-tools"><strong>Contenido de la sección</strong><button type="button" onClick={() => insertContent('<p>', '</p>', 'Texto')}>Párrafo</button><button type="button" onClick={() => insertContent('<h3>', '</h3>', 'Título')}>Título</button><button type="button" onClick={() => insertContent('<strong>', '</strong>', 'Texto destacado')}>Negrita</button><button type="button" onClick={() => insertContent('\\(', '\\)', 'x + y = 10')}>LaTeX</button><button type="button" onClick={() => insertContent('\\[', '\\]', 'x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}')}>Fórmula</button></div><textarea ref={contentEditorRef} rows="12" value={sectionDraft.body_html || ''} onChange={(event) => setSectionDraft({ ...sectionDraft, body_html: event.target.value })} /></div><section className="inline-live-preview"><small>PREVISUALIZACIÓN EN VIVO</small><MathPreview data={sectionDraft} /></section><div className="inline-editor-actions"><button type="button" className="admin-secondary" onClick={() => setEditor({ kind: 'section', record: selectedSection })}>Editor avanzado / archivo</button><button type="button" className="admin-primary" disabled={savingSection} onClick={saveInlineSection}><Save /> {savingSection ? 'Guardando…' : 'Guardar sección'}</button></div></> : <div className="inline-editor-placeholder"><Pencil /><p>Selecciona una sección padre o un elemento hijo para editarlo y previsualizarlo.</p></div>}</aside></div> : <section className="lesson-tree-empty"><Layers3 /><h3>Esta lección todavía no tiene secciones padre</h3><p>Crea “Introducción”, “Actividad” o “Evaluación”; después agrega sus elementos internos.</p><button type="button" className="admin-primary" onClick={() => setEditor({ kind: 'section', defaults: { lesson_id: currentLesson.id, parent_section_id: '', section_type: 'presentation', published: true, sort_order: 1 } })}><Plus /> Crear primera sección padre</button></section>}
+    {editor?.kind === 'lesson' && definitions.lesson && <FormEditor title="Datos generales de la lección" resource="aprendizaje_lecciones" columns={definitions.lesson.columns || []} primaryKeys={definitions.lesson.primaryKeys || ['id']} record={editor.record} defaults={{ published: true, sort_order: 0 }} lookups={lookups} onClose={() => setEditor(null)} onSave={saveLesson} />}
+    {editor?.kind === 'section' && definitions.section && <FormEditor title={editor.record ? 'Editar sección o sublección' : editor.defaults?.parent_section_id ? 'Nueva sublección' : 'Nueva sección directa'} resource="aprendizaje_secciones_leccion" columns={definitions.section.columns || []} primaryKeys={definitions.section.primaryKeys || ['id']} record={editor.record} defaults={editor.defaults || { lesson_id: currentLesson.id, published: true, sort_order: 0 }} lookups={lookups} onClose={() => setEditor(null)} onSave={saveSection} />}
+  </div>;
+}
+

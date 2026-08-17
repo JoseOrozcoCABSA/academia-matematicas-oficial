@@ -1,0 +1,6 @@
+-- Catálogo del esquema vigente de practice-service.
+-- practica_ejercicios
+-- practica_intentos_ejercicio
+-- practica_progreso_usuario
+-- practica_retos
+-- practica_retos_usuario
