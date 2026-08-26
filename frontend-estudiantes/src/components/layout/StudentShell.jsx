@@ -16,7 +16,7 @@ export function Header({ user, logout }) {
       </Link>
       <nav className={open ? 'global-nav is-open' : 'global-nav'}>
         <NavLink to="/" end onClick={() => setOpen(false)}>Inicio</NavLink>
-        <NavLink to="/lecciones" onClick={() => setOpen(false)}>Lecciones</NavLink>
+        <NavLink to="/niveles" onClick={() => setOpen(false)}>Lecciones</NavLink>
         <NavLink to="/practica" onClick={() => setOpen(false)}>Práctica</NavLink>
         <NavLink to="/tutor" onClick={() => setOpen(false)}>Tutor IA</NavLink>
         <button className="mobile-logout" type="button" onClick={() => { setOpen(false); logout(); }}><LogOut size={16} /> Salir</button>

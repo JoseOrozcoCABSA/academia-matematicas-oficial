@@ -93,9 +93,17 @@ def slugify(value: Any) -> str:
 
 def key_slug(value: Any) -> str:
     slug = slugify(value)
-    if not re.fullmatch(r"[a-z]{3}-p[1-6]-\d{3}", slug):
+    if not re.fullmatch(r"[a-z]{3}-(?:p[1-6]|s[1-3]|pre[1-3])-\d{3}", slug):
         raise ValueError(f"Clave unica invalida: {value!r}")
     return slug
+
+
+def education_level_for_grade(grade: str) -> str:
+    if grade.startswith("PRE"):
+        return "preparatoria"
+    if grade.startswith("S"):
+        return "secundaria"
+    return "primaria"
 
 
 def canonical_branch(value: Any) -> str:
@@ -107,11 +115,12 @@ def canonical_branch(value: Any) -> str:
     return aliases.get(branch, branch)
 
 
-def category_slug(branch: str) -> str:
+def category_slug(branch: str, education_level: str = "primaria") -> str:
     # Aritmetica ya es una categoria oficial del sitio y debe reutilizarse.
-    if slugify(branch) == "aritmetica":
+    if slugify(branch) == "aritmetica" and education_level == "primaria":
         return "aritmetica"
-    return "curriculo-" + slugify(branch)
+    prefix = "curriculo-" if education_level == "primaria" else f"curriculo-{education_level}-"
+    return prefix + slugify(branch)
 
 
 def as_html(value: Any, marker: str) -> str:
@@ -143,13 +152,14 @@ def load_excel(path: Path) -> tuple[list[dict[str, Any]], dict[str, list[dict[st
         topic_keys.add(code)
         topic_by_number[int(row[0])] = code
         grade = clean(row[1]).upper()
-        if not re.fullmatch(r"P[1-6]", grade):
+        if not re.fullmatch(r"(?:P[1-6]|S[1-3]|PRE[1-3])", grade):
             raise ValueError(f"Grado invalido en fila {row_number}: {grade!r}")
         topics.append(
             {
                 "code": code,
                 "source_number": int(row[0]),
                 "grade": grade,
+                "education_level": education_level_for_grade(grade),
                 "branch": canonical_branch(row[2]),
                 "area": clean(row[3]),
                 "title": clean(row[4]) or clean(row[3]) or code,
@@ -182,7 +192,9 @@ def load_excel(path: Path) -> tuple[list[dict[str, Any]], dict[str, list[dict[st
                     "type": section_type,
                     "title": label,
                     "body": as_html(row[index], marker),
-                    "published": 0,
+                    # Las columnas de "Lecciones creadas" ya contienen material
+                    # terminado. Deben quedar visibles para el estudiante.
+                    "published": 1,
                     "source": marker,
                 }
             )
@@ -323,17 +335,17 @@ def current_counts(connection) -> dict[str, int]:
 
 
 def apply_etl(connection, topics, created, media_plans) -> dict[str, int]:
-    branches = list(dict.fromkeys(t["branch"] for t in topics))
+    branches = list(dict.fromkeys((t["education_level"], t["branch"]) for t in topics))
     stats: Counter[str] = Counter()
     lesson_ids: dict[str, int] = {}
     try:
         with connection.cursor() as cursor:
-            for order, branch in enumerate(branches, start=10):
-                branch_slug = category_slug(branch)
+            for order, (education_level, branch) in enumerate(branches, start=10):
+                branch_slug = category_slug(branch, education_level)
                 cursor.execute(
                     """INSERT INTO aprendizaje_categorias
                     (name,slug,description,education_level,icon,color,sort_order,active)
-                    VALUES (%s,%s,%s,'primaria',%s,%s,%s,1)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,1)
                     ON DUPLICATE KEY UPDATE name=VALUES(name),description=VALUES(description),
                     education_level=VALUES(education_level),color=VALUES(color),
                     sort_order=VALUES(sort_order),active=VALUES(active)""",
@@ -341,6 +353,7 @@ def apply_etl(connection, topics, created, media_plans) -> dict[str, int]:
                         branch,
                         branch_slug,
                         "Rama curricular importada desde la estructura de matematicas de Google Cloud.",
+                        education_level,
                         "#",
                         COLORS[(order - 10) % len(COLORS)],
                         order,
@@ -355,7 +368,7 @@ def apply_etl(connection, topics, created, media_plans) -> dict[str, int]:
             categories = {row["slug"]: row["id"] for row in cursor.fetchall()}
 
             for topic in topics:
-                category_id = categories[category_slug(topic["branch"])]
+                category_id = categories[category_slug(topic["branch"], topic["education_level"])]
                 summary_parts = [
                     f"Clave curricular: {topic['code']}",
                     f"Grado: {topic['grade']}",
@@ -372,9 +385,9 @@ def apply_etl(connection, topics, created, media_plans) -> dict[str, int]:
                     """INSERT INTO aprendizaje_lecciones
                     (category_id,title,slug,summary,page_type,icon,icon_type,
                      difficulty,duration_minutes,sort_order,published)
-                    VALUES (%s,%s,%s,%s,'topic',%s,'emoji','Basica',30,%s,0)
+                    VALUES (%s,%s,%s,%s,'topic',%s,'emoji','Basica',30,%s,1)
                     ON DUPLICATE KEY UPDATE category_id=VALUES(category_id),title=VALUES(title),
-                    summary=VALUES(summary),sort_order=VALUES(sort_order)""",
+                    summary=VALUES(summary),sort_order=VALUES(sort_order),published=VALUES(published)""",
                     (
                         category_id,
                         f"{topic['grade']} - {topic['title']}",
@@ -482,10 +495,11 @@ def main() -> int:
             report["counts_after"] = current_counts(connection)
         else:
             report["planned"] = {
-                "categories_upsert": len(set(t["branch"] for t in topics)),
+                "categories_upsert": len(set((t["education_level"], t["branch"]) for t in topics)),
                 "lessons_upsert": len(topics),
                 "sections_replace": sum(map(len, created.values())) + len(media_plans),
-                "published": False,
+                "lesson_html_sections_published": sum(map(len, created.values())),
+                "multimedia_plans_published": False,
             }
     finally:
         connection.close()

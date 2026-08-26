@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { learningApi, practiceApi } from '@/api';
 import { useStoredUser } from '@/hooks/useStoredUser';
 import { StudentShell } from '@/components/layout/StudentShell';
-import { Home, Lessons } from '@/pages/HomePages';
+import { Categories, Grades, Home, Lessons } from '@/pages/HomePages';
 
 const LessonPage = lazy(() => import('@/pages/LessonPage'));
 const PracticePage = lazy(() => import('@/pages/PracticePage'));
@@ -26,6 +26,10 @@ export default function App() {
         <StudentShell user={user} logout={logout}>
           <Routes>
             <Route path="/" element={<Home catalog={catalog} dashboard={dashboard} user={user} />} />
+            <Route path="/niveles" element={<Home catalog={catalog} dashboard={dashboard} user={user} />} />
+            <Route path="/niveles/:levelSlug" element={<Grades catalog={catalog} />} />
+            <Route path="/niveles/:levelSlug/:gradeCode" element={<Categories catalog={catalog} />} />
+            <Route path="/niveles/:levelSlug/:gradeCode/:categorySlug" element={<Lessons catalog={catalog} />} />
             <Route path="/lecciones" element={<Lessons catalog={catalog} />} />
             <Route path="/lecciones/:slug" element={<LessonPage catalog={catalog} dashboard={dashboard} user={user} refreshDashboard={loadDashboard} />} />
             <Route path="/practica" element={<PracticePage user={user} />} />
