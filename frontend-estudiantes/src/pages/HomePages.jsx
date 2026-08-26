@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { BookOpen, ChevronRight, GraduationCap, Layers3, Shapes } from 'lucide-react';
+import { MathSidebar, RightRail } from '@/components/layout/StudentShell';
 import { findGrade, GRADES_BY_LEVEL, lessonArea, lessonGrade, lessonsForGrade } from '@/utils/catalogHierarchy';
 
 const categoryMap = (catalog) => new Map((catalog?.categories ?? []).map((category) => [Number(category.id), category]));
@@ -12,7 +13,39 @@ function PageIntro({ eyebrow, title, description }) {
   return <header className="catalog-page-intro"><small>{eyebrow}</small><h1>{title}</h1><p>{description}</p></header>;
 }
 
-export function Home({ catalog }) {
+export function Home({ catalog, dashboard, user }) {
+  const lessons = catalog?.lessons ?? [];
+  const categories = catalog?.categories ?? [];
+  const levels = catalog?.levels ?? [];
+  const progressByLesson = new Map((dashboard?.progress ?? []).map((item) => [Number(item.lesson_id), Number(item.progress_percent)]));
+  const continueLesson = lessons.find((lesson) => {
+    const value = progressByLesson.get(Number(lesson.id)) || 0;
+    return value > 0 && value < 100;
+  }) ?? lessons[0];
+  const firstName = user?.name?.split(' ')[0] || 'Estudiante';
+  return <div className="academy-layout">
+    <MathSidebar catalog={catalog} />
+    <main className="academy-home">
+      <section className="student-welcome panel-surface">
+        <div><h1>¡Hola, {firstName}!</h1><p>Tienes <strong>{lessons.length} lecciones</strong> disponibles. {dashboard?.progress?.some((item) => item.status === 'in_progress') ? 'Continúa donde lo dejaste.' : 'Selecciona tu nivel educativo para comenzar.'}</p>
+          {continueLesson && <Link to={`/lecciones/${continueLesson.slug}`}>{(progressByLesson.get(Number(continueLesson.id)) || 0) > 0 ? `Continuar: ${continueLesson.title} →` : 'Comenzar ahora →'}</Link>}
+        </div>
+        <Link className="welcome-art" to="/niveles"><img src="/math-assets/math-hero-generated.png" alt="" /></Link>
+      </section>
+      <section className="education-levels"><h2>Elige tu nivel educativo</h2><div className="education-level-grid">
+        {levels.map((level, index) => {
+          const categoryIds = new Set(categories.filter((category) => category.education_level === level.slug).map((category) => Number(category.id)));
+          const total = lessons.filter((lesson) => categoryIds.has(Number(lesson.category_id))).length;
+          return <Link className="education-level-card" to={`/niveles/${level.slug}`} key={level.slug}><span className={`level-art tone-${index % 5 + 1}`}>{level.icon || 'M'}</span><div><strong>{level.name}</strong><em>{level.description}</em></div><small>{total ? `${total} lección${total === 1 ? '' : 'es'}` : 'Contenido en preparación'}</small></Link>;
+        })}
+      </div></section>
+      <section className="learning-areas"><h2>Tu ruta de aprendizaje</h2><p>Selecciona un nivel educativo; después podrás elegir grado, categoría y lección.</p><Link className="primary-action" to="/niveles">Explorar todas las lecciones →</Link></section>
+    </main>
+    <RightRail dashboard={dashboard} catalog={catalog} user={user} />
+  </div>;
+}
+
+export function Levels({ catalog }) {
   const levels = catalog?.levels ?? [];
   const categories = categoryMap(catalog);
   const lessonCounts = new Map(levels.map((level) => [level.slug, 0]));

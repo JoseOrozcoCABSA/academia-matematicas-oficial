@@ -41,6 +41,32 @@ SECTION_COLUMNS = {
     12: ("activity", "Actividad interactiva"),
 }
 COLORS = ["purple", "blue", "green", "orange", "pink", "teal", "yellow"]
+EDUCATION_LEVELS = [
+    (
+        "primaria",
+        "Primaria",
+        "Aprendizajes de primero a sexto grado de primaria.",
+        "🎒",
+        "purple",
+        10,
+    ),
+    (
+        "secundaria",
+        "Secundaria",
+        "Aprendizajes de primero a tercer grado de secundaria.",
+        "📐",
+        "blue",
+        20,
+    ),
+    (
+        "preparatoria",
+        "Preparatoria",
+        "Aprendizajes de primero a tercer grado de preparatoria.",
+        "🎓",
+        "green",
+        30,
+    ),
+]
 
 
 def parse_env(path: Path) -> dict[str, str]:
@@ -340,6 +366,17 @@ def apply_etl(connection, topics, created, media_plans) -> dict[str, int]:
     lesson_ids: dict[str, int] = {}
     try:
         with connection.cursor() as cursor:
+            for level in EDUCATION_LEVELS:
+                cursor.execute(
+                    """INSERT INTO aprendizaje_niveles_educativos
+                    (slug,name,description,icon,color,sort_order,active)
+                    VALUES (%s,%s,%s,%s,%s,%s,1)
+                    ON DUPLICATE KEY UPDATE name=VALUES(name),description=VALUES(description),
+                    icon=VALUES(icon),color=VALUES(color),sort_order=VALUES(sort_order),active=1""",
+                    level,
+                )
+                stats["education_levels_upserted"] += 1
+
             for order, (education_level, branch) in enumerate(branches, start=10):
                 branch_slug = category_slug(branch, education_level)
                 cursor.execute(
