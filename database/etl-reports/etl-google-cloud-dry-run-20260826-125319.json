@@ -1,0 +1,109 @@
+{
+  "mode": "dry-run",
+  "target_database": "academia-matematicas-soa",
+  "source_excel": "C:\\Users\\josej\\OneDrive\\Escritorio\\Proyectos CABSA\\Bases de Datos Google Cloud\\Estructura de trabajo de matematicas Primaria 1(3).xlsx",
+  "source_dump": "C:\\Users\\josej\\OneDrive\\Escritorio\\Proyectos CABSA\\Bases de Datos Google Cloud\\respaldo_completo.sql",
+  "excel": {
+    "workbook_sheets": [
+      {
+        "name": "Flujo de trabajo",
+        "rows": 12,
+        "columns": 9
+      },
+      {
+        "name": "Control",
+        "rows": 6,
+        "columns": 7
+      },
+      {
+        "name": "Lista de temas",
+        "rows": 144,
+        "columns": 8
+      },
+      {
+        "name": "Lecciones creadas",
+        "rows": 111,
+        "columns": 16
+      },
+      {
+        "name": "Multimedias",
+        "rows": 168,
+        "columns": 4
+      },
+      {
+        "name": "Actividades",
+        "rows": 2,
+        "columns": 5
+      }
+    ],
+    "topic_count": 143,
+    "created_section_count": 103,
+    "media_plan_count": 167,
+    "grades": {
+      "P1": 30,
+      "P2": 25,
+      "P3": 26,
+      "P4": 22,
+      "P5": 17,
+      "P6": 23
+    },
+    "branches": {
+      "Aritmética": 67,
+      "Patrones": 8,
+      "Geometría": 22,
+      "Medición": 24,
+      "Estadística": 7,
+      "Probabilidad": 6,
+      "Preálgebra": 5,
+      "Ubicación espacial": 2,
+      "Ubicación espacial y coordenadas": 2
+    },
+    "orphan_created": [],
+    "orphan_media": []
+  },
+  "sql_dump": {
+    "databases_found": [
+      "academia",
+      "academia-matematicas-soa",
+      "academia_matematicas",
+      "academia_usuarios",
+      "cerebro_digital",
+      "gestorproyectos"
+    ],
+    "target_tables": [
+      "aprendizaje_categorias",
+      "aprendizaje_configuracion_sitio",
+      "aprendizaje_lecciones",
+      "aprendizaje_medios",
+      "aprendizaje_medios_leccion",
+      "aprendizaje_niveles_educativos",
+      "aprendizaje_recursos",
+      "aprendizaje_secciones_leccion",
+      "ia_conversaciones",
+      "ia_generaciones",
+      "ia_mensajes",
+      "ia_modelos",
+      "ia_prompts"
+    ],
+    "target_insert_statements": {
+      "aprendizaje_medios": 1
+    },
+    "note": "El dump se audita, pero no se ejecuta porque contiene DROP TABLE y otras cinco bases ajenas."
+  },
+  "server": {
+    "db": "academia-matematicas-soa",
+    "version": "8.0.45"
+  },
+  "counts_before": {
+    "aprendizaje_categorias": 3,
+    "aprendizaje_lecciones": 3,
+    "aprendizaje_secciones_leccion": 17,
+    "aprendizaje_medios": 6
+  },
+  "planned": {
+    "categories_upsert": 9,
+    "lessons_upsert": 143,
+    "sections_replace": 270,
+    "published": false
+  }
+}

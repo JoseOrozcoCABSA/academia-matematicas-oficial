@@ -22,7 +22,8 @@ docker "${arguments[@]}"
 docker compose --env-file "${ENV_FILE}" ps
 
 echo
-echo "Portal estudiantes: http://localhost:${STUDENT_DOCKER_PORT}"
-echo "Administración:     http://localhost:${ADMIN_DOCKER_PORT}"
-echo "API Gateway:        http://localhost:${GATEWAY_PORT}"
+PUBLIC_HOST="${PUBLIC_HOST:-localhost}"
+echo "Portal estudiantes: http://${PUBLIC_HOST}:${STUDENT_DOCKER_PORT}"
+echo "Administración:     http://${PUBLIC_HOST}:${ADMIN_DOCKER_PORT}"
+echo "API Gateway:        http://${PUBLIC_HOST}:${GATEWAY_PORT}"
 echo "MySQL del servidor: ${DB_HOST}:${DB_PORT}"
