@@ -216,6 +216,103 @@ svg { stroke-width: 2; }
   .exercise-launch { grid-template-columns: 45px 1fr; }.exercise-launch button { grid-column: 1/-1; }.login-page { grid-template-columns: 1fr; }.login-page > section { display: none; }.login-page form { min-height: 100vh; align-content: center; }
 }
 
+/* Movimiento y profundidad visual del portal de estudiantes */
+@keyframes cabsa-rise-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cabsa-soft-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(143,29,44,.16); }
+  50% { box-shadow: 0 0 0 9px rgba(143,29,44,0); }
+}
+@keyframes cabsa-float {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+
+.student-welcome,
+.catalog-page-intro,
+.lesson-area-group,
+.rail-card,
+.tutor-promo { animation: cabsa-rise-in .5s cubic-bezier(.2,.75,.25,1) both; }
+.right-rail .rail-card:nth-child(2), .lesson-area-groups > :nth-child(2) { animation-delay: .07s; }
+.right-rail .rail-card:nth-child(3), .lesson-area-groups > :nth-child(3) { animation-delay: .14s; }
+.right-rail .rail-card:nth-child(4), .lesson-area-groups > :nth-child(4) { animation-delay: .21s; }
+.education-level-card,
+.hierarchy-card,
+.area-lessons > a { animation: cabsa-rise-in .46s cubic-bezier(.2,.75,.25,1) both; }
+.education-level-card:nth-child(2), .hierarchy-card:nth-child(2), .area-lessons > a:nth-child(2) { animation-delay: .06s; }
+.education-level-card:nth-child(3), .hierarchy-card:nth-child(3), .area-lessons > a:nth-child(3) { animation-delay: .12s; }
+.education-level-card:nth-child(4), .hierarchy-card:nth-child(4), .area-lessons > a:nth-child(4) { animation-delay: .18s; }
+.education-level-card:nth-child(5), .hierarchy-card:nth-child(5), .area-lessons > a:nth-child(5) { animation-delay: .24s; }
+.education-level-card:nth-child(6), .hierarchy-card:nth-child(6), .area-lessons > a:nth-child(6) { animation-delay: .3s; }
+
+.student-welcome {
+  position: relative;
+  background: radial-gradient(circle at 85% 15%,rgba(196,151,48,.15),transparent 28%),linear-gradient(135deg,#fff 0%,#fff8f8 100%);
+  box-shadow: 0 15px 38px rgba(67,34,41,.08);
+}
+.student-welcome::after { content: ''; position: absolute; inset: auto -45px -65px auto; width: 160px; height: 160px; border: 26px solid rgba(143,29,44,.045); border-radius: 50%; pointer-events: none; }
+.welcome-art img { animation: cabsa-float 4.8s ease-in-out infinite; filter: drop-shadow(0 16px 15px rgba(67,34,41,.14)); }
+
+.education-level-card,
+.hierarchy-card,
+.area-lessons > a,
+.rail-card,
+.tutor-promo,
+.lesson-section-card,
+.content-accordion { transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease, background .24s ease; }
+.education-level-card:hover,
+.hierarchy-card:hover { transform: translateY(-7px) scale(1.015); box-shadow: 0 20px 42px rgba(67,34,41,.14); }
+.education-level-card:hover .level-art,
+.hierarchy-card:hover .hierarchy-icon,
+.hierarchy-card:hover .grade-number { transform: rotate(-4deg) scale(1.08); }
+.level-art, .hierarchy-icon, .grade-number { transition: transform .26s cubic-bezier(.2,.8,.2,1); }
+.hierarchy-card { overflow: hidden; }
+.hierarchy-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg,transparent 30%,rgba(255,255,255,.72) 48%,transparent 66%); transform: translateX(-120%); transition: transform .65s ease; pointer-events: none; }
+.hierarchy-card:hover::after { transform: translateX(120%); }
+.hierarchy-card > svg, .area-lessons > a > em { transition: transform .22s ease; }
+.hierarchy-card:hover > svg, .area-lessons > a:hover > em { transform: translateX(5px); }
+.area-lessons > a:hover { transform: translateX(6px); border-color: var(--wine); box-shadow: 0 12px 28px rgba(67,34,41,.1); }
+.rail-card:hover { transform: translateY(-3px); border-color: #dcc3c7; box-shadow: 0 13px 28px rgba(67,34,41,.09); }
+.achievements-card p > span { transition: transform .25s ease, box-shadow .25s ease; }
+.achievements-card p:hover > span { transform: rotate(-7deg) scale(1.12); box-shadow: 0 8px 17px rgba(67,34,41,.18); }
+.ring { transition: transform .3s ease; }
+.progress-summary:hover .ring { transform: scale(1.04); }
+
+.student-welcome > div > a,
+.tutor-promo a,
+.challenge-card > a,
+.complete-section,
+.exercise-launch button,
+.embedded-exercises header button,
+.game-actions button,
+.path-view article > button {
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.student-welcome > div > a:hover,
+.tutor-promo a:hover,
+.challenge-card > a:hover,
+.complete-section:hover,
+.exercise-launch button:hover,
+.embedded-exercises header button:hover,
+.game-actions button:hover,
+.path-view article > button:hover { transform: translateY(-2px); box-shadow: 0 9px 19px rgba(143,29,44,.2); filter: saturate(1.08); }
+.student-welcome > div > a:active,
+.tutor-promo a:active,
+.challenge-card > a:active,
+.complete-section:active,
+.game-actions button:active { transform: translateY(0) scale(.98); }
+.tutor-promo a { animation: cabsa-soft-pulse 2.8s ease-in-out infinite; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(143,29,44,.28); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
 /* Estructura del alumno conservada desde la academia original. */
 .panel-surface { background: white; border: 1px solid var(--line); border-radius: 14px; }
 .math-module-card > span { font-size: 21px; font-weight: 900; }

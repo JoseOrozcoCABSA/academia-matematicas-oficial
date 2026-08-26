@@ -39,7 +39,6 @@ export function Home({ catalog, dashboard, user }) {
           return <Link className="education-level-card" to={`/niveles/${level.slug}`} key={level.slug}><span className={`level-art tone-${index % 5 + 1}`}>{level.icon || 'M'}</span><div><strong>{level.name}</strong><em>{level.description}</em></div><small>{total ? `${total} lección${total === 1 ? '' : 'es'}` : 'Contenido en preparación'}</small></Link>;
         })}
       </div></section>
-      <section className="learning-areas"><h2>Tu ruta de aprendizaje</h2><p>Selecciona un nivel educativo; después podrás elegir grado, categoría y lección.</p><Link className="primary-action" to="/niveles">Explorar todas las lecciones →</Link></section>
     </main>
     <RightRail dashboard={dashboard} catalog={catalog} user={user} />
   </div>;
