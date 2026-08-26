@@ -38,8 +38,8 @@ export function Footer() {
     <footer className="platform-footer">
       <div className="footer-main">
         <section className="footer-brand"><img src={logoHorizontal} alt="Academia CABSA" /><p>Una experiencia de aprendizaje enfocada en comprender, practicar y aplicar las matemáticas paso a paso.</p></section>
-        <nav><strong>Aprendizaje</strong><Link to="/">Inicio</Link><Link to="/lecciones">Lecciones</Link><Link to="/practica">Práctica guiada</Link></nav>
-        <nav><strong>Herramientas</strong><Link to="/tutor">Tutor matemático IA</Link><Link to="/lecciones">Contenido interactivo</Link><span>Fórmulas con LaTeX</span></nav>
+        <nav><strong>Aprendizaje</strong><Link to="/">Inicio</Link><Link to="/niveles">Lecciones</Link><Link to="/practica">Práctica guiada</Link></nav>
+        <nav><strong>Herramientas</strong><Link to="/tutor">Tutor matemático IA</Link><Link to="/niveles">Contenido interactivo</Link><span>Fórmulas con LaTeX</span></nav>
         <section className="footer-seal"><span>∑</span><div><strong>Academia Matemáticas</strong><small>Aprende a tu ritmo · Avanza con confianza</small></div></section>
       </div>
       <div className="footer-bottom"><span>© 2026 Academia CABSA · Matemáticas</span><span>Portal educativo para estudiantes</span></div>
@@ -67,7 +67,7 @@ export function MathSidebar({ catalog, currentSlug, mode = 'home', areaSlug }) {
         </div>
       </div>
       {!isLesson && !isArea && <nav className="math-nav compact-nav">
-        <NavLink to="/" end><span><BookOpen /></span>Lecciones</NavLink>
+        <NavLink to="/niveles"><span><BookOpen /></span>Explorar lecciones</NavLink>
         <span className="disabled-link"><span><Clock3 /></span>Historia <small>Pronto</small></span>
         <span className="disabled-link"><span><FileText /></span>Blogs <small>Pronto</small></span>
         <span className="disabled-link"><span><Sparkles /></span>Material adicional <small>Pronto</small></span>

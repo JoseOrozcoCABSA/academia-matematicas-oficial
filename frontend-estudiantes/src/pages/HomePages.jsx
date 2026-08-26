@@ -32,7 +32,7 @@ export function Home({ catalog, dashboard, user }) {
         </div>
         <Link className="welcome-art" to="/niveles"><img src="/math-assets/math-hero-generated.png" alt="" /></Link>
       </section>
-      <section className="education-levels"><h2>Elige tu nivel educativo</h2><div className="education-level-grid">
+      <section className="education-levels"><div className="section-title-row"><div><small>EMPIEZA AQUÍ</small><h2>Elige tu nivel educativo</h2><p>Después podrás elegir tu grado, tema y lección.</p></div><span>1 nivel · 2 grado · 3 tema</span></div><div className="education-level-grid">
         {levels.map((level, index) => {
           const categoryIds = new Set(categories.filter((category) => category.education_level === level.slug).map((category) => Number(category.id)));
           const total = lessons.filter((lesson) => categoryIds.has(Number(lesson.category_id))).length;
@@ -53,7 +53,7 @@ export function Levels({ catalog }) {
     if (level) lessonCounts.set(level, (lessonCounts.get(level) || 0) + 1);
   });
   return <main className="catalog-hierarchy-page">
-    <PageIntro eyebrow="ACADEMIA CABSA · MATEMÁTICAS" title="Elige tu nivel educativo" description="Selecciona el nivel que cursas para encontrar los grados, categorías y lecciones que corresponden a tu formación." />
+    <PageIntro eyebrow="PASO 1 DE 4 · NIVEL" title="¿Qué nivel estudias?" description="Elige una tarjeta. Te mostraremos solamente los grados y temas que corresponden a tu nivel." />
     <section className="level-selection-grid">
       {levels.map((level, index) => <Link className="hierarchy-card level-card" to={`/niveles/${level.slug}`} key={level.slug}>
         <span className={`hierarchy-icon tone-${index % 5 + 1}`}>{level.icon || <GraduationCap />}</span>
@@ -71,7 +71,7 @@ export function Grades({ catalog }) {
   const grades = GRADES_BY_LEVEL[levelSlug] ?? [];
   return <main className="catalog-hierarchy-page">
     <Breadcrumbs items={[{ label: 'Niveles educativos', to: '/niveles' }, { label: level?.name || 'Nivel' }]} />
-    <PageIntro eyebrow="PASO 2 DE 4 · GRADO" title={`Selecciona tu grado de ${level?.name || ''}`} description="Cada grado presenta únicamente las categorías y lecciones relacionadas con su programa académico." />
+    <PageIntro eyebrow="PASO 2 DE 4 · GRADO" title={`¿En qué grado de ${level?.name || ''} estás?`} description="Elige tu grado para ver únicamente los temas y las lecciones que te corresponden." />
     <section className="grade-selection-grid">{grades.map((grade, index) => {
       const count = lessonsForGrade(catalog, levelSlug, grade.code).length;
       return <Link className="hierarchy-card grade-card" to={`/niveles/${levelSlug}/${grade.code.toLowerCase()}`} key={grade.code}>
@@ -92,7 +92,7 @@ export function Categories({ catalog }) {
   const categories = (catalog?.categories ?? []).filter((category) => lessonsByCategory.has(Number(category.id)));
   return <main className="catalog-hierarchy-page">
     <Breadcrumbs items={[{ label: 'Niveles educativos', to: '/niveles' }, { label: level?.name || 'Nivel', to: `/niveles/${levelSlug}` }, { label: grade?.name || gradeCode }]} />
-    <PageIntro eyebrow="PASO 3 DE 4 · CATEGORÍA" title="Elige una categoría de matemáticas" description={`Estas son las categorías generales con contenido para ${grade?.name || gradeCode}.`} />
+    <PageIntro eyebrow="PASO 3 DE 4 · TEMA" title="¿Qué quieres aprender?" description={`Estos son los temas disponibles para ${grade?.name || gradeCode}. Elige uno para consultar sus lecciones.`} />
     <section className="category-selection-grid">{categories.map((category, index) => {
       const lessons = lessonsByCategory.get(Number(category.id)) || [];
       const areas = new Set(lessons.map(lessonArea));
@@ -127,7 +127,7 @@ export function Lessons({ catalog }) {
   }, new Map());
   return <main className="catalog-hierarchy-page lesson-catalog-page">
     <Breadcrumbs items={[{ label: 'Niveles educativos', to: '/niveles' }, { label: level?.name || 'Nivel', to: `/niveles/${levelSlug}` }, { label: grade?.name || gradeCode, to: `/niveles/${levelSlug}/${gradeCode}` }, { label: category?.name || 'Categoría' }]} />
-    <PageIntro eyebrow="PASO 4 DE 4 · LECCIONES" title={category?.name || 'Lecciones'} description={`Áreas y lecciones relacionadas con ${grade?.name || gradeCode}.`} />
+    <PageIntro eyebrow="PASO 4 DE 4 · LECCIÓN" title={category?.name || 'Lecciones'} description={`Elige una lección de ${grade?.name || gradeCode}. Puedes avanzar a tu propio ritmo.`} />
     <div className="lesson-area-groups">{[...grouped.entries()].map(([area, areaLessons]) => <section className="lesson-area-group" key={area}>
       <header><span><Layers3 /></span><div><small>ÁREA</small><h2>{area}</h2><p>{areaLessons.length} lección{areaLessons.length === 1 ? '' : 'es'}</p></div></header>
       <div className="area-lessons">{areaLessons.map((lesson, index) => <Link to={`/lecciones/${lesson.slug}`} key={lesson.id}><span className={`lesson-icon-badge tone-${index % 5 + 1}`}>{lesson.icon || '∑'}</span><div><strong>{lesson.title.replace(/^\s*(?:PRE\d|P\d|S\d)\s*-\s*/i, '')}</strong><small>{lesson.summary}</small><div className="lesson-meta-line">{lesson.difficulty} · {lesson.duration_minutes || 20} min</div></div><em>Comenzar ›</em></Link>)}</div>

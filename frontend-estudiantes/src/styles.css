@@ -313,6 +313,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
 
+.section-title-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+.section-title-row h2 { margin: 4px 0; }
+.section-title-row small { color: var(--wine); font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+.section-title-row p { margin: 0; color: var(--muted); font-size: 12px; }
+.section-title-row > span { padding: 8px 12px; color: var(--wine); background: var(--tint); border-radius: 99px; font-size: 10px; font-weight: 850; white-space: nowrap; }
+@media (max-width: 620px) { .section-title-row { align-items: flex-start; flex-direction: column; }.section-title-row > span { white-space: normal; } }
+
 /* Estructura del alumno conservada desde la academia original. */
 .panel-surface { background: white; border: 1px solid var(--line); border-radius: 14px; }
 .math-module-card > span { font-size: 21px; font-weight: 900; }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Bot, BookOpen, ChartNoAxesCombined, ChevronDown, Database, ExternalLink,
+  Bot, BookOpen, ChartNoAxesCombined, ChevronDown, Database, Download, ExternalLink,
   FileText, FileUp, Gamepad2, GraduationCap, Image, LayoutDashboard, Layers3, Link2,
   Menu, Pencil, Plus, RefreshCw, Save, Search, Settings, Shapes, Sigma,
   Trash2, Trophy, Users, X,
@@ -17,6 +17,7 @@ import { MathPreview, PresentationPreview } from './components/content/ContentPr
 import FormEditor from './components/forms/FormEditor';
 import { BOOLEAN_FIELDS, LOOKUP_FIELDS, OPTION_LABELS, SELECTS, SYSTEM_FIELDS, label } from './config/resourceFields';
 import { AdminLogin, AppFooter, Sidebar, Topbar } from './components/layout/AdminLayout';
+import { downloadContentMap, importContentWorkbook, readContentWorkbook, validateContentWorkbook } from './utils/contentWorkbook';
 
 const NAVIGATION = [
   { id: 'dashboard', label: 'Estadísticas de uso', icon: LayoutDashboard, roles: ['admin'] },
@@ -111,19 +112,24 @@ function Dashboard({ health, setPage }) {
 }
 
 function ImportPage() {
-  const targets = [PAGES.areas, { ...PAGES.topics, resource: 'aprendizaje_lecciones' }, PAGES.resources, PAGES.challenges];
-  const [target, setTarget] = useState(0); const [text, setText] = useState(''); const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false);
-  const importRows = async () => {
-    setBusy(true); setMessage('');
+  const [workbook, setWorkbook] = useState(null); const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false); const [progress, setProgress] = useState(null);
+  const chooseFile = async (event) => {
+    setMessage(''); setWorkbook(null); setProgress(null);
     try {
-      const lines = text.trim().split(/\r?\n/).filter(Boolean); if (lines.length < 2) throw new Error('Incluye encabezados y al menos una fila.');
-      const parse = (line) => line.split(',').map((cell) => cell.trim().replace(/^"|"$/g, ''));
-      const headers = parse(lines[0]); const chosen = targets[target];
-      for (const line of lines.slice(1)) { const values = parse(line); await gatewayApi.create(chosen.service, chosen.resource, Object.fromEntries(headers.map((header, index) => [header, values[index] ?? '']))); }
-      setMessage(`Se importaron ${lines.length - 1} registros correctamente.`); setText('');
-    } catch (reason) { setMessage(reason.message); } finally { setBusy(false); }
+      const file = event.target.files?.[0]; if (!file) return;
+      const parsed = await readContentWorkbook(file); const errors = validateContentWorkbook(parsed.data);
+      setWorkbook({ ...parsed, fileName: file.name, errors });
+    } catch (reason) { setMessage(reason.message); }
   };
-  return <div className="page-content"><div className="page-title"><div><h1>Importar desde Excel / CSV</h1><p>Carga registros masivos usando columnas compatibles con la arquitectura nueva.</p></div></div><section className="admin-panel import-guide"><h2>Carga masiva sencilla</h2><ol><li>Guarda tu hoja de Excel como CSV UTF-8.</li><li>La primera fila debe contener los nombres técnicos de las columnas.</li><li>Revisa los datos antes de iniciar la importación.</li></ol><label>Destino<select value={target} onChange={(event) => setTarget(Number(event.target.value))}>{targets.map((item, index) => <option value={index} key={item.title}>{item.title}</option>)}</select></label><label>Contenido CSV<textarea rows="13" value={text} onChange={(event) => setText(event.target.value)} placeholder={'name,slug,description\nÁlgebra,algebra,Fundamentos de álgebra'} /></label>{message && <div className={`alert ${message.includes('correctamente') ? 'success' : 'error'}`}>{message}</div>}<button className="admin-primary" disabled={busy || !text.trim()} onClick={importRows}><FileUp /> {busy ? 'Importando…' : 'Importar registros'}</button></section></div>;
+  const download = async () => { setBusy(true); setMessage(''); try { await downloadContentMap(gatewayApi); setMessage('Mapa y plantilla descargados correctamente.'); } catch (reason) { setMessage(reason.message); } finally { setBusy(false); } };
+  const upload = async () => {
+    if (!workbook || workbook.errors.length) return;
+    if (!window.confirm(`Se crearán o actualizarán ${workbook.total} registros. ¿Deseas continuar?`)) return;
+    setBusy(true); setMessage('');
+    try { const count = await importContentWorkbook(gatewayApi, workbook.data, setProgress); setMessage(`Se procesaron ${count} registros correctamente.`); setWorkbook(null); }
+    catch (reason) { setMessage(reason.message); } finally { setBusy(false); }
+  };
+  return <div className="page-content"><div className="page-title"><div><h1>Mapa y carga masiva de contenido</h1><p>Descarga toda la estructura del sitio o crea y actualiza muchas lecciones desde un solo Excel.</p></div></div><div className="bulk-content-grid"><section className="admin-panel bulk-card"><span className="bulk-icon"><Download /></span><h2>1. Descargar mapa / plantilla</h2><p>Genera un Excel con niveles, categorías, lecciones, secciones HTML, recursos y medios actuales. También sirve como plantilla editable.</p><ul><li>Una hoja por tipo de contenido.</li><li>Incluye identificadores y relaciones actuales.</li><li>No modifica información del sitio.</li></ul><button className="admin-primary" disabled={busy} onClick={download}><Download /> Descargar Excel</button></section><section className="admin-panel bulk-card"><span className="bulk-icon"><FileUp /></span><h2>2. Revisar y cargar Excel</h2><p>Selecciona el archivo preparado. Primero se validarán las hojas y campos obligatorios; nada se guarda hasta que confirmes.</p><label className="excel-drop"><FileUp /><strong>Seleccionar archivo .xlsx</strong><small>Usa preferentemente la plantilla descargada desde este panel.</small><input type="file" accept=".xlsx,.xls" onChange={chooseFile} /></label>{workbook && <div className="workbook-preview"><strong>{workbook.fileName}</strong><span>{workbook.total} registros detectados</span><div>{workbook.sheets.map((sheet) => <small key={sheet}>{sheet}</small>)}</div>{workbook.errors.length ? <ul className="validation-errors">{workbook.errors.slice(0, 8).map((error) => <li key={error}>{error}</li>)}</ul> : <b>✓ Archivo listo para importar</b>}</div>}{progress && <div className="bulk-progress"><div><i style={{ width: `${progress.processed / progress.total * 100}%` }} /></div><small>{progress.sheet}: {progress.processed} de {progress.total}</small></div>}<button className="admin-primary" disabled={busy || !workbook || workbook.errors.length > 0} onClick={upload}><FileUp /> {busy ? 'Procesando…' : 'Confirmar carga masiva'}</button></section></div>{message && <div className={`alert ${message.includes('correctamente') ? 'success' : 'error'}`}>{message}</div>}<section className="admin-panel bulk-safety"><h2>Orden y seguridad de la carga</h2><p>El sistema procesa primero niveles y categorías, después lecciones, secciones, recursos y medios. Si encuentra un identificador existente lo actualiza; si no existe, crea un registro nuevo. Conserva una copia del Excel utilizado como respaldo de operación.</p></section></div>;
 }
 
 const LATEX_PACKAGES = [
