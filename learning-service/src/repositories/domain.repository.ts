@@ -12,7 +12,7 @@ export class LearningRepository {
     const [levels, categories, lessons, settings] = await Promise.all([
       NivelEducativo.findAll({ where: { active: true }, order: [['sort_order', 'ASC']] }),
       Categoria.findAll({ where: { active: true }, order: [['sort_order', 'ASC']] }),
-      Leccion.findAll({ where: { published: true }, order: [['sort_order', 'ASC']] }),
+      Leccion.findAll({ order: [['sort_order', 'ASC']] }),
       ConfiguracionSitio.findAll(),
     ]);
     return { levels, categories, lessons, settings };
@@ -20,7 +20,7 @@ export class LearningRepository {
 
   lessons(filters: Record<string, unknown>) {
     return Leccion.findAll({
-      where: { published: true, ...filters },
+      where: { ...filters },
       order: [['sort_order', 'ASC']],
     });
   }
@@ -32,7 +32,7 @@ export class LearningRepository {
     });
     const lessonIds = [...new Set(sections.map((section) => Number(section.get('lesson_id'))))];
     const lessons = lessonIds.length
-      ? await Leccion.findAll({ where: { id: lessonIds, published: true } })
+      ? await Leccion.findAll({ where: { id: lessonIds } })
       : [];
     const lessonById = new Map(lessons.map((lesson) => [
       Number(lesson.get('id')),
@@ -48,7 +48,7 @@ export class LearningRepository {
   }
 
   async lesson(slug: string) {
-    const lesson = await Leccion.findOne({ where: { slug, published: true } });
+    const lesson = await Leccion.findOne({ where: { slug } });
     if (!lesson) return null;
     const lessonId = Number(lesson.get('id'));
     const [sections, resources, mediaLinks] = await Promise.all([

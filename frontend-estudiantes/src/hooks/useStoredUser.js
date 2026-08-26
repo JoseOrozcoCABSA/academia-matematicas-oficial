@@ -20,6 +20,7 @@ export function useStoredUser() {
     localStorage.removeItem('math-user');
     localStorage.removeItem('math-token');
     setUserState(GUEST_USER);
+    window.location.assign('/login');
   };
   return [user, setUser, logout];
 }

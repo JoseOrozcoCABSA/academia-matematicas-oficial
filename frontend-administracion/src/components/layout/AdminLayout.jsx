@@ -10,14 +10,14 @@ export function AdminLogin({ onLogin }) {
     event.preventDefault(); setError(''); setBusy(true);
     try {
       const session = await gatewayApi.login(form);
-      if (session.user?.role !== 'admin') throw new Error('Esta cuenta no tiene permisos de administración.');
+      if (!['admin', 'editor'].includes(session.user?.role)) throw new Error('Esta cuenta no tiene permisos de administración o edición.');
       localStorage.setItem('cabsa_access_token', session.token);
       localStorage.setItem('cabsa_current_user', JSON.stringify(session.user));
       onLogin(session.user);
     } catch (reason) { setError(reason.message); }
     finally { setBusy(false); }
   };
-  return <main className="admin-login"><form onSubmit={submit}><div className="admin-login-brand"><Sigma /><span>ACADEMIA<strong>CABSA</strong><small>ADMINISTRACIÓN</small></span></div><h1>Panel administrativo</h1><p>Inicia sesión para administrar contenido, alumnos, prácticas e inteligencia artificial.</p><label>Correo electrónico<input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} required /></label><label>Contraseña<input type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} required /></label>{error && <div className="alert error">{error}</div>}<button className="admin-primary" disabled={busy}>{busy ? 'Ingresando…' : 'Iniciar sesión'}</button><small>Acceso exclusivo para administradores.</small></form></main>;
+  return <main className="admin-login"><form onSubmit={submit}><div className="admin-login-brand"><Sigma /><span>ACADEMIA<strong>CABSA</strong><small>GESTIÓN</small></span></div><h1>Panel de gestión</h1><p>Administradores consultan estadísticas y gestionan usuarios; editores administran el contenido académico.</p><label>Correo electrónico<input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} required /></label><label>Contraseña<input type="password" value={form.password} onChange={(event) => setForm({ ...form, email: form.email, password: event.target.value })} required /></label>{error && <div className="alert error">{error}</div>}<button className="admin-primary" disabled={busy}>{busy ? 'Ingresando…' : 'Iniciar sesión'}</button><small>Acceso para administradores y editores.</small></form></main>;
 }
 
 export function Sidebar({ navigation, page, setPage, open, setOpen }) {

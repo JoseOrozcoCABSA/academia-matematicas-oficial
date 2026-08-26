@@ -16,9 +16,14 @@ const isPublicReadRoute = (requestPath: string): boolean => [
   /^\/api\/ai\/models$/,
 ].some((pattern) => pattern.test(requestPath));
 
-const isAdminRoute = (requestPath: string): boolean => (
+const isManagementRoute = (requestPath: string): boolean => (
   /^\/api\/(learning|practice|ai|identity)\/(resources|data)(?:\/|$)/.test(requestPath)
   || requestPath === '/api/learning/media/upload'
+);
+
+const isIdentityManagementRoute = (requestPath: string): boolean => (
+  /^\/api\/identity\/(?:resources|data)(?:\/|$)/.test(requestPath)
+  || /^\/api\/identity\/users\/\d+\/password$/.test(requestPath)
 );
 
 export default function authMiddleware(
@@ -53,10 +58,27 @@ export default function authMiddleware(
     request.auth = typeof payload === 'string'
       ? { subject: payload }
       : payload as JwtPayload;
-    if (isAdminRoute(requestPath) && request.auth.role !== 'admin') {
+    const role = String(request.auth.role || '');
+    if (isManagementRoute(requestPath) && !['admin', 'editor'].includes(role)) {
       response.status(403).json({
         success: false,
-        error: { code: 'ADMIN_REQUIRED', message: 'Se requieren permisos de administración' },
+        error: { code: 'MANAGEMENT_REQUIRED', message: 'Se requieren permisos de administración o edición' },
+        requestId: request.requestId,
+      });
+      return;
+    }
+    if (isIdentityManagementRoute(requestPath) && role !== 'admin') {
+      response.status(403).json({
+        success: false,
+        error: { code: 'ADMIN_REQUIRED', message: 'La gestión de usuarios corresponde al administrador' },
+        requestId: request.requestId,
+      });
+      return;
+    }
+    if (isManagementRoute(requestPath) && request.method !== 'GET' && !isIdentityManagementRoute(requestPath) && role !== 'editor') {
+      response.status(403).json({
+        success: false,
+        error: { code: 'EDITOR_REQUIRED', message: 'La edición de contenido corresponde al editor' },
         requestId: request.requestId,
       });
       return;

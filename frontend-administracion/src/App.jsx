@@ -19,21 +19,21 @@ import { BOOLEAN_FIELDS, LOOKUP_FIELDS, OPTION_LABELS, SELECTS, SYSTEM_FIELDS, l
 import { AdminLogin, AppFooter, Sidebar, Topbar } from './components/layout/AdminLayout';
 
 const NAVIGATION = [
-  { id: 'dashboard', label: 'Resumen', icon: LayoutDashboard },
-  { id: 'topics', label: 'Lecciones y contenido', icon: Layers3 },
-  { id: 'levels', label: 'Niveles educativos', icon: GraduationCap },
-  { id: 'areas', label: 'Áreas', icon: Shapes },
-  { id: 'media', label: 'Medios', icon: Image },
-  { id: 'resources', label: 'Recursos', icon: Link2 },
-  { id: 'exercises', label: 'Ejercicios', icon: FileText },
-  { id: 'challenges', label: 'Retos', icon: Trophy },
-  { id: 'games', label: 'Juegos matemáticos', icon: Gamepad2 },
-  { id: 'users', label: 'Usuarios', icon: Users },
-  { id: 'progress', label: 'Alumnos y progreso', icon: ChartNoAxesCombined },
-  { id: 'import', label: 'Importar Excel / CSV', icon: FileUp },
-  { id: 'settings', label: 'Configuración', icon: Settings },
-  { id: 'ai', label: 'Modelos IA', icon: Bot },
-  { id: 'latex', label: 'Paquetes LaTeX', icon: Sigma },
+  { id: 'dashboard', label: 'Estadísticas de uso', icon: LayoutDashboard, roles: ['admin'] },
+  { id: 'users', label: 'Gestión de usuarios', icon: Users, roles: ['admin'] },
+  { id: 'progress', label: 'Alumnos y progreso', icon: ChartNoAxesCombined, roles: ['admin'] },
+  { id: 'topics', label: 'Lecciones y contenido', icon: Layers3, roles: ['editor'] },
+  { id: 'levels', label: 'Niveles educativos', icon: GraduationCap, roles: ['editor'] },
+  { id: 'areas', label: 'Áreas', icon: Shapes, roles: ['editor'] },
+  { id: 'media', label: 'Medios', icon: Image, roles: ['editor'] },
+  { id: 'resources', label: 'Recursos', icon: Link2, roles: ['editor'] },
+  { id: 'exercises', label: 'Ejercicios', icon: FileText, roles: ['editor'] },
+  { id: 'challenges', label: 'Retos', icon: Trophy, roles: ['editor'] },
+  { id: 'games', label: 'Juegos matemáticos', icon: Gamepad2, roles: ['editor'] },
+  { id: 'import', label: 'Importar Excel / CSV', icon: FileUp, roles: ['editor'] },
+  { id: 'settings', label: 'Configuración del sitio', icon: Settings, roles: ['editor'] },
+  { id: 'ai', label: 'Modelos IA', icon: Bot, roles: ['editor'] },
+  { id: 'latex', label: 'Paquetes LaTeX', icon: Sigma, roles: ['editor'] },
 ];
 
 const PAGES = {
@@ -61,7 +61,7 @@ const PAGES = {
       { id: 'practica_intentos_ejercicio', label: 'Intentos de ejercicios' },
       { id: 'practica_retos_usuario', label: 'Progreso de retos' },
     ],
-    description: 'Consulta y corrige avance, intentos, resultados y retos completados.',
+    description: 'Consulta el avance, intentos, resultados y retos completados.', readMostly: true,
   },
   settings: { title: 'Configuración', service: 'learning', resource: 'aprendizaje_configuracion_sitio', description: 'Ajustes generales utilizados por la plataforma.' },
   ai: {
@@ -91,14 +91,20 @@ function Dashboard({ health, setPage }) {
   }, []);
   const completed = data.progress.filter((item) => item.status === 'completed').length;
   const average = data.progress.length ? Math.round(data.progress.reduce((sum, item) => sum + Number(item.progress_percent || 0), 0) / data.progress.length) : 0;
-  const stats = [['Lecciones', data.lessons.filter((item) => item.published).length], ['Secciones', data.sections.filter((item) => item.published).length], ['Ejercicios', data.exercises.length], ['Retos act.', data.challenges.filter((item) => item.active).length], ['Usuarios', data.users.filter((item) => item.active).length], ['Completaron', completed], ['Progreso prom.', `${average}%`]];
+  const activeUsers = data.users.filter((item) => item.active);
+  const students = activeUsers.filter((item) => item.role === 'student');
+  const editors = activeUsers.filter((item) => item.role === 'editor');
+  const activeLearners = new Set([...data.progress, ...data.attempts].map((item) => Number(item.user_id)).filter(Boolean)).size;
+  const averageScore = data.attempts.length ? Math.round(data.attempts.reduce((sum, item) => sum + Number(item.score_percent || 0), 0) / data.attempts.length) : 0;
+  const completionRate = data.progress.length ? Math.round(completed * 100 / data.progress.length) : 0;
+  const stats = [['Usuarios activos', activeUsers.length], ['Estudiantes', students.length], ['Editores', editors.length], ['Usuarios con actividad', activeLearners], ['Intentos realizados', data.attempts.length], ['Progreso promedio', `${average}%`], ['Finalización', `${completionRate}%`], ['Puntuación promedio', `${averageScore}%`]];
   return (
     <div className="page-content">
-      <div className="page-title"><div><h1>Panel de administración</h1><p>Resumen de contenido, alumnos y actividad de Academia CABSA.</p></div><span className="service-health"><i className={(health?.services ?? []).every((item) => item.status === 'ok') ? 'online' : ''} />{(health?.services ?? []).filter((item) => item.status === 'ok').length}/4 servicios</span></div>
+      <div className="page-title"><div><h1>Estadísticas de uso</h1><p>Consulta la adopción, actividad y avance de los estudiantes en Academia CABSA.</p></div><span className="service-health"><i className={(health?.services ?? []).every((item) => item.status === 'ok') ? 'online' : ''} />{(health?.services ?? []).filter((item) => item.status === 'ok').length}/4 servicios</span></div>
       <section className="stat-grid">{stats.map(([name, value]) => <article key={name}><span>{value}</span><strong>{name}</strong></article>)}</section>
       <div className="dashboard-columns">
-        <section className="admin-panel"><div className="panel-heading"><h2>Lecciones recientes</h2><button className="admin-primary" onClick={() => setPage('topics')}>Nueva lección</button></div><table className="admin-table"><thead><tr><th>Título</th><th>Dificultad</th><th>Estado</th></tr></thead><tbody>{data.lessons.slice(0, 8).map((item) => <tr key={item.id}><td>{item.title}</td><td>{item.difficulty}</td><td><span className={`status ${item.published ? 'published' : ''}`}>{item.published ? 'Publicado' : 'Borrador'}</span></td></tr>)}</tbody></table></section>
-        <div className="dashboard-stack"><section className="admin-panel"><div className="panel-heading"><h2>Retos activos</h2><button className="admin-secondary" onClick={() => setPage('challenges')}>Ver todos</button></div>{data.challenges.filter((item) => item.active).map((item) => <div className="compact-row" key={item.id}><span>{item.icon || '🏆'}</span><div><strong>{item.title}</strong><small>{item.description}</small></div></div>)}</section><section className="admin-panel"><div className="panel-heading"><h2>Últimos intentos</h2><button className="admin-secondary" onClick={() => setPage('progress')}>Ver progreso</button></div>{data.attempts.slice(0, 6).map((item) => <div className="compact-row" key={item.id}><b>{item.score_percent}%</b><div><strong>Alumno #{item.user_id}</strong><small>{new Date(item.attempted_at).toLocaleString('es-MX')}</small></div></div>)}{!data.attempts.length && <p className="muted">Aún no hay intentos registrados.</p>}</section></div>
+        <section className="admin-panel"><div className="panel-heading"><div><h2>Actividad de la plataforma</h2><p>{data.lessons.length} lecciones y {data.sections.length} contenidos disponibles</p></div><button className="admin-secondary" onClick={() => setPage('users')}>Gestionar usuarios</button></div><table className="admin-table"><thead><tr><th>Indicador</th><th>Resultado</th></tr></thead><tbody><tr><td>Estudiantes activos</td><td>{students.length}</td></tr><tr><td>Estudiantes con actividad registrada</td><td>{activeLearners}</td></tr><tr><td>Lecciones completadas</td><td>{completed}</td></tr><tr><td>Ejercicios disponibles</td><td>{data.exercises.length}</td></tr><tr><td>Retos activos</td><td>{data.challenges.filter((item) => item.active).length}</td></tr></tbody></table></section>
+        <div className="dashboard-stack"><section className="admin-panel"><div className="panel-heading"><h2>Distribución de cuentas</h2></div><div className="compact-row"><b>{students.length}</b><div><strong>Estudiantes</strong><small>Cuentas activas de aprendizaje</small></div></div><div className="compact-row"><b>{editors.length}</b><div><strong>Editores</strong><small>Responsables del contenido</small></div></div></section><section className="admin-panel"><div className="panel-heading"><h2>Últimos intentos</h2><button className="admin-secondary" onClick={() => setPage('progress')}>Ver detalle</button></div>{data.attempts.slice(0, 6).map((item) => <div className="compact-row" key={item.id}><b>{item.score_percent}%</b><div><strong>Alumno #{item.user_id}</strong><small>{new Date(item.attempted_at).toLocaleString('es-MX')}</small></div></div>)}{!data.attempts.length && <p className="muted">Aún no hay intentos registrados.</p>}</section></div>
       </div>
     </div>
   );
@@ -152,6 +158,8 @@ export default function App() {
     setUser(null);
   };
   if (!user || !localStorage.getItem('cabsa_access_token')) return <AdminLogin onLogin={setUser} />;
-  const config = PAGES[page];
-  return <div className="legacy-admin"><Topbar setOpen={setMenuOpen} onLogout={logout} user={user} /><div className="legacy-layout"><Sidebar navigation={NAVIGATION} page={page} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} />{menuOpen && <button className="sidebar-overlay" onClick={() => setMenuOpen(false)} />}<main className="legacy-main">{page === 'dashboard' && <Dashboard health={health} setPage={setPage} />}{config && <ResourcePage key={page} config={config} />}{page === 'import' && <ImportPage />}{page === 'latex' && <LatexPage />}<AppFooter health={health} /></main></div></div>;
+  const navigation = NAVIGATION.filter((item) => item.roles.includes(user.role));
+  const activePage = navigation.some((item) => item.id === page) ? page : navigation[0]?.id;
+  const config = PAGES[activePage];
+  return <div className="legacy-admin"><Topbar setOpen={setMenuOpen} onLogout={logout} user={user} /><div className="legacy-layout"><Sidebar navigation={navigation} page={activePage} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} />{menuOpen && <button className="sidebar-overlay" onClick={() => setMenuOpen(false)} />}<main className="legacy-main">{activePage === 'dashboard' && <Dashboard health={health} setPage={setPage} />}{config && <ResourcePage key={activePage} config={config} />}{activePage === 'import' && <ImportPage />}{activePage === 'latex' && <LatexPage />}<AppFooter health={health} /></main></div></div>;
 }

@@ -19,12 +19,13 @@ export function Header({ user, logout }) {
         <NavLink to="/lecciones" onClick={() => setOpen(false)}>Lecciones</NavLink>
         <NavLink to="/practica" onClick={() => setOpen(false)}>Práctica</NavLink>
         <NavLink to="/tutor" onClick={() => setOpen(false)}>Tutor IA</NavLink>
+        <button className="mobile-logout" type="button" onClick={() => { setOpen(false); logout(); }}><LogOut size={16} /> Salir</button>
       </nav>
       <div className="header-user">
         <button className="notification-button" type="button" title="Notificaciones" aria-label="Notificaciones"><Bell size={17} /></button>
         <span className="avatar">{initials(user.name)}</span>
         <span className="student-identity"><strong>{user.name}</strong><small>Estudiante</small></span>
-        <button className="logout-button" type="button" onClick={logout}><LogOut size={15} /> Salir</button>
+        <button className="logout-button" type="button" onClick={logout} aria-label="Cerrar sesión"><LogOut size={15} /> Salir</button>
       </div>
       <button className="mobile-menu" type="button" onClick={() => setOpen(!open)} aria-label="Abrir menú">
         {open ? <X /> : <Menu />}
@@ -144,4 +145,3 @@ export function RightRail({ dashboard, catalog }) {
 export function StudentShell({ user, logout, children }) {
   return <div className="site-shell"><Header user={user} logout={logout} /><div className="site-content">{children}</div><Footer /></div>;
 }
-
