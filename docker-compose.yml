@@ -3,11 +3,11 @@ name: ${COMPOSE_PROJECT_NAME:-academia-matematicas-final}
 x-node-service: &node-service
   restart: unless-stopped
   environment: &service-environment
-    NODE_ENV: production
-    HOST: 0.0.0.0
+    NODE_ENV: ${DOCKER_NODE_ENV:-production}
+    HOST: ${SERVICE_HOST:-0.0.0.0}
     # La base unica ya tiene una direccion accesible desde host y contenedores.
     # Usar DB_HOST evita redirigir MySQL a la puerta de enlace de Docker.
-    DB_HOST: ${DB_HOST:-host.docker.internal}
+    DB_HOST: ${MYSQL_HOST_CONTENEDORES:?MYSQL_HOST_CONTENEDORES es obligatorio}
     DB_PORT: ${DB_PORT:-3306}
     DB_NAME: ${DB_NAME:-academia-matematicas-soa}
     DB_USER: ${DB_USER:?DB_USER es obligatorio}
@@ -93,18 +93,22 @@ services:
       dockerfile: docker/service.Dockerfile
       args: { SERVICE: api-gateway }
     environment:
-      NODE_ENV: production
-      HOST: 0.0.0.0
+      NODE_ENV: ${DOCKER_NODE_ENV:-production}
+      HOST: ${SERVICE_HOST:-0.0.0.0}
       PORT: ${GATEWAY_PORT:-4600}
-      GATEWAY_NAME: academia-matematicas-api-gateway
+      GATEWAY_NAME: ${GATEWAY_NAME:-academia-matematicas-api-gateway}
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio}
       INTERNAL_SERVICE_KEY: ${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY es obligatorio}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5176,http://localhost:5177,http://localhost:4610,http://localhost:4611}
       AUTH_REQUIRED: ${AUTH_REQUIRED:-true}
-      LEARNING_SERVICE_URL: http://learning-service:${LEARNING_PORT:-4601}
-      PRACTICE_SERVICE_URL: http://practice-service:${PRACTICE_PORT:-4602}
-      AI_SERVICE_URL: http://ai-service:${AI_PORT:-4603}
-      IDENTITY_SERVICE_URL: http://identity-service:${IDENTITY_PORT:-4604}
+      REQUEST_TIMEOUT_MS: ${REQUEST_TIMEOUT_MS:-10000}
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
+      RATE_LIMIT_MAX_REQUESTS: ${RATE_LIMIT_MAX_REQUESTS:-120}
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-0}
+      LEARNING_SERVICE_URL: ${LEARNING_DOCKER_SERVICE_URL:?LEARNING_DOCKER_SERVICE_URL es obligatorio}
+      PRACTICE_SERVICE_URL: ${PRACTICE_DOCKER_SERVICE_URL:?PRACTICE_DOCKER_SERVICE_URL es obligatorio}
+      AI_SERVICE_URL: ${AI_DOCKER_SERVICE_URL:?AI_DOCKER_SERVICE_URL es obligatorio}
+      IDENTITY_SERVICE_URL: ${IDENTITY_DOCKER_SERVICE_URL:?IDENTITY_DOCKER_SERVICE_URL es obligatorio}
     depends_on:
       identity-service: { condition: service_healthy }
       learning-service: { condition: service_healthy }
@@ -125,7 +129,9 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         FRONTEND: frontend-estudiantes
-        VITE_API_URL: ${VITE_STUDENT_API_URL:-http://localhost:4600/api}
+        VITE_API_URL: ${VITE_STUDENT_API_URL:-}
+        VITE_GATEWAY_PORT: ${VITE_GATEWAY_PORT:-}
+        VITE_STUDENT_APP_URL: ${VITE_STUDENT_APP_URL:-}
     depends_on:
       api-gateway: { condition: service_healthy }
     ports: ["${STUDENT_DOCKER_PORT:-4610}:80"]
@@ -138,7 +144,9 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         FRONTEND: frontend-administracion
-        VITE_API_URL: ${VITE_ADMIN_API_URL:-http://localhost:4600}
+        VITE_API_URL: ${VITE_ADMIN_API_URL:-}
+        VITE_GATEWAY_PORT: ${VITE_GATEWAY_PORT:-}
+        VITE_STUDENT_APP_URL: ${VITE_STUDENT_APP_URL:-}
     depends_on:
       api-gateway: { condition: service_healthy }
     ports: ["${ADMIN_DOCKER_PORT:-4611}:80"]

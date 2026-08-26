@@ -37,7 +37,7 @@ export function Topbar({ setOpen, onLogout, user }) {
   return (
     <header className="legacy-topbar">
       <div className="topbar-brand"><button onClick={() => setOpen(true)} aria-label="Abrir menú"><Menu /></button><span>ACADEMIA<strong>CABSA</strong><small>MATEMÁTICAS</small></span></div>
-      <div className="topbar-actions"><span>{user?.name || 'Administrador CABSA'}</span><a href="http://127.0.0.1:5176" target="_blank" rel="noreferrer">Ver sitio <ExternalLink /></a><button type="button" onClick={onLogout}>Salir</button></div>
+      <div className="topbar-actions"><span>{user?.name || 'Administrador CABSA'}</span><a href={import.meta.env.VITE_STUDENT_APP_URL || `${window.location.protocol}//${window.location.hostname}:4610`} target="_blank" rel="noreferrer">Ver sitio <ExternalLink /></a><button type="button" onClick={onLogout}>Salir</button></div>
     </header>
   );
 }

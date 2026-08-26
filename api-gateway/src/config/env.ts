@@ -28,6 +28,7 @@ const env = Object.freeze({
     .split(',').map((origin) => origin.trim()).filter(Boolean),
   authRequired: booleanValue('AUTH_REQUIRED', true),
   requestTimeoutMs: numberValue('REQUEST_TIMEOUT_MS', 10000),
+  trustProxyHops: numberValue('TRUST_PROXY_HOPS', 0),
   rateLimit: {
     windowMs: numberValue('RATE_LIMIT_WINDOW_MS', 60000),
     maxRequests: numberValue('RATE_LIMIT_MAX_REQUESTS', 120),

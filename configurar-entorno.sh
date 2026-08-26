@@ -42,4 +42,67 @@ for key in JWT_SECRET INTERNAL_SERVICE_KEY; do
   fi
 done
 
+normalize_bool() {
+  local name="$1" value="${2,,}"
+  case "${value}" in
+    true|1|yes|si|sí) printf true ;;
+    false|0|no|"") printf false ;;
+    *) echo "ERROR: ${name} debe ser true o false." >&2; exit 2 ;;
+  esac
+}
+
+https_active="$(normalize_bool HTTPS_ACTIVO "${HTTPS_ACTIVO:-$(read_env HTTPS_ACTIVO)}")"
+dns_active="$(normalize_bool DNS_ACTIVO "${DNS_ACTIVO:-$(read_env DNS_ACTIVO)}")"
+set_env HTTPS_ACTIVO "${https_active}"
+set_env DNS_ACTIVO "${dns_active}"
+
+# MySQL externo es la base unica autorizada para esta instalacion.
+mysql_external="${MYSQL_HOST_EXTERNO:-$(read_env MYSQL_HOST_EXTERNO)}"
+[[ -n "${mysql_external}" ]] || mysql_external="${DB_HOST:-$(read_env DB_HOST)}"
+[[ -n "${mysql_external}" ]] || { echo 'ERROR: falta MYSQL_HOST_EXTERNO.' >&2; exit 2; }
+set_env MYSQL_DOCKER_ACTIVO false
+set_env MYSQL_HOST_EXTERNO "${mysql_external}"
+set_env MYSQL_HOST_CONTENEDORES "${mysql_external}"
+set_env DB_HOST "${mysql_external}"
+
+if [[ "${dns_active}" == true ]]; then
+  portal_host="${DNS_PORTAL_HOST:-$(read_env DNS_PORTAL_HOST)}"
+  admin_host="${DNS_ADMIN_HOST:-$(read_env DNS_ADMIN_HOST)}"
+  api_host="${DNS_API_HOST:-$(read_env DNS_API_HOST)}"
+  [[ -n "${portal_host}" && -n "${admin_host}" && -n "${api_host}" ]] || {
+    echo 'ERROR: configura DNS_PORTAL_HOST, DNS_ADMIN_HOST y DNS_API_HOST.' >&2; exit 2;
+  }
+  if [[ "${https_active}" == true ]]; then
+    portal_url="https://${portal_host}"; admin_url="https://${admin_host}"; api_url="https://${api_host}"
+    set_env TRUST_PROXY_HOPS 1
+  else
+    portal_url="http://${portal_host}:$(read_env STUDENT_DOCKER_PORT)"
+    admin_url="http://${admin_host}:$(read_env ADMIN_DOCKER_PORT)"
+    api_url="http://${api_host}:$(read_env GATEWAY_PORT)"
+    set_env TRUST_PROXY_HOPS 0
+  fi
+  public_host="${portal_host}"
+  echo "OK: modo DNS activo: estudiantes=${portal_host}, administracion=${admin_host}, api=${api_host}."
+else
+  server_ip="${SERVER_IP:-$(read_env SERVER_IP)}"
+  [[ -n "${server_ip}" ]] || server_ip=192.168.0.6
+  [[ "${server_ip}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]] || { echo "ERROR: SERVER_IP no valida: ${server_ip}" >&2; exit 2; }
+  portal_url="http://${server_ip}:$(read_env STUDENT_DOCKER_PORT)"
+  admin_url="http://${server_ip}:$(read_env ADMIN_DOCKER_PORT)"
+  api_url="http://${server_ip}:$(read_env GATEWAY_PORT)"
+  public_host="${server_ip}"
+  set_env SERVER_IP "${server_ip}"
+  set_env TRUST_PROXY_HOPS 0
+  echo "OK: modo IP activo: ${server_ip}."
+fi
+
+set_env PUBLIC_HOST "${public_host}"
+set_env API_PUBLIC_URL "${api_url}"
+set_env PORTAL_PUBLIC_URL "${portal_url}"
+set_env ADMIN_PUBLIC_URL "${admin_url}"
+set_env CORS_ORIGINS "${portal_url},${admin_url}"
+set_env VITE_STUDENT_API_URL "${api_url}/api"
+set_env VITE_ADMIN_API_URL "${api_url}"
+set_env VITE_STUDENT_APP_URL "${portal_url}"
+
 echo "OK: entorno preparado en ${ENV_FILE}."

@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import corsOptions from '#config/cors';
+import env from '#config/env';
 import gatewayRoutes from '#routes/gateway.routes';
 import gatewayController from '#controllers/gateway.controller';
 import requestIdMiddleware from '#middlewares/requestId.middleware';
@@ -13,6 +14,7 @@ import errorMiddleware from '#middlewares/error.middleware';
 
 const app = express();
 app.disable('x-powered-by');
+if (env.trustProxyHops > 0) app.set('trust proxy', env.trustProxyHops);
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use(requestIdMiddleware);

@@ -16,14 +16,19 @@ env MYSQL_PWD="${DB_PASSWORD}" mysqladmin --host="${DB_HOST}" --port="${DB_PORT}
 }
 
 cd "${PROJECT_ROOT}"
-arguments=(compose --env-file "${ENV_FILE}" up -d)
-if [[ "${1:-}" != "--no-build" ]]; then arguments+=(--build); fi
-docker "${arguments[@]}"
-docker compose --env-file "${ENV_FILE}" ps
+compose=(docker compose --env-file "${ENV_FILE}" -f docker-compose.yml)
+if [[ "${DNS_ACTIVO,,}" == true && "${HTTPS_ACTIVO,,}" == true ]]; then
+  bash "${PROJECT_ROOT}/scripts/generar-certificado-local.sh" \
+    "${DNS_PORTAL_HOST}" "${DNS_ADMIN_HOST}" "${DNS_API_HOST}"
+  compose+=(-f docker-compose.dns.yml)
+fi
+up_args=(up -d)
+if [[ "${1:-}" != "--no-build" ]]; then up_args+=(--build); fi
+"${compose[@]}" "${up_args[@]}"
+"${compose[@]}" ps
 
 echo
-PUBLIC_HOST="${PUBLIC_HOST:-localhost}"
-echo "Portal estudiantes: http://${PUBLIC_HOST}:${STUDENT_DOCKER_PORT}"
-echo "Administración:     http://${PUBLIC_HOST}:${ADMIN_DOCKER_PORT}"
-echo "API Gateway:        http://${PUBLIC_HOST}:${GATEWAY_PORT}"
+echo "Portal estudiantes: ${PORTAL_PUBLIC_URL}"
+echo "Administración:     ${ADMIN_PUBLIC_URL}"
+echo "API Gateway:        ${API_PUBLIC_URL}"
 echo "MySQL del servidor: ${DB_HOST}:${DB_PORT}"

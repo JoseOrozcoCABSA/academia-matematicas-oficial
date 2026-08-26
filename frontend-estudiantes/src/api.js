@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:4600/api';
+const gatewayPort = import.meta.env.VITE_GATEWAY_PORT || '4600';
+const browserGatewayUrl = `${window.location.protocol}//${window.location.hostname}:${gatewayPort}`;
+const API_URL = import.meta.env.VITE_STUDENT_API_URL || import.meta.env.VITE_API_URL || `${browserGatewayUrl}/api`;
 const GATEWAY_ORIGIN = new URL(API_URL, window.location.origin).origin;
 
 const authorizationHeaders = () => {

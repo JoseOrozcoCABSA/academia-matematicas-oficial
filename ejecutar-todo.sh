@@ -4,6 +4,26 @@ set -uo pipefail
 PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 declare -a names=() results=() codes=()
 
+docker_option=""
+for argument in "$@"; do
+  case "${argument}" in
+    --dominio=*)
+      domain="${argument#*=}"; export DNS_ACTIVO=true
+      export DNS_PORTAL_HOST="matematicas.${domain}"
+      export DNS_ADMIN_HOST="administracion.matematicas.${domain}"
+      export DNS_API_HOST="api.matematicas.${domain}"
+      ;;
+    --ip-servidor=*) export DNS_ACTIVO=false; export SERVER_IP="${argument#*=}" ;;
+    --con-https) export HTTPS_ACTIVO=true ;;
+    --sin-https) export HTTPS_ACTIVO=false ;;
+    --no-build) docker_option=--no-build ;;
+    -h|--help)
+      echo "Uso: bash ejecutar-todo.sh [--dominio=ejemplo.com|--ip-servidor=192.168.0.6] [--con-https|--sin-https] [--no-build]"
+      exit 0 ;;
+    *) echo "ERROR: opcion desconocida: ${argument}" >&2; exit 2 ;;
+  esac
+done
+
 echo "===== 0. Preparar configuración segura ====="
 bash "${PROJECT_ROOT}/configurar-entorno.sh"
 
@@ -32,7 +52,11 @@ run_step() {
 
 run_step "1. Crear o actualizar base de datos" "crear-base-datos.sh"
 run_step "2. Crear y enviar respaldo" "crear-copia-seguridad.sh"
-run_step "3. Levantar plataforma con Docker" "ejecutar-docker.sh" "$@"
+if [[ -n "${docker_option}" ]]; then
+  run_step "3. Levantar plataforma con Docker" "ejecutar-docker.sh" "${docker_option}"
+else
+  run_step "3. Levantar plataforma con Docker" "ejecutar-docker.sh"
+fi
 
 echo
 echo "===== RESUMEN FINAL ====="
