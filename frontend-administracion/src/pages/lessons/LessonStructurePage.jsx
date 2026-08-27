@@ -225,10 +225,19 @@ export default function LessonStructurePage({ lesson, onBack }) {
     } catch (reason) { setError(reason.message); }
     finally { setCreatingDefaults(false); }
   };
-  const saveDedicatedSection = async (data) => {
+  const saveDedicatedSection = async (data, file) => {
     try {
       const clean = { ...data };
       ['id', 'created_at', 'updated_at', 'effective_parent_section_id', 'inferred_parent'].forEach((key) => delete clean[key]);
+      if (clean.section_type === 'pptx' && file) {
+        const form = new FormData();
+        form.append('file', file);
+        form.append('title', clean.title || file.name);
+        form.append('upload_context', 'content');
+        const uploaded = await gatewayApi.uploadMedia(form);
+        clean.body_html = uploaded.file_path;
+        clean.media_id = uploaded.id;
+      }
       await gatewayApi.update('learning', 'aprendizaje_secciones_leccion', editingSection.id, clean);
       setEditingSection(null); await load();
     } catch (reason) { setError(reason.message); throw reason; }
