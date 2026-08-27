@@ -1,5 +1,6 @@
-import { useMemo, useRef, useState } from 'react';
-import { FileUp, Link, Save, Sparkles } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { FileUp, Link, Plus, Save, Sparkles, Trash2 } from 'lucide-react';
+import { gatewayApi } from '@/api';
 
 const TYPE_GUIDES = {
   presentation: {
@@ -69,8 +70,37 @@ export default function SectionEditorPage({ section, lesson, sections, media, se
   const [resourceUrl, setResourceUrl] = useState('');
   const [file, setFile] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [exerciseRecord, setExerciseRecord] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [exerciseError, setExerciseError] = useState('');
   const editorRef = useRef(null);
   const guide = TYPE_GUIDES[draft.section_type] || TYPE_GUIDES.html;
+  const isAssessment = ['activity', 'evaluation', 'exam'].includes(draft.section_type);
+  useEffect(() => {
+    if (!isAssessment) return;
+    let cancelled = false;
+    gatewayApi.listWhere('practice', 'practica_ejercicios', { section_id: section.id }, 1)
+      .then((result) => {
+        if (cancelled) return;
+        const record = Array.isArray(result) ? result[0] : result?.rows?.[0];
+        setExerciseRecord(record || null);
+        if (!record?.json_data) return;
+        try {
+          const parsed = JSON.parse(record.json_data);
+          const items = Array.isArray(parsed) ? parsed : parsed.exercises || parsed.ejercicios || [];
+          setQuestions(items.map((item, index) => ({
+            id: item.id ?? index + 1,
+            type: item.type || item.response_type || 'text',
+            question: item.question || item.ejercicio || '',
+            options: Array.isArray(item.options) ? item.options : [],
+            answer: String(item.answer ?? item.resultado ?? ''),
+            explanation: item.explanation || item.explicacion || '',
+          })));
+        } catch { setExerciseError('Los ejercicios guardados tienen un formato inválido. Puedes reemplazarlos desde este constructor.'); }
+      })
+      .catch((reason) => { if (!cancelled && reason?.message && !/no hay|not found/i.test(reason.message)) setExerciseError(reason.message); });
+    return () => { cancelled = true; };
+  }, [section.id, isAssessment]);
   const descendants = useMemo(() => {
     const found = new Set([String(section.id)]);
     let changed = true;
@@ -124,6 +154,18 @@ export default function SectionEditorPage({ section, lesson, sections, media, se
   const save = async (event) => {
     event.preventDefault(); setSaving(true);
     try {
+      if (isAssessment && !draft.ai_exercises_enabled) {
+        if (!questions.length) throw new Error('Agrega al menos una pregunta manual o activa la generación con IA.');
+        const invalid = questions.find((item) => !item.question.trim() || !String(item.answer).trim()
+          || (item.type === 'multiple_choice' && item.options.filter((option) => option.trim()).length < 2));
+        if (invalid) throw new Error('Completa la pregunta, su respuesta correcta y al menos dos opciones cuando sea de opción múltiple.');
+        const json_data = JSON.stringify({ version: 1, source: 'manual', exercises: questions.map((item, index) => ({ ...item, id: index + 1, options: item.type === 'multiple_choice' ? item.options.filter((option) => option.trim()) : [] })) });
+        if (exerciseRecord?.id) await gatewayApi.update('practice', 'practica_ejercicios', exerciseRecord.id, { section_id: Number(section.id), json_data, ai_model: null });
+        else {
+          const created = await gatewayApi.create('practice', 'practica_ejercicios', { section_id: Number(section.id), json_data, ai_model: null });
+          setExerciseRecord(created);
+        }
+      }
       await onSaved({
         ...draft,
         lesson_id: Number(lesson.id),
@@ -134,8 +176,14 @@ export default function SectionEditorPage({ section, lesson, sections, media, se
         published: Boolean(draft.published),
         ai_exercises_enabled: Boolean(draft.ai_exercises_enabled),
       }, file);
+    } catch (reason) {
+      setExerciseError(reason instanceof Error ? reason.message : 'No fue posible guardar el examen.');
     } finally { setSaving(false); }
   };
+
+  const addQuestion = () => setQuestions((current) => [...current, { id: Date.now(), type: 'multiple_choice', question: '', options: ['', '', '', ''], answer: '', explanation: '' }]);
+  const updateQuestion = (index, changes) => setQuestions((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, ...changes } : item));
+  const updateOption = (questionIndex, optionIndex, value) => setQuestions((current) => current.map((item, itemIndex) => itemIndex === questionIndex ? { ...item, options: item.options.map((option, currentOption) => currentOption === optionIndex ? value : option) } : item));
 
   return <main className="page-content section-editor-page">
     <button type="button" className="lesson-back" onClick={onBack}>← Volver a la estructura de la lección</button>
@@ -156,8 +204,15 @@ export default function SectionEditorPage({ section, lesson, sections, media, se
         {guide.template && <button type="button" className="admin-secondary" onClick={applyTemplate}><Sparkles /> Usar plantilla sugerida</button>}
         {['video', 'document'].includes(draft.section_type) && <div className="section-resource-url"><label>{draft.section_type === 'video' ? 'URL del video' : 'URL del documento o PDF'}<input type="url" placeholder={draft.section_type === 'video' ? 'https://youtube.com/watch?v=…' : 'https://…/documento.pdf'} value={resourceUrl} onChange={(event) => setResourceUrl(event.target.value)} /></label><button type="button" className="admin-primary" onClick={addResource} disabled={!resourceUrl.trim()}><Link /> Insertar en el contenido</button></div>}
         {draft.section_type === 'pptx' && <label className="section-file-option"><FileUp /><span><strong>Archivo PowerPoint (.pptx)</strong><small>{file ? file.name : draft.body_html ? 'Puedes conservar la presentación actual o seleccionar otra.' : 'Selecciona la presentación que verá el estudiante.'}</small></span><input type="file" accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation" onChange={(event) => setFile(event.target.files?.[0] || null)} /></label>}
-        {['activity', 'evaluation', 'exam'].includes(draft.section_type) && <div className="section-ai-options"><label className="checkbox"><input type="checkbox" checked={Boolean(draft.ai_exercises_enabled)} onChange={(event) => setDraft({ ...draft, ai_exercises_enabled: event.target.checked })} /> Generar ejercicios adicionales con IA</label>{draft.ai_exercises_enabled && <label>Instrucciones para la IA<textarea rows="4" placeholder="Ejemplo: genera 5 ejercicios de comparación para primaria, con retroalimentación sencilla." value={draft.ai_prompt || ''} onChange={(event) => setDraft({ ...draft, ai_prompt: event.target.value })} /></label>}</div>}
+        {isAssessment && <div className="section-ai-options"><label className="checkbox"><input type="checkbox" checked={Boolean(draft.ai_exercises_enabled)} onChange={(event) => setDraft({ ...draft, ai_exercises_enabled: event.target.checked })} /> Generar ejercicios con IA</label>{draft.ai_exercises_enabled ? <label>Instrucciones para la IA<textarea rows="4" placeholder="Ejemplo: genera 5 ejercicios de comparación para primaria, con retroalimentación sencilla." value={draft.ai_prompt || ''} onChange={(event) => setDraft({ ...draft, ai_prompt: event.target.value })} /></label> : <p className="manual-exam-notice">Modo manual: los reactivos creados abajo serán los que responda el estudiante.</p>}</div>}
       </section>
+
+      {isAssessment && !draft.ai_exercises_enabled && <section className="manual-exam-builder">
+        <header><div><small>CONSTRUCTOR DE REACTIVOS</small><h2>Preguntas del {draft.section_type === 'exam' ? 'examen' : draft.section_type === 'evaluation' ? 'evaluación' : 'actividad'}</h2><p>Crea preguntas calificables sin utilizar inteligencia artificial.</p></div><button type="button" className="admin-primary" onClick={addQuestion}><Plus /> Agregar pregunta</button></header>
+        {exerciseError && <div className="alert error">{exerciseError}</div>}
+        {!questions.length && <div className="manual-exam-empty"><p>Todavía no hay preguntas.</p><button type="button" className="admin-secondary" onClick={addQuestion}><Plus /> Crear la primera</button></div>}
+        <div className="manual-question-list">{questions.map((item, index) => <article className="manual-question" key={item.id}><header><strong>Pregunta {index + 1}</strong><button type="button" className="danger" onClick={() => setQuestions((current) => current.filter((_, itemIndex) => itemIndex !== index))}><Trash2 /> Eliminar</button></header><div className="manual-question-grid"><label>Tipo de respuesta<select value={item.type} onChange={(event) => updateQuestion(index, { type: event.target.value, answer: '', options: event.target.value === 'multiple_choice' && !item.options.length ? ['', '', '', ''] : item.options })}><option value="multiple_choice">Opción múltiple</option><option value="text">Respuesta escrita</option><option value="number">Resultado numérico</option></select></label><label className="full">Pregunta<textarea rows="2" value={item.question} placeholder="Escribe el enunciado" onChange={(event) => updateQuestion(index, { question: event.target.value })} /></label>{item.type === 'multiple_choice' && <div className="manual-options full"><strong>Opciones y respuesta correcta</strong>{item.options.map((option, optionIndex) => <label key={optionIndex}><input type="radio" name={`correct-${item.id}`} checked={item.answer === option && option !== ''} onChange={() => updateQuestion(index, { answer: option })} aria-label={`Marcar opción ${optionIndex + 1} como correcta`} /><input value={option} placeholder={`Opción ${optionIndex + 1}`} onChange={(event) => { const previous = option; updateOption(index, optionIndex, event.target.value); if (item.answer === previous) updateQuestion(index, { answer: event.target.value }); }} /></label>)}</div>}{item.type !== 'multiple_choice' && <label className="full">Respuesta correcta<input type={item.type === 'number' ? 'number' : 'text'} value={item.answer} placeholder={item.type === 'number' ? 'Ejemplo: 24' : 'Escribe la respuesta esperada'} onChange={(event) => updateQuestion(index, { answer: event.target.value })} /></label>}<label className="full">Retroalimentación (opcional)<textarea rows="2" value={item.explanation} placeholder="Explica por qué esta es la respuesta correcta" onChange={(event) => updateQuestion(index, { explanation: event.target.value })} /></label></div></article>)}</div>
+      </section>}
 
       {draft.section_type !== 'pptx' && <section className="section-html-editor"><header><div><small>CÓDIGO HTML</small><h2>Contenido de {draft.title || 'la sección'}</h2></div><div className="content-composer-tools"><button type="button" onClick={() => insert('<p>', '</p>', 'Texto')}>Párrafo</button><button type="button" onClick={() => insert('<h3>', '</h3>', 'Título')}>Título</button><button type="button" onClick={() => insert('<strong>', '</strong>', 'Texto destacado')}>Negrita</button><button type="button" onClick={() => insert('\\(', '\\)', 'x + y = 10')}>LaTeX</button></div></header><textarea ref={editorRef} rows="22" value={draft.body_html || ''} onChange={(event) => setDraft({ ...draft, body_html: event.target.value })} /><small>Haz clic en un bloque de la vista previa para ir directamente a su código HTML.</small></section>}
       <section className="section-preview-panel"><header><small>PREVISUALIZACIÓN VINCULADA</small><span>{draft.section_type === 'pptx' ? 'presentación seleccionada' : 'clic para ubicar el cursor'}</span></header><Preview data={draft} file={file} onHtmlSelect={focusHtml} /></section>
