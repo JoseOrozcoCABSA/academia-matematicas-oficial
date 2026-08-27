@@ -135,7 +135,7 @@ export default function ResourcePage({ config }) {
       const created = await gatewayApi.create(config.service, resource, data);
       if (resource === 'aprendizaje_lecciones' && created?.id) {
         await Promise.allSettled([
-          ['presentation', 'Lección', 1], ['activity', 'Actividad', 2], ['evaluation', 'Evaluación', 3],
+          ['presentation', 'Lecciones', 1], ['activity', 'Actividad', 2], ['evaluation', 'Evaluación', 3],
         ].map(([sectionType, title, sortOrder]) => gatewayApi.create('learning', 'aprendizaje_secciones_leccion', {
           lesson_id: Number(created.id), parent_section_id: null, section_type: sectionType,
           title, body_html: '', duration_minutes: 0, sort_order: sortOrder,

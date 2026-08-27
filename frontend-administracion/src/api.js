@@ -61,6 +61,10 @@ export const gatewayApi = {
   resources: (service) => request(`/api/${service}/resources`),
   list: (service, resource, limit = 50) =>
     request(`/api/${service}/data/${resource}?limit=${limit}&orderDirection=DESC`),
+  listWhere: (service, resource, where = {}, limit = 100) => {
+    const query = new URLSearchParams({ limit: String(limit), orderDirection: 'ASC', ...where });
+    return request(`/api/${service}/data/${resource}?${query.toString()}`);
+  },
   create: (service, resource, data) => request(`/api/${service}/data/${resource}`, {
     method: 'POST',
     body: JSON.stringify(data),
