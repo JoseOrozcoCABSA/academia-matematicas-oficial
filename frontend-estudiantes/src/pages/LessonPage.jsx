@@ -48,7 +48,7 @@ export function ExerciseBlock({ section, lesson, user, onComplete }) {
     setLoading(true); setError(''); setResult(null); setAnswers({});
     try {
       const data = section.ai_exercises_enabled
-        ? await aiApi.generate({ user_id: user.id, lesson_id: lesson.id, section_id: section.id, topic: lesson.title, count: 10, type: section.section_type })
+        ? await aiApi.generate({ user_id: user.id, lesson_id: lesson.id, section_id: section.id, topic: lesson.title, count: section.ai_exercise_count || 10, type: section.section_type, exercise_type: section.ai_exercise_type || 'generic', difficulty: section.ai_difficulty || 'Básica', instructions: section.ai_prompt || '' })
         : await practiceApi.exercises(section.id);
       setItems(normalizeExercises(data));
       setModelInfo(section.ai_exercises_enabled ? data.model ?? null : { name: 'Reactivos preparados por el editor', manual: true });
@@ -56,16 +56,18 @@ export function ExerciseBlock({ section, lesson, user, onComplete }) {
     finally { setLoading(false); }
   };
   const submit = async () => {
-    const correct = items.filter((item) => normalize(answers[item.id]).trim() === normalize(item.answer).trim()).length;
-    const score = items.length ? Math.round(correct / items.length * 100) : 0;
     setError('');
     try {
-      await practiceApi.attempt({ user_id: user.id, section_id: section.id, answers, score_percent: score });
-      setResult({ correct, score });
-      if (section.section_type !== 'evaluation' || score >= 70) onComplete(section.id, true);
+      const localCorrect = section.ai_exercises_enabled ? items.filter((item) => normalize(answers[item.id]).trim() === normalize(item.answer).trim()).length : 0;
+      const localScore = items.length ? Math.round(localCorrect / items.length * 100) : 0;
+      const graded = await practiceApi.attempt({ user_id: user.id, section_id: section.id, answers, score_percent: localScore, grading_mode: section.ai_exercises_enabled ? 'client_generated' : 'server' });
+      const nextItems = graded.results ? items.map((item) => ({ ...item, ...(graded.results.find((entry) => String(entry.id) === String(item.id)) || {}) })) : items;
+      const score = Number(graded.score ?? localScore);
+      const correct = Number(graded.correct ?? localCorrect);
+      setItems(nextItems); setResult({ correct, score });
+      if (!['evaluation', 'exam'].includes(section.section_type) || score >= 70) onComplete(section.id, true);
     } catch (reason) {
-      setError(`La actividad se calificó, pero no pudo guardarse: ${reason.message}`);
-      setResult({ correct, score });
+      setError(`No fue posible calificar y guardar la actividad: ${reason.message}`);
     }
   };
   if (!items.length) return <div className="exercise-launch"><BrainIcon /><div><h3>{sectionLabel(section.section_type)} interactiva</h3><p>{section.ai_exercises_enabled ? 'Genera ejercicios desde el modelo central configurado y recibe tu calificación.' : 'Responde los reactivos preparados por tu docente y recibe tu calificación.'}</p></div><button onClick={load} disabled={loading}>{loading ? (section.ai_exercises_enabled ? 'Generando…' : 'Cargando…') : 'Comenzar'}</button>{error && <small>{error}</small>}</div>;

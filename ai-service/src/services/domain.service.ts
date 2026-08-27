@@ -20,7 +20,7 @@ const tutorResponse = (message: string): string => {
   return 'Vamos paso a paso: identifica los datos, la operación necesaria y lo que debes encontrar. Cuéntame el ejercicio y tu primer intento.';
 };
 
-type Exercise = { id: number; question: string; answer: number | string; explanation: string };
+type Exercise = { id: number; question: string; answer: number | string; explanation: string; type?: string; options?: string[] };
 
 const generatedExercises = (topic: string, count: number): Exercise[] => {
   const normalized = normalize(topic);
@@ -79,6 +79,8 @@ const parseExercises = (content: string, count: number): Exercise[] => {
     question: String(row.question ?? row.ejercicio ?? ''),
     answer: row.answer ?? row.resultado ?? '',
     explanation: String(row.explanation ?? row.explicacion ?? ''),
+    type: String(row.type ?? row.response_type ?? (Array.isArray(row.options) ? 'multiple_choice' : 'text')),
+    options: Array.isArray(row.options) ? row.options.map(String) : [],
   })).filter((row) => row.question && String(row.answer).length > 0);
 };
 
@@ -122,15 +124,15 @@ export default {
   },
   generate: async (input: Record<string, unknown>) => {
     const topic = String(input.topic ?? 'Práctica matemática'); const count = Math.max(1, Math.min(10, Number(input.count ?? 10)));
-    const purpose = String(input.type) === 'evaluation' ? 'evaluacion' : 'generacion_ejercicios';
+    const purpose = ['evaluation', 'exam'].includes(String(input.type)) ? 'evaluacion' : 'generacion_ejercicios';
     const [models, prompts] = await Promise.all([repository.models(), repository.prompts()]);
     const model = selectModel(models, purpose, input.model_id);
     const system = `${promptFor(prompts, purpose, 'Genera ejercicios matemáticos.')}
-Devuelve exclusivamente JSON válido con la forma {"exercises":[{"id":1,"question":"...","answer":"...","explanation":"..."}]}.`;
+Devuelve exclusivamente JSON válido con la forma {"exercises":[{"id":1,"question":"...","type":"text|number|multiple_choice","options":[],"answer":"...","explanation":"..."}]}. En opción múltiple incluye entre 3 y 5 opciones y la respuesta debe coincidir exactamente con una opción.`;
     let exercises: Exercise[]; let fallback = false; let warning: string | undefined;
     try {
       if (!model) throw new Error(`No hay un modelo activo configurado para ${purpose}`);
-      const content = await invokeModel(model, system, `Tema: ${topic}. Cantidad: ${count}. Tipo: ${purpose}.`);
+      const content = await invokeModel(model, system, `Tema: ${topic}. Cantidad: ${count}. Propósito: ${purpose}. Tipo de ejercicio: ${String(input.exercise_type ?? 'generic')}. Dificultad: ${String(input.difficulty ?? 'Básica')}. Instrucciones del editor: ${String(input.instructions ?? 'ninguna')}.`);
       exercises = parseExercises(content, count);
       if (!exercises.length) throw new Error('El proveedor devolvió ejercicios vacíos');
     } catch (reason) {
