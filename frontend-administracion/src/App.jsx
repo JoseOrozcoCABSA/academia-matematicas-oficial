@@ -23,27 +23,28 @@ const NAVIGATION = [
   { id: 'dashboard', label: 'Estadísticas de uso', icon: LayoutDashboard, roles: ['admin'] },
   { id: 'users', label: 'Gestión de usuarios', icon: Users, roles: ['admin'] },
   { id: 'progress', label: 'Alumnos y progreso', icon: ChartNoAxesCombined, roles: ['admin'] },
-  { id: 'topics', label: 'Lecciones y contenido', icon: Layers3, roles: ['editor'] },
+  { id: 'editor-home', label: 'Inicio editorial', icon: LayoutDashboard, roles: ['editor'] },
+  { id: 'topics', label: 'Lecciones', icon: Layers3, roles: ['editor'] },
   { id: 'levels', label: 'Niveles educativos', icon: GraduationCap, roles: ['editor'] },
-  { id: 'areas', label: 'Áreas', icon: Shapes, roles: ['editor'] },
-  { id: 'media', label: 'Medios', icon: Image, roles: ['editor'] },
-  { id: 'resources', label: 'Recursos', icon: Link2, roles: ['editor'] },
-  { id: 'exercises', label: 'Ejercicios', icon: FileText, roles: ['editor'] },
+  { id: 'areas', label: 'Áreas y categorías', icon: Shapes, roles: ['editor'] },
+  { id: 'media', label: 'Imágenes y archivos', icon: Image, roles: ['editor'] },
+  { id: 'resources', label: 'Material complementario', icon: Link2, roles: ['editor'] },
+  { id: 'exercises', label: 'Actividades y ejercicios', icon: FileText, roles: ['editor'] },
   { id: 'challenges', label: 'Retos', icon: Trophy, roles: ['editor'] },
   { id: 'games', label: 'Juegos matemáticos', icon: Gamepad2, roles: ['editor'] },
-  { id: 'import', label: 'Importar Excel / CSV', icon: FileUp, roles: ['editor'] },
-  { id: 'settings', label: 'Configuración del sitio', icon: Settings, roles: ['editor'] },
-  { id: 'ai', label: 'Modelos IA', icon: Bot, roles: ['editor'] },
-  { id: 'latex', label: 'Paquetes LaTeX', icon: Sigma, roles: ['editor'] },
+  { id: 'import', label: 'Importar o respaldar Excel', icon: FileUp, roles: ['editor'] },
+  { id: 'settings', label: 'Ajustes visuales', icon: Settings, roles: ['editor'] },
+  { id: 'ai', label: 'Tutor e inteligencia artificial', icon: Bot, roles: ['editor'] },
+  { id: 'latex', label: 'Fórmulas matemáticas', icon: Sigma, roles: ['editor'] },
 ];
 
 const PAGES = {
   topics: {
     title: 'Estructura de lecciones', service: 'learning',
     resources: [
-      { id: 'aprendizaje_lecciones', label: '1. Lecciones principales' },
-      { id: 'aprendizaje_secciones_leccion', label: '2. Secciones y sublecciones' },
-      { id: 'aprendizaje_medios_leccion', label: '3. Archivos vinculados' },
+      { id: 'aprendizaje_lecciones', label: 'Lecciones' },
+      { id: 'aprendizaje_secciones_leccion', label: 'Contenido interno (avanzado)' },
+      { id: 'aprendizaje_medios_leccion', label: 'Archivos vinculados (avanzado)' },
     ],
     description: 'Organiza cada contenido siguiendo la relación: Área → Lección principal → Sección → Sublección.',
   },
@@ -79,6 +80,35 @@ const PAGES = {
 };
 
 const rowsOf = (result) => result?.rows ?? (Array.isArray(result) ? result : []);
+
+function EditorHome({ setPage }) {
+  const [data, setData] = useState({ lessons: [], sections: [], areas: [], media: [], exercises: [] });
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    Promise.all([
+      gatewayApi.list('learning', 'aprendizaje_lecciones', 500),
+      gatewayApi.list('learning', 'aprendizaje_secciones_leccion', 500),
+      gatewayApi.list('learning', 'aprendizaje_categorias', 500),
+      gatewayApi.list('learning', 'aprendizaje_medios', 500),
+      gatewayApi.list('practice', 'practica_ejercicios', 500),
+    ]).then(([lessons, sections, areas, media, exercises]) => setData({
+      lessons: rowsOf(lessons), sections: rowsOf(sections), areas: rowsOf(areas), media: rowsOf(media), exercises: rowsOf(exercises),
+    })).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+  const published = data.lessons.filter((item) => item.published).length;
+  const actions = [
+    ['topics', Layers3, 'Editar lecciones', 'Organiza pestañas, textos, videos, actividades y evaluaciones.'],
+    ['areas', Shapes, 'Organizar categorías', 'Ordena las áreas matemáticas que ve cada estudiante.'],
+    ['media', Image, 'Subir imágenes y archivos', 'Administra recursos visuales, documentos y videos.'],
+    ['import', FileUp, 'Trabajar con Excel', 'Descarga un respaldo o carga muchas lecciones a la vez.'],
+  ];
+  return <div className="page-content editor-home">
+    <section className="editor-welcome"><div><span>ESPACIO DE TRABAJO DEL EDITOR</span><h1>Construye experiencias de aprendizaje</h1><p>Elige una tarea. Te guiaremos desde la lección principal hasta cada texto, ejemplo, video o actividad.</p><button className="admin-primary" onClick={() => setPage('topics')}><BookOpen /> Administrar lecciones</button></div><div className="editor-welcome-mark"><Sigma /><strong>{loading ? '…' : data.lessons.length}</strong><small>lecciones registradas</small></div></section>
+    <section className="editor-stat-grid"><article><strong>{published}</strong><span>Lecciones visibles</span></article><article><strong>{data.lessons.length - published}</strong><span>Borradores</span></article><article><strong>{data.sections.length}</strong><span>Bloques de contenido</span></article><article><strong>{data.exercises.length}</strong><span>Ejercicios</span></article></section>
+    <section className="admin-panel editor-guide"><div className="panel-heading"><div><h2>Así se construye el contenido</h2><p>Sigue estos cuatro pasos; no necesitas trabajar directamente con tablas.</p></div></div><div className="editor-flow"><div><b>1</b><strong>Nivel y área</strong><small>Ubica el contenido</small></div><span>→</span><div><b>2</b><strong>Lección</strong><small>Datos generales</small></div><span>→</span><div><b>3</b><strong>Pestañas</strong><small>Ordena secciones</small></div><span>→</span><div><b>4</b><strong>Contenido</strong><small>Textos y actividades</small></div></div></section>
+    <div className="editor-action-grid">{actions.map(([id, Icon, title, description]) => <button key={id} onClick={() => setPage(id)}><span><Icon /></span><strong>{title}</strong><small>{description}</small><b>Comenzar →</b></button>)}</div>
+  </div>;
+}
 
 function Dashboard({ health, setPage }) {
   const [data, setData] = useState({ lessons: [], sections: [], exercises: [], challenges: [], users: [], progress: [], attempts: [] });
@@ -167,5 +197,5 @@ export default function App() {
   const navigation = NAVIGATION.filter((item) => item.roles.includes(user.role));
   const activePage = navigation.some((item) => item.id === page) ? page : navigation[0]?.id;
   const config = PAGES[activePage];
-  return <div className="legacy-admin"><Topbar setOpen={setMenuOpen} onLogout={logout} user={user} /><div className="legacy-layout"><Sidebar navigation={navigation} page={activePage} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} />{menuOpen && <button className="sidebar-overlay" onClick={() => setMenuOpen(false)} />}<main className="legacy-main">{activePage === 'dashboard' && <Dashboard health={health} setPage={setPage} />}{config && <ResourcePage key={activePage} config={config} />}{activePage === 'import' && <ImportPage />}{activePage === 'latex' && <LatexPage />}<AppFooter health={health} /></main></div></div>;
+  return <div className="legacy-admin"><Topbar setOpen={setMenuOpen} onLogout={logout} user={user} /><div className="legacy-layout"><Sidebar navigation={navigation} page={activePage} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} />{menuOpen && <button className="sidebar-overlay" onClick={() => setMenuOpen(false)} />}<main className="legacy-main">{activePage === 'dashboard' && <Dashboard health={health} setPage={setPage} />}{activePage === 'editor-home' && <EditorHome setPage={setPage} />}{config && <ResourcePage key={activePage} config={config} />}{activePage === 'import' && <ImportPage />}{activePage === 'latex' && <LatexPage />}<AppFooter health={health} /></main></div></div>;
 }
