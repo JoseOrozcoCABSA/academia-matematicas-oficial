@@ -6,6 +6,15 @@ import { MathPreview } from '../../components/content/ContentPreview';
 import SectionEditorPage from './SectionEditorPage';
 import { OPTION_LABELS, SELECTS } from '../../config/resourceFields';
 
+/** Normaliza listas directas y respuestas paginadas/anidadas del Gateway. */
+const rowsOf = (result) => {
+  if (Array.isArray(result)) return result;
+  if (!result || typeof result !== 'object') return [];
+  if (Array.isArray(result.rows)) return result.rows;
+  if (Array.isArray(result.items)) return result.items;
+  return result.data && result.data !== result ? rowsOf(result.data) : [];
+};
+
 export default function LessonStructurePage({ lesson, onBack }) {
   const [currentLesson, setCurrentLesson] = useState(lesson);
   const [sections, setSections] = useState([]);
@@ -51,7 +60,9 @@ export default function LessonStructurePage({ lesson, onBack }) {
         media_id: mediaRows,
         hero_media_id: mediaRows,
       });
-    } catch (reason) { setError(reason.message); }
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'No fue posible cargar la estructura de la lección.');
+    }
     finally { setLoading(false); }
   };
 
@@ -176,4 +187,3 @@ export default function LessonStructurePage({ lesson, onBack }) {
     {editor?.kind === 'section' && definitions.section && <FormEditor title={editor.record ? 'Editar sección o sublección' : editor.defaults?.parent_section_id ? 'Nueva sublección' : 'Nueva sección directa'} resource="aprendizaje_secciones_leccion" columns={definitions.section.columns || []} primaryKeys={definitions.section.primaryKeys || ['id']} record={editor.record} defaults={editor.defaults || { lesson_id: currentLesson.id, published: true, sort_order: 0 }} lookups={lookups} onClose={() => setEditor(null)} onSave={saveSection} />}
   </div>;
 }
-
