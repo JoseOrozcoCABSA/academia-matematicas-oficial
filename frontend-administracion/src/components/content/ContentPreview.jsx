@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import renderMathInElement from 'katex/contrib/auto-render';
+import { gatewayApi } from '@/api';
 import { sanitizeContentHtml } from '@/utils/sanitizeContentHtml';
 
 const MATH_OPTIONS = {
@@ -76,4 +77,3 @@ export function MathPreview({ data, file, onHtmlSelect }) {
     </div>
   );
 }
-
