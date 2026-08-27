@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS lesson_sections (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     lesson_id BIGINT UNSIGNED NOT NULL,
     parent_section_id BIGINT UNSIGNED NULL,
-    section_type ENUM('presentation','video','example','activity','evaluation','exam','mini','html','pptx') NOT NULL,
+    section_type ENUM('presentation','video','example','activity','evaluation','exam','mini','html','pptx','document') NOT NULL,
     title VARCHAR(180) NOT NULL,
     body_html MEDIUMTEXT NULL,
     media_id BIGINT UNSIGNED NULL,

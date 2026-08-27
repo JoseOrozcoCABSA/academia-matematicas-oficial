@@ -7,7 +7,7 @@ SeccionLeccion.init({
   "id": { type: DataTypes.BIGINT.UNSIGNED, allowNull: false, primaryKey: true, autoIncrement: true },
   "lesson_id": { type: DataTypes.BIGINT.UNSIGNED, allowNull: false },
   "parent_section_id": { type: DataTypes.BIGINT.UNSIGNED, allowNull: true },
-  "section_type": { type: DataTypes.ENUM("presentation", "video", "example", "activity", "evaluation", "exam", "mini", "html", "pptx"), allowNull: false },
+  "section_type": { type: DataTypes.ENUM("presentation", "video", "example", "activity", "evaluation", "exam", "mini", "html", "pptx", "document"), allowNull: false },
   "title": { type: DataTypes.STRING(180), allowNull: false },
   "body_html": { type: DataTypes.TEXT('medium'), allowNull: true },
   "ai_prompt": { type: DataTypes.TEXT, allowNull: true },

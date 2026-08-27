@@ -339,7 +339,7 @@ CREATE TABLE `lesson_sections` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `lesson_id` bigint unsigned NOT NULL,
   `parent_section_id` bigint unsigned DEFAULT NULL,
-  `section_type` enum('presentation','video','example','activity','evaluation','exam','mini','html','pptx') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `section_type` enum('presentation','video','example','activity','evaluation','exam','mini','html','pptx','document') COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `body_html` mediumtext COLLATE utf8mb4_unicode_ci,
   `ai_prompt` text COLLATE utf8mb4_unicode_ci,

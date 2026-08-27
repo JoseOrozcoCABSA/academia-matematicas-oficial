@@ -31,7 +31,7 @@ export const SELECTS = {
   role: ['student', 'editor', 'admin'],
   page_type: ['topic', 'path'],
   icon_type: ['emoji', 'image', 'svg'],
-  section_type: ['presentation', 'video', 'example', 'activity', 'evaluation', 'exam', 'mini', 'html', 'pptx'],
+  section_type: ['presentation', 'html', 'mini', 'example', 'video', 'pptx', 'document', 'activity', 'evaluation', 'exam'],
   media_type: ['image', 'video', 'document', 'external'],
   upload_context: ['content', 'icon', 'hero', 'gallery', 'general', 'svg', 'wordpress'],
   resource_type: ['pdf', 'link', 'video', 'image', 'download', 'interactive'],
@@ -49,6 +49,7 @@ export const OPTION_LABELS = {
   presentation: 'Presentación / introducción', video: 'Video', example: 'Ejemplo resuelto',
   activity: 'Actividad práctica', evaluation: 'Evaluación corta', exam: 'Examen',
   mini: 'Contenido breve', html: 'Lectura / contenido HTML', pptx: 'Presentación PowerPoint',
+  document: 'Documento / PDF',
 };
 
 export const FIELD_HELP = {
@@ -81,4 +82,3 @@ export const LOOKUP_FIELDS = {
 };
 
 export const label = (key) => LABELS[key] ?? String(key).replace(/^(aprendizaje|practica|identidad|ia)_/, '').replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
-

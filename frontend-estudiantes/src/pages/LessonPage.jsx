@@ -18,7 +18,7 @@ const MATH_OPTIONS = {
 };
 const normalize = (value = '') => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-const sectionLabel = (type) => ({ presentation: 'Presentación', video: 'Video de apoyo', example: 'Ejemplos', activity: 'Actividad', evaluation: 'Evaluación', exam: 'Examen', mini: 'Mini', pptx: 'Presentación', html: 'Contenido' }[type] || 'Contenido');
+const sectionLabel = (type) => ({ presentation: 'Presentación', video: 'Video de apoyo', example: 'Ejemplos', activity: 'Actividad', evaluation: 'Evaluación', exam: 'Examen', mini: 'Contenido breve', pptx: 'Presentación', document: 'Documento / PDF', html: 'Lectura' }[type] || 'Contenido');
 
 function normalizeExercises(payload) {
   const embedded = payload?.exercises;
@@ -158,7 +158,7 @@ function PresentationViewer({ path, title }) {
 function LessonAccordion({ section, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const isPptx = section.section_type === 'pptx';
-  const icon = section.section_type === 'video' ? '▶' : section.section_type === 'example' ? '✎' : isPptx ? 'P' : '▣';
+  const icon = section.section_type === 'video' ? '▶' : section.section_type === 'example' ? '✎' : isPptx ? 'P' : section.section_type === 'document' ? 'PDF' : '▣';
   return <div className={open ? 'content-accordion open' : 'content-accordion'}><button type="button" onClick={() => setOpen(!open)}><span>{icon}</span><strong>{section.title || sectionLabel(section.section_type)}</strong><ChevronDown /></button><div>{open && (isPptx ? <PresentationViewer path={section.body_html} title={section.title || 'Presentación'} /> : <SectionHtml html={section.body_html} />)}</div></div>;
 }
 
@@ -207,7 +207,7 @@ export default function LessonPage({ catalog, dashboard, user, refreshDashboard 
       {!sections.length ? <div className="empty-state"><h2>Contenido en preparación</h2><p>Esta lección aún no contiene secciones visibles.</p></div> : lesson.page_type === 'path' ? <section className="path-view"><h2>Secciones de la ruta</h2>{sections.map((section, index) => <article key={section.id}><span className={`tone-${index % 5 + 1}`}>{index + 1}</span><div><strong>{section.title}</strong><small>{sectionLabel(section.section_type)} · {section.duration_minutes || 0} min</small>{!['activity', 'evaluation'].includes(section.section_type) && <SectionHtml html={section.body_html} />}{section.ai_exercises_enabled && <ExerciseBlock section={section} lesson={lesson} user={user} onComplete={saveCompletion} />}</div><button className={completed.has(Number(section.id)) ? 'completed' : ''} onClick={() => saveCompletion(section.id)}>{completed.has(Number(section.id)) ? 'Completada' : 'Completar'}</button></article>)}</section> : <>
         <nav className="lesson-tabs">{tabs.map((tab) => <button className={tab.id === activeTab ? 'active' : ''} onClick={() => setActiveTab(tab.id)} key={tab.id}>{tab.title}</button>)}</nav>
         <div className="tab-pane active">
-          {active?.type === 'lesson' && <>{active.parent?.body_html && <article className="topic-content-card"><SectionHtml html={active.parent.body_html} /></article>}{active.children.map((section, index) => ['video', 'example', 'pptx'].includes(section.section_type) ? <LessonAccordion section={section} defaultOpen={section.section_type === 'video' && index === 0} key={section.id} /> : <article className="topic-content-card" key={section.id}><h2>{section.title}</h2><SectionHtml html={section.body_html} /></article>)}</>}
+          {active?.type === 'lesson' && <>{active.parent?.body_html && <article className="topic-content-card"><SectionHtml html={active.parent.body_html} /></article>}{active.children.map((section, index) => ['video', 'example', 'pptx', 'document'].includes(section.section_type) ? <LessonAccordion section={section} defaultOpen={section.section_type === 'video' && index === 0} key={section.id} /> : <article className="topic-content-card" key={section.id}><h2>{section.title}</h2><SectionHtml html={section.body_html} /></article>)}</>}
           {['activity', 'evaluation', 'exam'].includes(active?.type) && (active.sections ?? []).map((section) => <article className="interactive-section" key={section.id}><header><span>{sectionLabel(section.section_type)}</span>{section.duration_minutes > 0 && <small><Clock3 /> {section.duration_minutes} min</small>}</header><h2>{section.title}</h2><SectionHtml html={section.body_html} />{section.ai_exercises_enabled && <ExerciseBlock section={section} lesson={lesson} user={user} onComplete={saveCompletion} />}<button className={completed.has(Number(section.id)) ? 'complete-section completed' : 'complete-section'} onClick={() => saveCompletion(section.id)}><Check /> {completed.has(Number(section.id)) ? 'Completada' : section.section_type === 'evaluation' ? 'Finalizar evaluación' : 'Marcar como completada'}</button></article>)}
         </div>
       </>}
@@ -216,5 +216,4 @@ export default function LessonPage({ catalog, dashboard, user, refreshDashboard 
     <aside className="lesson-rail"><section className="rail-card lesson-progress-status"><h3>Mi progreso</h3>{progress > 0 ? <strong className={progress >= 70 ? 'approved' : 'not-approved'}>{progress >= 70 ? '✓ Aprobado' : '✕ No aprobado'}</strong> : <p>Completa la evaluación para ver tu resultado.</p>}</section><section className="rail-card lesson-information"><h3>Información</h3><p><Target /><span><small>Dificultad</small><b>{lesson.difficulty}</b></span></p><p><Clock3 /><span><small>Duración</small><b>{lesson.duration_minutes || 0} min</b></span></p><p><Calculator /><span><small>Categoría</small><b>{category?.name || 'Matemáticas'}</b></span></p><p><BookOpen /><span><small>Secciones</small><b>{tabs.length}</b></span></p></section><section className="rail-card tutor-help"><Bot /><h3>¿Tienes dudas?</h3><p>El Tutor IA te explica paso a paso.</p><Link to="/tutor">Preguntar al tutor</Link></section></aside>
   </div>;
 }
-
 
