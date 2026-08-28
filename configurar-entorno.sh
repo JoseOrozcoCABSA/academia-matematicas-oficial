@@ -95,6 +95,16 @@ if [[ "${dns_active}" == true ]]; then
     api_url="${portal_url}"
     set_env TRUST_PROXY_HOPS 1
   fi
+  # Mantiene operativos tanto los dominios como el acceso directo por IP.
+  # Es útil en Google Cloud durante propagación DNS o tareas de administración.
+  configured_ip="${SERVER_IP:-$(read_env SERVER_IP)}"
+  if [[ "${configured_ip}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+    ip_portal_url="http://${configured_ip}:$(read_env STUDENT_DOCKER_PORT)"
+    ip_admin_url="http://${configured_ip}:$(read_env ADMIN_DOCKER_PORT)"
+    cors_origins="${portal_url},${admin_url},${ip_portal_url},${ip_admin_url}"
+  else
+    cors_origins="${portal_url},${admin_url}"
+  fi
   public_host="${portal_host}"
   echo "OK: modo DNS activo: estudiantes=${portal_host}, administracion=${admin_host}; API disponible como /api en ambos sitios."
 else
@@ -118,7 +128,7 @@ set_env PUBLIC_HOST "${public_host}"
 set_env API_PUBLIC_URL "/"
 set_env PORTAL_PUBLIC_URL "${portal_url}"
 set_env ADMIN_PUBLIC_URL "${admin_url}"
-set_env CORS_ORIGINS "${portal_url},${admin_url}"
+set_env CORS_ORIGINS "${cors_origins:-${portal_url},${admin_url}}"
 # Los frontends consumen /api en su mismo origen; Nginx reenvía internamente.
 set_env VITE_STUDENT_API_URL ""
 set_env VITE_ADMIN_API_URL ""
