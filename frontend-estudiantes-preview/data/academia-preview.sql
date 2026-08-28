@@ -10,6 +10,7 @@ INSERT INTO "aprendizaje_categorias" VALUES(13,'Preálgebra','curriculo-prealgeb
 INSERT INTO "aprendizaje_categorias" VALUES(14,'Ubicación espacial','curriculo-ubicacion-espacial','Rama curricular importada desde la estructura de matematicas de Google Cloud.','primaria','#','purple',17,1,'2026-08-26T22:23:04.000Z','2026-08-26T22:23:04.000Z');
 INSERT INTO "aprendizaje_categorias" VALUES(15,'Ubicación espacial y coordenadas','curriculo-ubicacion-espacial-y-coordenadas','Rama curricular importada desde la estructura de matematicas de Google Cloud.','primaria','#','blue',18,1,'2026-08-26T22:23:04.000Z','2026-08-26T22:23:04.000Z');
 INSERT INTO "aprendizaje_categorias" VALUES(26,'Álgebra','algebra-secundaria1','','secundaria','≥','blue',0,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:19:36.000Z');
+INSERT INTO "aprendizaje_categorias" VALUES(29,'Grado histórico recuperado','grado-historico-recuperado','Lecciones recuperadas del respaldo académico completo. Conserva el contenido histórico sin reemplazar las ediciones vigentes.','primaria','📚','amber',90,1,'2026-08-28T00:48:49.000Z','2026-08-28T00:48:49.000Z');
 CREATE TABLE "aprendizaje_configuracion_sitio" ("setting_key", "setting_value", "updated_at");
 CREATE TABLE "aprendizaje_lecciones" ("id", "category_id", "title", "slug", "summary", "page_type", "icon", "icon_type", "icon_file", "hero_expression", "hero_media_id", "difficulty", "duration_minutes", "sort_order", "published", "created_at", "updated_at");
 INSERT INTO "aprendizaje_lecciones" VALUES(8,7,'P1 - Conteo','ari-p1-001','Clave curricular: ari-p1-001. Grado: P1. Rama: Aritmética. Area: Numeración. Subtemas: 1 AL 7.','topic','#','emoji',NULL,NULL,NULL,'Basica',30,1,1,'2026-08-26T22:23:04.000Z','2026-08-26T22:23:04.000Z');
@@ -158,15 +159,25 @@ INSERT INTO "aprendizaje_lecciones" VALUES(150,12,'P6 - Probabilidad teórica y 
 INSERT INTO "aprendizaje_lecciones" VALUES(294,7,'Suma de números naturales','suma-numeros-naturales','Grado: P1. Area: Suma. Aprende a sumar números naturales y a resolver situaciones de la vida cotidiana usando la adición.','topic','+','emoji','','24 + 13 = 37',NULL,'Básica',35,1,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
 INSERT INTO "aprendizaje_lecciones" VALUES(295,7,'Suma de fracciones','suma-fracciones','Grado: P4. Area: Fracciones. Aprende a sumar fracciones con el mismo o distinto denominador mediante ejercicios paso a paso.','topic','½','emoji',NULL,'1/2 + 1/3 = ?',NULL,'Básica',60,2,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
 INSERT INTO "aprendizaje_lecciones" VALUES(296,26,'Ecuaciones lineales de una variable','ecuaciones-lineales-s1','Grado: S1. Area: Ecuaciones. En este tema aprenderás a resolver ecuaciones lineales de una variable en la forma \(ax + b = c\). El objetivo es identificar los números que acompañan a la variable, usar operaciones contrarias para despejar la \(x\) y comprobar que el resultado sea correcto. También se trabajará la idea de mantener el equilibrio en ambos lados de la ecuación. \(\)','topic','+','emoji','','',NULL,'Basica',30,10,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(300,29,'Suma de números naturales — respaldo histórico','suma-numeros-naturales-respaldo-historico','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.','topic','+','emoji','','24 + 13 = 37',NULL,'Básica',35,1001,1,'2026-06-24T07:02:12.000Z','2026-08-18T05:01:55.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(301,29,'Suma de fracciones — respaldo histórico','suma-fracciones-respaldo-historico','Aprende a sumar fracciones con el mismo o distinto denominador mediante ejercicios paso a paso.','topic','½','emoji',NULL,'1/2 + 1/3 = ?',NULL,'Básica',60,1002,1,'2026-06-24T07:02:12.000Z','2026-06-24T07:41:11.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(302,29,'Ecuaciones lineales de una variable — respaldo histórico','ecuaciones-lineales-s1-respaldo-historico','En este tema aprenderás a resolver ecuaciones lineales de una variable en la forma \(ax + b = c\). El objetivo es identificar los números que acompañan a la variable, usar operaciones contrarias para despejar la \(x\) y comprobar que el resultado sea correcto. También se trabajará la idea de mantener el equilibrio en ambos lados de la ecuación. \(\)','topic','+','emoji','','',NULL,'Basica',30,1010,1,'2026-06-25T23:38:57.000Z','2026-07-01T05:42:28.000Z');
 CREATE TABLE "aprendizaje_medios" ("id", "title", "media_type", "file_path", "thumbnail_path", "external_url", "alt_text", "upload_context", "wp_attachment_id", "width", "height", "file_size", "created_at");
 INSERT INTO "aprendizaje_medios" VALUES(6,'Presentación: suma de números naturales','document','/api/learning/uploads/cabsa-suma-numeros-naturales.pptx',NULL,NULL,'Presentación didáctica sobre la suma de números naturales','content',NULL,NULL,NULL,107794,'2026-08-01T07:15:29.000Z');
 INSERT INTO "aprendizaje_medios" VALUES(7,'Presentación: ecuaciones lineales','document','/api/learning/uploads/cabsa-ecuaciones-lineales.pptx',NULL,NULL,'Presentación didáctica sobre ecuaciones lineales','content',NULL,NULL,NULL,109410,'2026-08-01T07:15:29.000Z');
+INSERT INTO "aprendizaje_medios" VALUES(8,'Ecuaciones lineales de una variable png (respaldo histórico)','image','uploads/heroes/20260624163312-c9645714.png','uploads/heroes/thumbs/20260624163312-c9645714.jpg',NULL,'','hero',NULL,1672,941,1246371,'2026-06-25T00:33:12.000Z');
+INSERT INTO "aprendizaje_medios" VALUES(9,'Presentacion (respaldo histórico)','document','uploads/content/20260624205628-21a4caf9.pptx',NULL,NULL,'','content',NULL,NULL,NULL,12006602,'2026-06-25T04:56:28.000Z');
+INSERT INTO "aprendizaje_medios" VALUES(10,'aaa (respaldo histórico)','image','uploads/gallery/20260625180453-36aac781.png','uploads/gallery/thumbs/20260625180453-36aac781.jpg',NULL,'','gallery',NULL,1672,941,1356723,'2026-06-26T02:04:53.000Z');
+INSERT INTO "aprendizaje_medios" VALUES(11,'ChatGPT Image 24 jun 2026, 09_07_40 a.m. (respaldo histórico)','image','uploads/content/20260625181824-c7c2a291.png','uploads/content/thumbs/20260625181824-c7c2a291.jpg',NULL,'','content',NULL,1672,941,1246371,'2026-06-26T02:18:24.000Z');
 CREATE TABLE "aprendizaje_medios_leccion" ("lesson_id", "media_id", "placement", "sort_order");
+INSERT INTO "aprendizaje_medios_leccion" VALUES(302,10,'content',1);
+INSERT INTO "aprendizaje_medios_leccion" VALUES(302,11,'section_38',0);
 CREATE TABLE "aprendizaje_niveles_educativos" ("slug", "name", "description", "icon", "color", "sort_order", "active", "created_at", "updated_at");
 INSERT INTO "aprendizaje_niveles_educativos" VALUES('preparatoria','Preparatoria','Aprendizajes de primero a tercer grado de preparatoria.','🎓','green',30,1,'2026-08-26T22:29:35.000Z','2026-08-26T22:29:35.000Z');
 INSERT INTO "aprendizaje_niveles_educativos" VALUES('primaria','Primaria','Aprendizajes de primero a sexto grado de primaria.','🎒','purple',10,1,'2026-08-26T22:29:35.000Z','2026-08-26T22:29:35.000Z');
 INSERT INTO "aprendizaje_niveles_educativos" VALUES('secundaria','Secundaria','Aprendizajes de primero a tercer grado de secundaria.','📐','blue',20,1,'2026-08-26T22:29:35.000Z','2026-08-26T22:29:35.000Z');
 CREATE TABLE "aprendizaje_recursos" ("id", "lesson_id", "title", "description", "resource_type", "url", "sort_order", "published", "created_at");
+INSERT INTO "aprendizaje_recursos" VALUES(2,302,'La Balanza de las Ecuaciones','Resuelve ecuaciones de primer grado equilibrando cajas y manzanas.','interactive','http://192.168.0.6:8003/?embed=1',1,0,'2026-06-27T06:26:11.000Z');
 CREATE TABLE "aprendizaje_secciones_leccion" ("id", "lesson_id", "parent_section_id", "section_type", "title", "body_html", "ai_prompt", "ai_exercises_enabled", "ai_exercise_type", "ai_difficulty", "ai_exercise_count", "media_id", "duration_minutes", "sort_order", "published", "created_at", "updated_at");
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(355,8,659,'html','Leccion escrita','<!-- etl-google-cloud-matematicas:created:2:5 -->
 <!DOCTYPE html>
@@ -17862,10 +17873,4115 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1311,125,NULL,'evaluation','E
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1312,144,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1313,145,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1314,296,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1424,300,NULL,'presentation','Aprendemos a contar','
+<head>
+  
+  
+
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 25px 15px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #FFFBEA;
+      color: #37474F;
+      line-height: 1.7;
+    }
+
+    .lesson {
+      max-width: 1000px;
+      margin: auto;
+      background: #FFFFFF;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ENCABEZADO */
+
+    .header {
+      background: linear-gradient(135deg, #FFF1A8, #F6D76B);
+      padding: 45px 35px;
+      text-align: center;
+    }
+
+    .code {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.65);
+      padding: 7px 17px;
+      border-radius: 30px;
+      margin-bottom: 15px;
+      color: #725A10;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .header h1 {
+      margin: 0 0 12px;
+      color: #5F4B0E;
+      font-size: 38px;
+    }
+
+    .header p {
+      max-width: 720px;
+      margin: auto;
+      color: #6B5819;
+      font-size: 18px;
+    }
+
+    /* CONTENIDO */
+
+    .content {
+      padding: 40px 45px 55px;
+    }
+
+    .description {
+      background: #FFF8D6;
+      border-left: 6px solid #F2C94C;
+      border-radius: 15px;
+      padding: 23px 25px;
+      margin-bottom: 30px;
+    }
+
+    .description h2 {
+      margin-top: 0;
+      color: #806619;
+    }
+
+    .objective {
+      background: #FFFDF0;
+      border: 2px solid #F5DF8B;
+      border-radius: 16px;
+      padding: 22px 25px;
+      margin-bottom: 40px;
+    }
+
+    .objective h2 {
+      margin-top: 0;
+      color: #806619;
+    }
+
+    .section {
+      margin: 45px 0;
+    }
+
+    .section h2 {
+      color: #7A6117;
+      font-size: 27px;
+      margin-bottom: 12px;
+      border-bottom: 3px solid #F8E49C;
+      padding-bottom: 8px;
+    }
+
+    .section h3 {
+      color: #6A581D;
+      margin-top: 25px;
+    }
+
+    /* TARJETAS */
+
+    .example,
+    .practice,
+    .important {
+      border-radius: 16px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+
+    .example {
+      background: #FFF9E6;
+      border: 2px solid #F4DA80;
+    }
+
+    .practice {
+      background: #FFF6C7;
+      border: 2px solid #E9CF71;
+    }
+
+    .important {
+      background: #FFF1A8;
+      border-left: 6px solid #D9AE2B;
+    }
+
+    /* NÚMEROS */
+
+    .number-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .number-box {
+      width: 55px;
+      height: 55px;
+      background: #F2C94C;
+      color: #59470F;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .arrow {
+      color: #A88B2A;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* OBJETOS */
+
+    .objects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .object {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #F2C94C;
+      border: 3px solid #D6AD2F;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #59470F;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .object.light {
+      background: #FFEBA0;
+    }
+
+    .object.orange {
+      background: #FFD28A;
+      border-color: #F0B85E;
+    }
+
+    /* CANTIDADES */
+
+    .quantity-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .quantity-card {
+      background: #FFFBEA;
+      border: 2px solid #F0D87D;
+      border-radius: 16px;
+      padding: 18px 8px;
+      text-align: center;
+    }
+
+    .quantity-number {
+      font-size: 22px;
+      font-weight: bold;
+      color: #725A10;
+      margin-bottom: 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      background: #F2C94C;
+      border-radius: 50%;
+      margin: 3px;
+    }
+
+    /* RETOS */
+
+    .challenge {
+      background: #FFF7D1;
+      border: 2px solid #EBCF68;
+      border-radius: 20px;
+      padding: 28px;
+      margin-top: 45px;
+    }
+
+    .challenge h2 {
+      color: #725A10;
+      margin-top: 0;
+    }
+
+    .question {
+      background: #FFFFFF;
+      border: 1px solid #EEDC9A;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+
+    .answer {
+      background: #FFF4BD;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #675312;
+    }
+
+    /* RESUMEN */
+
+    .summary {
+      background: #F2C94C;
+      color: #4D3E0D;
+      border-radius: 20px;
+      padding: 30px;
+      margin-top: 45px;
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      color: #4D3E0D;
+    }
+
+    .summary li {
+      margin-bottom: 10px;
+    }
+
+    .closing {
+      text-align: center;
+      margin-top: 35px;
+      font-size: 21px;
+      font-weight: bold;
+      color: #806619;
+    }
+
+    @media (max-width: 750px) {
+      .content {
+        padding: 28px 20px 45px;
+      }
+
+      .header {
+        padding: 35px 20px;
+      }
+
+      .header h1 {
+        font-size: 31px;
+      }
+
+      .quantity-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+
+
+</head><body>
+
+<div class="lesson">
+
+  <!-- ENCABEZADO -->
+  <header class="header">
+
+    <div class="code">
+      Ari-P1-001 · Primer grado de primaria
+    </div>
+
+    <h1>Aprendemos a contar</h1>
+
+    <p>
+      Aprende a seguir los números, contar objetos correctamente
+      y reconocer cantidades pequeñas.
+    </p>
+
+  </header>
+
+
+  <main class="content">
+
+    <!-- DESCRIPCIÓN -->
+    <section class="description">
+
+      <h2>Descripción del contenido</h2>
+
+      <p>
+        En esta lección aprenderás a contar desde el número \(1\),
+        realizar conteos ascendentes y descendentes sencillos,
+        contar objetos de manera ordenada y relacionar cada objeto
+        con un número.
+      </p>
+
+      <p>
+        También aprenderás a evitar repetir u omitir elementos
+        durante el conteo y a reconocer cantidades pequeñas de
+        manera visual.
+      </p>
+
+    </section>
+
+
+    <!-- OBJETIVO -->
+    <section class="objective">
+
+      <h2>¿Qué aprenderás?</h2>
+
+      <p>
+        Al terminar esta lección podrás contar números y objetos
+        correctamente, reconocer el orden de los números y utilizar
+        estrategias sencillas para saber cuántos elementos hay en
+        una colección.
+      </p>
+
+    </section>
+
+
+    <!-- INTRODUCCIÓN -->
+    <section class="section">
+
+      <h2>¿Qué significa contar?</h2>
+
+      <p>
+        Contar nos permite saber <strong>cuántos elementos hay</strong>.
+        Podemos contar juguetes, frutas, lápices, animales y muchas
+        otras cosas que encontramos todos los días.
+      </p>
+
+      <div class="example">
+
+        <strong>Ejemplo</strong>
+
+        <p>Observa estos objetos:</p>
+
+        <div class="objects">
+          <div class="object"></div>
+          <div class="object"></div>
+          <div class="object"></div>
+        </div>
+
+        <p>
+          Los contamos uno por uno:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3\)
+        </p>
+
+        <p>
+          Entonces sabemos que hay <strong>\(3\) objetos</strong>.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 1 -->
+    <section class="section">
+
+      <h2>1. Conteo oral desde \(1\)</h2>
+
+      <p>
+        Para comenzar a contar decimos los números siguiendo un orden.
+        Podemos comenzar desde el número \(1\).
+      </p>
+
+      <div class="number-row">
+
+        <div class="number-box">\(1\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(2\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(3\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(4\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(5\)</div>
+
+      </div>
+
+      <p>
+        Después podemos continuar:
+      </p>
+
+      <div class="number-row">
+
+        <div class="number-box">\(6\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(7\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(8\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(9\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(10\)</div>
+
+      </div>
+
+      <div class="practice">
+
+        <strong>Practica</strong>
+
+        <p>
+          Lee en voz alta:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9,\ 10\)
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 2 -->
+    <section class="section">
+
+      <h2>2. Conteo ascendente</h2>
+
+      <p>
+        Cuando contamos avanzando hacia números mayores realizamos
+        un <strong>conteo ascendente</strong>.
+      </p>
+
+      <p>
+        Es parecido a subir una escalera: avanzamos un número
+        a la vez.
+      </p>
+
+      <div class="number-row">
+
+        <div class="number-box">\(1\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(2\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(3\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(4\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(5\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(6\)</div>
+
+      </div>
+
+      <div class="important">
+
+        <strong>Observa:</strong>
+
+        <p>Después de \(2\) viene \(3\).</p>
+        <p>Después de \(3\) viene \(4\).</p>
+        <p>Después de \(4\) viene \(5\).</p>
+
+      </div>
+
+      <div class="practice">
+
+        <strong>Completa:</strong>
+
+        <p>
+          \(1,\ 2,\ 3,\ \_\_,\ 5\)
+        </p>
+
+        <p>
+          El número que falta es <strong>\(4\)</strong>.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 3 -->
+    <section class="section">
+
+      <h2>3. Conteo descendente sencillo</h2>
+
+      <p>
+        También podemos contar hacia atrás.
+      </p>
+
+      <p>
+        Cuando comenzamos con un número y avanzamos hacia números
+        menores hacemos un <strong>conteo descendente</strong>.
+      </p>
+
+      <div class="number-row">
+
+        <div class="number-box">\(5\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(4\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(3\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(2\)</div>
+        <span class="arrow">→</span>
+
+        <div class="number-box">\(1\)</div>
+
+      </div>
+
+      <div class="example">
+
+        <strong>Imagina un cohete preparado para despegar:</strong>
+
+        <p>
+          \(5,\ 4,\ 3,\ 2,\ 1\)
+        </p>
+
+        <p>
+          ¡Despegue!
+        </p>
+
+      </div>
+
+      <div class="practice">
+
+        <strong>Completa:</strong>
+
+        <p>
+          \(6,\ 5,\ 4,\ \_\_,\ 2,\ 1\)
+        </p>
+
+        <p>
+          El número que falta es <strong>\(3\)</strong>.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 4 -->
+    <section class="section">
+
+      <h2>4. Conteo de objetos</h2>
+
+      <p>
+        Podemos utilizar el conteo para descubrir cuántos objetos
+        hay en una colección.
+      </p>
+
+      <p>
+        Para hacerlo debemos contarlos
+        <strong>uno por uno</strong>.
+      </p>
+
+      <div class="example">
+
+        <strong>Vamos a contar:</strong>
+
+        <div class="objects">
+
+          <div class="object orange">\(1\)</div>
+          <div class="object orange">\(2\)</div>
+          <div class="object orange">\(3\)</div>
+          <div class="object orange">\(4\)</div>
+          <div class="object orange">\(5\)</div>
+
+        </div>
+
+        <p>
+          Contamos:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4,\ 5\)
+        </p>
+
+        <p>
+          La colección tiene <strong>\(5\) objetos</strong>.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 5 -->
+    <section class="section">
+
+      <h2>5. Correspondencia uno a uno</h2>
+
+      <p>
+        Cuando contamos correctamente debemos relacionar
+        <strong>cada objeto con un número</strong>.
+      </p>
+
+      <div class="example">
+
+        <div class="objects">
+
+          <div class="object light">\(1\)</div>
+          <div class="object light">\(2\)</div>
+          <div class="object light">\(3\)</div>
+          <div class="object light">\(4\)</div>
+
+        </div>
+
+        <p>
+          Primer objeto → \(1\)
+        </p>
+
+        <p>
+          Segundo objeto → \(2\)
+        </p>
+
+        <p>
+          Tercer objeto → \(3\)
+        </p>
+
+        <p>
+          Cuarto objeto → \(4\)
+        </p>
+
+      </div>
+
+      <div class="important">
+
+        <strong>Regla importante</strong>
+
+        <p>
+          Cada objeto debe contarse una sola vez.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 6 -->
+    <section class="section">
+
+      <h2>6. Contamos sin repetir ni omitir</h2>
+
+      <p>
+        Cuando contamos podemos cometer errores si repetimos un objeto
+        o si dejamos alguno sin contar.
+      </p>
+
+
+      <h3>No repetir</h3>
+
+      <p>
+        Repetir significa contar el mismo objeto dos veces.
+      </p>
+
+      <div class="example">
+
+        <div class="objects">
+          <div class="object"></div>
+          <div class="object"></div>
+          <div class="object"></div>
+          <div class="object"></div>
+        </div>
+
+        <p>
+          El conteo correcto es:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4\)
+        </p>
+
+        <p>
+          Hay \(4\) objetos.
+        </p>
+
+      </div>
+
+
+      <h3>No omitir</h3>
+
+      <p>
+        Omitir significa dejar un objeto sin contar.
+      </p>
+
+      <div class="example">
+
+        <div class="objects">
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+        </div>
+
+        <p>
+          Debemos contar:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4,\ 5\)
+        </p>
+
+        <p>
+          La cantidad correcta es \(5\).
+        </p>
+
+      </div>
+
+
+      <div class="important">
+
+        <strong>¿Cómo podemos evitar errores?</strong>
+
+        <ul>
+          <li>Señala cada objeto mientras cuentas.</li>
+          <li>Comienza por un extremo.</li>
+          <li>Cuenta cada objeto una sola vez.</li>
+          <li>Revisa que ninguno haya quedado sin contar.</li>
+        </ul>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBTEMA 7 -->
+    <section class="section">
+
+      <h2>7. Reconocimiento de cantidades pequeñas</h2>
+
+      <p>
+        Con la práctica podemos reconocer cantidades pequeñas
+        con mayor rapidez.
+      </p>
+
+      <p>
+        Observa:
+      </p>
+
+      <div class="quantity-grid">
+
+        <div class="quantity-card">
+
+          <div class="quantity-number">\(1\)</div>
+
+          <span class="dot"></span>
+
+        </div>
+
+
+        <div class="quantity-card">
+
+          <div class="quantity-number">\(2\)</div>
+
+          <span class="dot"></span>
+          <span class="dot"></span>
+
+        </div>
+
+
+        <div class="quantity-card">
+
+          <div class="quantity-number">\(3\)</div>
+
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+
+        </div>
+
+
+        <div class="quantity-card">
+
+          <div class="quantity-number">\(4\)</div>
+
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+
+        </div>
+
+
+        <div class="quantity-card">
+
+          <div class="quantity-number">\(5\)</div>
+
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+
+        </div>
+
+      </div>
+
+      <p>
+        Al principio puedes contar cada punto uno por uno.
+        Después de practicar podrás reconocer algunas cantidades
+        pequeñas con mayor facilidad.
+      </p>
+
+    </section>
+
+
+    <!-- RETOS -->
+    <section class="challenge">
+
+      <h2>Practiquemos lo aprendido</h2>
+
+
+      <div class="question">
+
+        <h3>Reto 1. Continúa contando</h3>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4,\ \_\_\)
+        </p>
+
+        <div class="answer">
+          Respuesta: \(5\)
+        </div>
+
+      </div>
+
+
+      <div class="question">
+
+        <h3>Reto 2. Cuenta hacia atrás</h3>
+
+        <p>
+          \(5,\ 4,\ 3,\ \_\_,\ 1\)
+        </p>
+
+        <div class="answer">
+          Respuesta: \(2\)
+        </div>
+
+      </div>
+
+
+      <div class="question">
+
+        <h3>Reto 3. Cuenta los objetos</h3>
+
+        <div class="objects">
+          <div class="object"></div>
+          <div class="object"></div>
+          <div class="object"></div>
+          <div class="object"></div>
+        </div>
+
+        <p>
+          ¿Cuántos objetos hay?
+        </p>
+
+        <div class="answer">
+          Respuesta: \(4\)
+        </div>
+
+      </div>
+
+
+      <div class="question">
+
+        <h3>Reto 4. Detecta el error</h3>
+
+        <p>
+          Observa esta colección:
+        </p>
+
+        <div class="objects">
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+          <div class="object orange"></div>
+        </div>
+
+        <p>
+          Un alumno contó:
+        </p>
+
+        <p>
+          \(1,\ 2,\ 3,\ 4\)
+        </p>
+
+        <p>
+          ¿Qué ocurrió?
+        </p>
+
+        <div class="answer">
+          Se omitió un objeto. La cantidad correcta es \(5\).
+        </div>
+
+      </div>
+
+
+      <div class="question">
+
+        <h3>Reto 5. Reconoce la cantidad</h3>
+
+        <div class="objects">
+          <div class="object light"></div>
+          <div class="object light"></div>
+          <div class="object light"></div>
+        </div>
+
+        <p>
+          ¿Qué cantidad observas?
+        </p>
+
+        <div class="answer">
+          Respuesta: \(3\)
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESUMEN -->
+    <section class="summary">
+
+      <h2>Recuerda</h2>
+
+      <ul>
+
+        <li>
+          Podemos comenzar a contar desde \(1\).
+        </li>
+
+        <li>
+          El conteo ascendente avanza:
+          \(1,\ 2,\ 3,\ 4,\ 5\).
+        </li>
+
+        <li>
+          El conteo descendente va hacia atrás:
+          \(5,\ 4,\ 3,\ 2,\ 1\).
+        </li>
+
+        <li>
+          Contar nos permite saber cuántos objetos hay.
+        </li>
+
+        <li>
+          Cada objeto debe relacionarse con un número.
+        </li>
+
+        <li>
+          No debemos repetir objetos ni dejar elementos sin contar.
+        </li>
+
+        <li>
+          Con la práctica podemos reconocer cantidades pequeñas
+          cada vez más rápido.
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <div class="closing">
+      ¡Excelente! Ya sabes cómo contar de manera ordenada.
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+',NULL,0,'generic','Básica',10,NULL,8,10,1,'2026-06-24T07:02:14.000Z','2026-08-18T06:51:42.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1425,300,NULL,'example','Ejemplos resueltos','<section style="max-width: 950px; margin: 0 auto; padding: 24px; font-family: Arial, sans-serif; line-height: 1.7; color: #263238;">
+
+  <div style="background: linear-gradient(135deg, #42a5f5, #7e57c2); padding: 28px; border-radius: 22px; text-align: center; color: white; box-shadow: 0 6px 16px rgba(0,0,0,0.18);">
+    <h1 style="margin: 0; font-size: 34px;">Ejemplos resueltos</h1>
+    <p style="font-size: 19px; margin-top: 10px;">
+      Suma de números naturales paso a paso
+    </p>
+  </div>
+
+  <!-- EJEMPLO 1 -->
+  <div style="background: #fff8e1; padding: 22px; border-radius: 18px; margin-top: 25px; border-left: 8px solid #ffb300;">
+    <h2 style="color: #ef6c00;">Ejemplo 1: Carritos</h2>
+
+    <p>
+      <strong>Contexto:</strong> Mateo tiene <strong>4 carritos</strong> y su abuela le regala
+      <strong>3 carritos más</strong>.
+    </p>
+
+    <p>
+      Para saber cuántos carritos tiene en total, debemos <strong>juntar</strong> las dos cantidades.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 16px; margin: 18px 0; text-align: center;">
+      <p style="font-size: 24px; margin: 0;">
+        Operación:
+      </p>
+      <p style="font-size: 34px; margin: 8px 0; color: #ef6c00;">
+        <strong>\(4 + 3 = 7\)</strong>
+      </p>
+    </div>
+
+    <div style="background: #fff3cd; padding: 18px; border-radius: 16px;">
+      <h3 style="color: #ef6c00; margin-top: 0;">Procedimiento explicado</h3>
+
+      <p>
+        Primero tenemos <strong>4 carritos</strong>.
+      </p>
+
+      <p>
+        Después agregamos <strong>3 carritos más</strong>.
+      </p>
+
+      <p>
+        Al contar todos juntos:
+      </p>
+
+      <p style="font-size: 26px; text-align: center;">
+        \(4 + 3 = 7\)
+      </p>
+    </div>
+
+    <p>
+      <strong>Resultado:</strong> Mateo tiene <strong>7 carritos en total</strong>.
+    </p>
+  </div>
+
+  <!-- EJEMPLO 2 -->
+  <div style="background: #e3f2fd; padding: 22px; border-radius: 18px; margin-top: 25px; border-left: 8px solid #42a5f5;">
+    <h2 style="color: #1565c0;">Ejemplo 2: Lápices</h2>
+
+    <p>
+      <strong>Contexto:</strong> En una caja hay <strong>12 lápices</strong> y la maestra coloca
+      <strong>6 lápices más</strong>.
+    </p>
+
+    <p>
+      Como se agregan más lápices, usamos una suma.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 16px; margin: 18px 0; text-align: center;">
+      <p style="font-size: 24px; margin: 0;">
+        Operación:
+      </p>
+      <p style="font-size: 34px; margin: 8px 0; color: #1565c0;">
+        <strong>\(12 + 6 = 18\)</strong>
+      </p>
+    </div>
+
+    <div style="background: #bbdefb; padding: 18px; border-radius: 16px;">
+      <h3 style="color: #1565c0; margin-top: 0;">Procedimiento explicado</h3>
+
+      <p>
+        Primero ordenamos la suma. El número <strong>12</strong> tiene una decena y dos unidades.
+      </p>
+
+      <div style="font-size: 30px; text-align: center; line-height: 1.4; background: white; padding: 15px; border-radius: 12px;">
+        \[
+        \begin{array}{r}
+        \hspace{0.8em}12\hspace{0.8em}\\
+        +\hspace{0.8em}6\hspace{0.8em}\\
+        \hline
+        \hspace{0.8em}18\hspace{0.8em}
+        \end{array}
+        \]
+      </div>
+
+      <p>
+        Primero sumamos las unidades:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(2 + 6 = 8\)
+      </p>
+
+      <p>
+        Después bajamos la decena del número <strong>12</strong>, que es <strong>1</strong>.
+      </p>
+
+      <p>
+        Por eso, el resultado es:
+      </p>
+
+      <p style="font-size: 26px; text-align: center;">
+        \(12 + 6 = 18\)
+      </p>
+    </div>
+
+    <p>
+      <strong>Resultado:</strong> Ahora hay <strong>18 lápices en la caja</strong>.
+    </p>
+  </div>
+
+  <!-- EJEMPLO 3 -->
+  <div style="background: #e8f5e9; padding: 22px; border-radius: 18px; margin-top: 25px; border-left: 8px solid #66bb6a;">
+    <h2 style="color: #2e7d32;">Ejemplo 3: Libros</h2>
+
+    <p>
+      <strong>Contexto:</strong> En un estante hay <strong>25 libros de cuentos</strong> y
+      <strong>14 libros de ciencias</strong>.
+    </p>
+
+    <p>
+      Para saber cuántos libros hay en total, sumamos las dos cantidades.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 16px; margin: 18px 0; text-align: center;">
+      <p style="font-size: 24px; margin: 0;">
+        Operación:
+      </p>
+      <p style="font-size: 34px; margin: 8px 0; color: #2e7d32;">
+        <strong>\(25 + 14 = 39\)</strong>
+      </p>
+    </div>
+
+    <div style="background: #c8e6c9; padding: 18px; border-radius: 16px;">
+      <h3 style="color: #2e7d32; margin-top: 0;">Procedimiento explicado</h3>
+
+      <p>
+        Colocamos las unidades debajo de las unidades y las decenas debajo de las decenas.
+      </p>
+
+      <div style="font-size: 30px; text-align: center; line-height: 1.4; background: white; padding: 15px; border-radius: 12px;">
+        \[
+        \begin{array}{r}
+        \hspace{0.8em}25\hspace{0.8em}\\
+        +\hspace{0.8em}14\hspace{0.8em}\\
+        \hline
+        \hspace{0.8em}39\hspace{0.8em}
+        \end{array}
+        \]
+      </div>
+
+      <p>
+        Primero sumamos las unidades:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(5 + 4 = 9\)
+      </p>
+
+      <p>
+        Después sumamos las decenas:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(2 + 1 = 3\)
+      </p>
+
+      <p>
+        Juntamos las decenas y las unidades:
+      </p>
+
+      <p style="font-size: 26px; text-align: center;">
+        \(25 + 14 = 39\)
+      </p>
+    </div>
+
+    <p>
+      <strong>Resultado:</strong> En el estante hay <strong>39 libros en total</strong>.
+    </p>
+  </div>
+
+  <!-- EJEMPLO 4 -->
+  <div style="background: #f3e5f5; padding: 22px; border-radius: 18px; margin-top: 25px; border-left: 8px solid #ab47bc;">
+    <h2 style="color: #7b1fa2;">Ejemplo 4: Alumnos</h2>
+
+    <p>
+      <strong>Contexto:</strong> En un grupo hay <strong>18 niñas</strong> y <strong>16 niños</strong>.
+    </p>
+
+    <p>
+      Para saber cuántos alumnos hay en total, sumamos niñas y niños.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 16px; margin: 18px 0; text-align: center;">
+      <p style="font-size: 24px; margin: 0;">
+        Operación:
+      </p>
+      <p style="font-size: 34px; margin: 8px 0; color: #7b1fa2;">
+        <strong>\(18 + 16 = 34\)</strong>
+      </p>
+    </div>
+
+    <div style="background: #e1bee7; padding: 18px; border-radius: 16px;">
+      <h3 style="color: #7b1fa2; margin-top: 0;">Procedimiento explicado</h3>
+
+      <p>
+        Primero ordenamos la suma en forma vertical.
+      </p>
+
+      <div style="font-size: 30px; text-align: center; line-height: 1.4; background: white; padding: 15px; border-radius: 12px;">
+        \[
+        \begin{array}{r}
+        \hspace{0.8em}1\hspace{0.8em}\\[-0.2em]
+        \hspace{0.8em}18\hspace{0.8em}\\
+        +\hspace{0.8em}16\hspace{0.8em}\\
+        \hline
+        \hspace{0.8em}34\hspace{0.8em}
+        \end{array}
+        \]
+      </div>
+
+      <p>
+        Primero sumamos las unidades:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(8 + 6 = 14\)
+      </p>
+
+      <p>
+        Como <strong>14</strong> tiene dos cifras, escribimos el <strong>4</strong> en las unidades
+        y llevamos <strong>1</strong> a las decenas.
+      </p>
+
+      <p>
+        Después sumamos las decenas:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(1 + 1 + 1 = 3\)
+      </p>
+
+      <p>
+        El resultado final es:
+      </p>
+
+      <p style="font-size: 26px; text-align: center;">
+        \(18 + 16 = 34\)
+      </p>
+    </div>
+
+    <p>
+      <strong>Resultado:</strong> En el grupo hay <strong>34 alumnos en total</strong>.
+    </p>
+  </div>
+
+  <!-- EJEMPLO 5 -->
+  <div style="background: #fff3e0; padding: 22px; border-radius: 18px; margin-top: 25px; border-left: 8px solid #ff9800;">
+    <h2 style="color: #e65100;">Ejemplo 5: Manzanas</h2>
+
+    <p>
+      <strong>Contexto:</strong> En una canasta hay <strong>36 manzanas</strong> y después agregan
+      <strong>27 manzanas más</strong>.
+    </p>
+
+    <p>
+      Para saber cuántas manzanas hay en total, sumamos las manzanas que había con las que se agregaron.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 16px; margin: 18px 0; text-align: center;">
+      <p style="font-size: 24px; margin: 0;">
+        Operación:
+      </p>
+      <p style="font-size: 34px; margin: 8px 0; color: #e65100;">
+        <strong>\(36 + 27 = 63\)</strong>
+      </p>
+    </div>
+
+    <div style="background: #ffe0b2; padding: 18px; border-radius: 16px;">
+      <h3 style="color: #e65100; margin-top: 0;">Procedimiento explicado</h3>
+
+      <p>
+        Primero ordenamos la suma en forma vertical.
+      </p>
+
+      <div style="font-size: 30px; text-align: center; line-height: 1.4; background: white; padding: 15px; border-radius: 12px;">
+        \[
+        \begin{array}{r}
+        \hspace{0.8em}1\hspace{0.8em}\\[-0.2em]
+        \hspace{0.8em}36\hspace{0.8em}\\
+        +\hspace{0.8em}27\hspace{0.8em}\\
+        \hline
+        \hspace{0.8em}63\hspace{0.8em}
+        \end{array}
+        \]
+      </div>
+
+      <p>
+        Primero sumamos las unidades:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(6 + 7 = 13\)
+      </p>
+
+      <p>
+        Como <strong>13</strong> tiene dos cifras, escribimos el <strong>3</strong> en las unidades
+        y llevamos <strong>1</strong> a las decenas.
+      </p>
+
+      <p>
+        Después sumamos las decenas:
+      </p>
+
+      <p style="font-size: 24px; text-align: center;">
+        \(3 + 2 + 1 = 6\)
+      </p>
+
+      <p>
+        El resultado final es:
+      </p>
+
+      <p style="font-size: 26px; text-align: center;">
+        \(36 + 27 = 63\)
+      </p>
+    </div>
+
+    <p>
+      <strong>Resultado:</strong> Hay <strong>63 manzanas en total</strong>.
+    </p>
+  </div>
+
+  <div style="background: linear-gradient(135deg, #66bb6a, #26a69a); padding: 24px; border-radius: 22px; margin-top: 30px; color: white; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.18);">
+    <h2 style="margin-top: 0;">Idea principal</h2>
+    <p style="font-size: 18px;">
+      Para sumar números naturales, primero se juntan las cantidades.
+      Cuando los números tienen varias cifras, se suman primero las unidades,
+      luego las decenas y después las centenas si las hay.
+    </p>
+  </div>
+
+</section>',NULL,0,'generic','Básica',10,NULL,10,40,1,'2026-06-24T07:02:14.000Z','2026-07-11T06:11:42.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1426,300,NULL,'activity','Actividad práctica','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,8,50,1,'2026-06-24T07:02:14.000Z','2026-07-08T05:55:18.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1427,300,NULL,'evaluation','Evaluación final','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,4,60,1,'2026-06-24T07:02:14.000Z','2026-07-11T06:17:10.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1428,300,NULL,'pptx','Presentacion de apoyo','uploads/presentations/pres_84_1783461456_presentacion_colorida_suma_numeros_naturales_primaria.pptx',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-07-08T05:57:30.000Z','2026-07-08T06:09:01.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1429,300,NULL,'presentation','Aprendemos a contar','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.',NULL,0,'generic','Básica',10,NULL,0,80,1,'2026-08-18T04:38:17.000Z','2026-08-18T04:38:17.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1430,301,NULL,'presentation','Introducción a la suma de fracciones','
+  <header style="
+    position: relative;
+    overflow: hidden;
+    padding: 48px 30px;
+    border-radius: 26px;
+    text-align: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, #512da8, #7e57c2, #00897b);
+    box-shadow: 0 10px 28px rgba(69, 39, 160, 0.28);
+  ">
+
+
+
+<div style="
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  bottom: -65px;
+  left: -35px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.11);
+"></div>
+
+<div style="position: relative; z-index: 2;">
+
+
+  </div>
+
+  <h1 style="
+    margin: 0;
+    font-size: 44px;
+    line-height: 1.2;
+  ">
+    Suma de fracciones
+  </h1>
+
+  <p style="
+    max-width: 760px;
+    margin: 16px auto 0;
+    font-size: 20px;
+  ">
+    Aprende qué son las fracciones, cuáles son sus partes y cómo sumarlas
+    cuando tienen denominadores iguales o diferentes.
+  </p>
+
+  <div style="
+    display: inline-block;
+    margin-top: 24px;
+    padding: 15px 30px;
+    border-radius: 18px;
+    background: #ffffff;
+    color: #512da8;
+    font-size: 28px;
+    font-weight: bold;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  ">
+    \(\frac{1}{2}+\frac{1}{4}=\frac{3}{4}\)
+  </div>
+
+</div>
+
+
+  </header>
+
+  <!-- OBJETIVO -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fff8e1, #fffde7);
+    border-left: 8px solid #ffb300;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.08);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #ef6c00;
+  font-size: 28px;
+">
+  Objetivo de la lección
+</h2>
+
+<p style="margin-bottom: 0; font-size: 17px;">
+  Comprender qué representa una fracción, reconocer el numerador y el
+  denominador, identificar fracciones equivalentes y aprender el
+  procedimiento correcto para sumar fracciones.
+</p>
+
+  </section>
+
+  <!-- CONCEPTO DE FRACCIÓN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<div style="
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: 20px;
+  background: #ede7f6;
+  color: #512da8;
+  font-weight: bold;
+">
+  Concepto fundamental
+</div>
+
+<h2 style="
+  color: #512da8;
+  font-size: 30px;
+">
+  ¿Qué es una fracción?
+</h2>
+
+<p>
+  Una <strong>fracción</strong> representa una o varias partes de un
+  entero que fue dividido en partes iguales.
+</p>
+
+<p>
+  Utilizamos fracciones cuando dividimos una pizza, compartimos una
+  cantidad, medimos ingredientes, calculamos tiempo o representamos una
+  parte de una colección.
+</p>
+
+<div style="
+  max-width: 500px;
+  margin: 24px auto;
+  padding: 24px;
+  border-radius: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #ede7f6, #e0f2f1);
+  border: 2px dashed #7e57c2;
+">
+
+  <p style="margin-top: 0;">
+    Una fracción se representa así:
+  </p>
+
+  <div style="
+    font-size: 40px;
+    color: #4527a0;
+    font-weight: bold;
+  ">
+    \[
+      \frac{a}{b}
+    \]
+  </div>
+
+</div>
+
+<p>
+  El número que se encuentra arriba se llama
+  <strong style="color: #d84315;">numerador</strong>.
+  El número que se encuentra abajo se llama
+  <strong style="color: #1565c0;">denominador</strong>.
+</p>
+
+  </section>
+
+  <!-- PARTES DE UNA FRACCIÓN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #3949ab;
+  font-size: 30px;
+">
+  Partes de una fracción
+</h2>
+
+<div style="
+  max-width: 430px;
+  margin: 22px auto;
+  padding: 26px;
+  border-radius: 20px;
+  text-align: center;
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.10);
+">
+
+  <div style="font-size: 42px; color: #4527a0;">
+    \[
+      \frac{3}{5}
+    \]
+  </div>
+
+  <p>
+    <strong style="color: #d84315;">\(3\) es el numerador.</strong>
+  </p>
+
+  <p>
+    <strong style="color: #1565c0;">\(5\) es el denominador.</strong>
+  </p>
+
+</div>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+">
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: #fff3e0;
+    border-top: 6px solid #fb8c00;
+  ">
+
+    <h3 style="margin-top: 0; color: #e65100;">
+      Numerador
+    </h3>
+
+    <p>
+      Indica cuántas partes se están tomando o considerando.
+    </p>
+
+    <div style="
+      padding: 14px;
+      border-radius: 13px;
+      text-align: center;
+      background: #ffffff;
+    ">
+      En \(\frac{4}{7}\), se toman \(4\) partes.
+    </div>
+
+  </article>
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: #e3f2fd;
+    border-top: 6px solid #1e88e5;
+  ">
+
+    <h3 style="margin-top: 0; color: #0d47a1;">
+      Denominador
+    </h3>
+
+    <p>
+      Indica en cuántas partes iguales se dividió el entero.
+    </p>
+
+    <div style="
+      padding: 14px;
+      border-radius: 13px;
+      text-align: center;
+      background: #ffffff;
+    ">
+      En \(\frac{4}{7}\), el entero se dividió en \(7\) partes.
+    </div>
+
+  </article>
+
+</div>
+
+<div style="
+  margin-top: 22px;
+  padding: 17px;
+  border-radius: 14px;
+  background: #ffebee;
+  border-left: 6px solid #e53935;
+">
+  <strong>Importante:</strong> el denominador nunca puede ser \(0\),
+  porque no es posible dividir una cantidad entre cero.
+</div>
+
+
+  </section>
+
+  <!-- REPRESENTACIÓN VISUAL -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+
+<h2 style="
+  margin-top: 0;
+  color: #00897b;
+  font-size: 30px;
+">
+  ¿Cómo se interpreta una fracción?
+</h2>
+
+<p>
+  Imaginemos una barra de chocolate dividida en seis partes iguales.
+  Si se toman dos partes, la cantidad se representa como:
+</p>
+
+<div style="
+  max-width: 380px;
+  margin: 22px auto;
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  background: #e0f2f1;
+  color: #00695c;
+  font-size: 34px;
+">
+  \[
+    \frac{2}{6}
+  \]
+</div>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
+  max-width: 650px;
+  margin: 25px auto;
+">
+
+  <div style="height: 78px; border-radius: 10px; background: #7e57c2;"></div>
+  <div style="height: 78px; border-radius: 10px; background: #7e57c2;"></div>
+  <div style="height: 78px; border-radius: 10px; background: #d1c4e9;"></div>
+  <div style="height: 78px; border-radius: 10px; background: #d1c4e9;"></div>
+  <div style="height: 78px; border-radius: 10px; background: #d1c4e9;"></div>
+  <div style="height: 78px; border-radius: 10px; background: #d1c4e9;"></div>
+
+</div>
+
+<p>
+  La fracción \(\frac{2}{6}\) indica que el entero fue dividido en
+  \(6\) partes iguales y se tomaron \(2\) de ellas.
+</p>
+
+<div style="
+  padding: 17px;
+  border-radius: 14px;
+  background: #fff8e1;
+  border-left: 6px solid #f9a825;
+">
+  Para formar una fracción correctamente, las partes deben ser del mismo
+  tamaño.
+</div>
+
+
+  </section>
+
+  <!-- TIPOS DE FRACCIONES -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #f3e5f5, #e8eaf6);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #6a1b9a;
+  font-size: 30px;
+">
+  Tipos de fracciones
+</h2>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+">
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: #ffffff;
+    border-bottom: 6px solid #43a047;
+  ">
+
+    <h3 style="margin-top: 0; color: #2e7d32;">
+      Fracciones propias
+    </h3>
+
+    <p>
+      El numerador es menor que el denominador. Representan una cantidad
+      menor que un entero.
+    </p>
+
+    <div style="text-align: center; font-size: 24px;">
+      \[
+        \frac{2}{5},
+        \qquad
+        \frac{3}{7},
+        \qquad
+        \frac{5}{8}
+      \]
+    </div>
+
+  </article>
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: #ffffff;
+    border-bottom: 6px solid #ef6c00;
+  ">
+
+    <h3 style="margin-top: 0; color: #e65100;">
+      Fracciones impropias
+    </h3>
+
+    <p>
+      El numerador es mayor o igual que el denominador. Representan una
+      cantidad igual o mayor que un entero.
+    </p>
+
+    <div style="text-align: center; font-size: 24px;">
+      \[
+        \frac{7}{4},
+        \qquad
+        \frac{9}{5},
+        \qquad
+        \frac{6}{6}
+      \]
+    </div>
+
+  </article>
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: #ffffff;
+    border-bottom: 6px solid #1e88e5;
+  ">
+
+    <h3 style="margin-top: 0; color: #1565c0;">
+      Números mixtos
+    </h3>
+
+    <p>
+      Están formados por un número entero y una fracción propia.
+    </p>
+
+    <div style="text-align: center; font-size: 25px;">
+      \[
+        1\frac{2}{3}
+      \]
+    </div>
+
+  </article>
+
+</div>
+
+  </section>
+
+  <!-- FRACCIONES EQUIVALENTES -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #fff3e0, #fffde7);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #ef6c00;
+  font-size: 30px;
+">
+  Fracciones equivalentes
+</h2>
+
+<p>
+  Las fracciones equivalentes se escriben con números diferentes, pero
+  representan exactamente la misma cantidad.
+</p>
+
+<div style="
+  max-width: 650px;
+  margin: 22px auto;
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  background: #ffffff;
+  color: #e65100;
+  font-size: 28px;
+">
+  \[
+    \frac{1}{2}
+    =
+    \frac{2}{4}
+    =
+    \frac{3}{6}
+  \]
+</div>
+
+<p>
+  Para crear una fracción equivalente se multiplica o divide el numerador
+  y el denominador por el mismo número.
+</p>
+
+<div style="
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 2px dashed #fb8c00;
+">
+
+  <p style="margin-top: 0;">
+    Multiplicamos el numerador y el denominador de \(\frac{2}{3}\)
+    por \(2\):
+  </p>
+
+  \[
+    \frac{2}{3}
+    =
+    \frac{2\times2}{3\times2}
+    =
+    \frac{4}{6}
+  \]
+
+</div>
+```
+
+  </section>
+
+  <!-- SUMAR FRACCIONES -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+
+<h2 style="
+  margin-top: 0;
+  color: #00897b;
+  font-size: 30px;
+">
+  ¿Qué significa sumar fracciones?
+</h2>
+
+<p>
+  Sumar fracciones significa juntar varias partes para obtener una
+  cantidad total.
+</p>
+
+<p>
+  Por ejemplo, una persona bebe \(\frac{2}{8}\) de una botella por la
+  mañana y \(\frac{3}{8}\) por la tarde.
+</p>
+
+<div style="
+  max-width: 620px;
+  margin: 22px auto;
+  padding: 24px;
+  border-radius: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+  border: 2px solid #26a69a;
+  color: #00695c;
+  font-size: 29px;
+">
+  \[
+    \frac{2}{8}+\frac{3}{8}=\frac{5}{8}
+  \]
+</div>
+
+<p>
+  En total, la persona bebió \(\frac{5}{8}\) de la botella.
+</p>
+
+  </section>
+
+  <!-- MISMO DENOMINADOR -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e8f5e9, #e0f2f1);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<div style="
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: 20px;
+  background: #2e7d32;
+  color: #ffffff;
+  font-weight: bold;
+">
+  Caso 1
+</div>
+
+<h2 style="
+  color: #1b5e20;
+  font-size: 30px;
+">
+  Suma con el mismo denominador
+</h2>
+
+<p>
+  Cuando las fracciones tienen el mismo denominador, las partes tienen
+  el mismo tamaño.
+</p>
+
+<div style="
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  background: #ffffff;
+  border: 2px solid #66bb6a;
+  font-size: 27px;
+">
+  \[
+    \frac{a}{c}+\frac{b}{c}
+    =
+    \frac{a+b}{c}
+  \]
+</div>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+">
+
+  <div style="
+    padding: 18px;
+    border-radius: 16px;
+    background: #ffffff;
+    border-top: 5px solid #43a047;
+  ">
+    <strong>Paso 1</strong>
+    <p>Sumar los numeradores.</p>
+  </div>
+
+  <div style="
+    padding: 18px;
+    border-radius: 16px;
+    background: #ffffff;
+    border-top: 5px solid #26a69a;
+  ">
+    <strong>Paso 2</strong>
+    <p>Conservar el denominador.</p>
+  </div>
+
+  <div style="
+    padding: 18px;
+    border-radius: 16px;
+    background: #ffffff;
+    border-top: 5px solid #00897b;
+  ">
+    <strong>Paso 3</strong>
+    <p>Simplificar si es posible.</p>
+  </div>
+
+</div>
+
+<article style="
+  margin-top: 25px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #43a047;
+">
+
+  <h3 style="margin-top: 0; color: #2e7d32;">
+    Ejemplo
+  </h3>
+
+  \[
+    \frac{2}{7}+\frac{3}{7}
+  \]
+
+  <p>Sumamos los numeradores:</p>
+
+  \[
+    2+3=5
+  \]
+
+  <p>Conservamos el denominador \(7\):</p>
+
+  <div style="
+    padding: 17px;
+    border-radius: 14px;
+    text-align: center;
+    background: #e8f5e9;
+    color: #1b5e20;
+    font-size: 28px;
+  ">
+    \[
+      \boxed{\frac{2}{7}+\frac{3}{7}=\frac{5}{7}}
+    \]
+  </div>
+
+</article>
+
+<article style="
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #00897b;
+">
+
+  <h3 style="margin-top: 0; color: #00695c;">
+    Ejemplo con simplificación
+  </h3>
+
+  \[
+    \frac{4}{9}+\frac{2}{9}
+    =
+    \frac{6}{9}
+  \]
+
+  <p>
+    Dividimos el numerador y el denominador entre \(3\):
+  </p>
+
+  \[
+    \frac{6\div3}{9\div3}
+    =
+    \frac{2}{3}
+  \]
+
+  <div style="
+    padding: 17px;
+    border-radius: 14px;
+    text-align: center;
+    background: #e0f2f1;
+    color: #00695c;
+    font-size: 28px;
+  ">
+    \[
+      \boxed{\frac{4}{9}+\frac{2}{9}=\frac{2}{3}}
+    \]
+  </div>
+
+</article>
+
+  </section>
+
+  <!-- ERROR DE DENOMINADORES -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffebee;
+    border: 2px solid #ef9a9a;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.08);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #c62828;
+  font-size: 30px;
+">
+  ¿Por qué no se suman los denominadores?
+</h2>
+
+<p>Observemos:</p>
+
+\[
+  \frac{1}{4}+\frac{2}{4}
+\]
+
+<p>
+  Una cuarta parte más dos cuartas partes forman tres cuartas partes:
+</p>
+
+<div style="
+  padding: 17px;
+  border-radius: 14px;
+  text-align: center;
+  background: #ffffff;
+  color: #2e7d32;
+  font-size: 27px;
+">
+  \[
+    \frac{1}{4}+\frac{2}{4}=\frac{3}{4}
+  \]
+</div>
+
+<p style="margin-top: 22px;">
+  No debemos sumar también los denominadores:
+</p>
+
+<div style="
+  padding: 17px;
+  border-radius: 14px;
+  text-align: center;
+  background: #ffcdd2;
+  color: #b71c1c;
+  font-size: 26px;
+">
+  \[
+    \frac{1}{4}+\frac{2}{4}
+    \neq
+    \frac{3}{8}
+  \]
+</div>
+
+<p>
+  El denominador indica el tamaño de las partes. El entero continúa
+  dividido en cuatro partes, por eso el denominador sigue siendo \(4\).
+</p>
+
+  </section>
+
+  <!-- DIFERENTE DENOMINADOR -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e3f2fd, #ede7f6);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<div style="
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: 20px;
+  background: #3949ab;
+  color: #ffffff;
+  font-weight: bold;
+">
+  Caso 2
+</div>
+
+<h2 style="
+  color: #303f9f;
+  font-size: 30px;
+">
+  Suma con diferente denominador
+</h2>
+
+<p>
+  Cuando los denominadores son diferentes, las partes tienen tamaños
+  diferentes.
+</p>
+
+<div style="
+  max-width: 480px;
+  margin: 22px auto;
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  background: #ffffff;
+  color: #4527a0;
+  font-size: 30px;
+">
+  \[
+    \frac{1}{2}+\frac{1}{3}
+  \]
+</div>
+
+<p>
+  Una mitad y un tercio no tienen el mismo tamaño. Antes de sumarlas,
+  debemos convertirlas en fracciones equivalentes con el mismo
+  denominador.
+</p>
+
+  </section>
+
+  <!-- DENOMINADOR COMÚN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #7b1fa2;
+  font-size: 30px;
+">
+  El denominador común
+</h2>
+
+<p>
+  Un denominador común es un número que es múltiplo de los denominadores
+  de las fracciones.
+</p>
+
+<p>Para resolver:</p>
+
+\[
+  \frac{1}{2}+\frac{1}{3}
+\]
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+">
+
+  <div style="
+    padding: 20px;
+    border-radius: 16px;
+    background: #e3f2fd;
+  ">
+    <strong style="color: #1565c0;">Múltiplos de \(2\)</strong>
+    <p style="font-size: 20px;">
+      \(2,\ 4,\ 6,\ 8,\ 10,\ldots\)
+    </p>
+  </div>
+
+  <div style="
+    padding: 20px;
+    border-radius: 16px;
+    background: #f3e5f5;
+  ">
+    <strong style="color: #7b1fa2;">Múltiplos de \(3\)</strong>
+    <p style="font-size: 20px;">
+      \(3,\ 6,\ 9,\ 12,\ldots\)
+    </p>
+  </div>
+
+</div>
+
+<div style="
+  margin-top: 22px;
+  padding: 19px;
+  border-radius: 15px;
+  text-align: center;
+  background: #fff8e1;
+  border: 2px solid #ffb300;
+">
+
+  El primer múltiplo común es \(6\).
+
+  \[
+    \operatorname{mcm}(2,3)=6
+  \]
+
+</div>
+
+  </section>
+
+  <!-- PROCEDIMIENTO -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #fff8e1, #fce4ec);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #ad1457;
+  font-size: 30px;
+">
+  Procedimiento para denominadores diferentes
+</h2>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+">
+
+  <div style="padding: 18px; border-radius: 15px; background: #ffffff;">
+    <strong style="color: #c2185b;">Paso 1.</strong>
+    Encontrar el mínimo común múltiplo de los denominadores.
+  </div>
+
+  <div style="padding: 18px; border-radius: 15px; background: #ffffff;">
+    <strong style="color: #c2185b;">Paso 2.</strong>
+    Crear fracciones equivalentes con el mismo denominador.
+  </div>
+
+  <div style="padding: 18px; border-radius: 15px; background: #ffffff;">
+    <strong style="color: #c2185b;">Paso 3.</strong>
+    Sumar los numeradores.
+  </div>
+
+  <div style="padding: 18px; border-radius: 15px; background: #ffffff;">
+    <strong style="color: #c2185b;">Paso 4.</strong>
+    Conservar el denominador común.
+  </div>
+
+  <div style="padding: 18px; border-radius: 15px; background: #ffffff;">
+    <strong style="color: #c2185b;">Paso 5.</strong>
+    Simplificar el resultado.
+  </div>
+
+</div>
+
+  </section>
+
+  <!-- EJEMPLO PASO A PASO -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #3949ab;
+  font-size: 30px;
+">
+  Ejemplo paso a paso
+</h2>
+
+<div style="
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  background: #e8eaf6;
+  font-size: 30px;
+">
+  \[
+    \frac{1}{2}+\frac{1}{3}
+  \]
+</div>
+
+<div style="
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #e3f2fd;
+  border-left: 6px solid #1e88e5;
+">
+
+  <h3 style="margin-top: 0; color: #0d47a1;">
+    Paso 1. Encontrar el denominador común
+  </h3>
+
+  \[
+    \operatorname{mcm}(2,3)=6
+  \]
+
+</div>
+
+<div style="
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #f3e5f5;
+  border-left: 6px solid #8e24aa;
+">
+
+  <h3 style="margin-top: 0; color: #6a1b9a;">
+    Paso 2. Convertir las fracciones
+  </h3>
+
+  <p>
+    Para transformar \(\frac{1}{2}\) en sextos, multiplicamos por \(3\):
+  </p>
+
+  \[
+    \frac{1}{2}
+    =
+    \frac{1\times3}{2\times3}
+    =
+    \frac{3}{6}
+  \]
+
+  <p>
+    Para transformar \(\frac{1}{3}\) en sextos, multiplicamos por \(2\):
+  </p>
+
+  \[
+    \frac{1}{3}
+    =
+    \frac{1\times2}{3\times2}
+    =
+    \frac{2}{6}
+  \]
+
+</div>
+
+<div style="
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #e8f5e9;
+  border-left: 6px solid #43a047;
+">
+
+  <h3 style="margin-top: 0; color: #2e7d32;">
+    Paso 3. Sumar
+  </h3>
+
+  \[
+    \frac{3}{6}+\frac{2}{6}
+    =
+    \frac{5}{6}
+  \]
+
+</div>
+
+<div style="
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #43a047, #00897b);
+  font-size: 30px;
+  box-shadow: 0 6px 16px rgba(0,105,92,0.20);
+">
+  \[
+    \boxed{\frac{1}{2}+\frac{1}{3}=\frac{5}{6}}
+  \]
+</div>
+```
+
+  </section>
+
+  <!-- SEGUNDO EJEMPLO -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ede7f6, #e3f2fd);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #512da8;
+  font-size: 30px;
+">
+  Segundo ejemplo
+</h2>
+
+\[
+  \frac{2}{3}+\frac{1}{4}
+\]
+
+<p>
+  El mínimo común múltiplo de \(3\) y \(4\) es \(12\):
+</p>
+
+\[
+  \operatorname{mcm}(3,4)=12
+\]
+
+<p>Transformamos las fracciones:</p>
+
+\[
+  \frac{2}{3}
+  =
+  \frac{2\times4}{3\times4}
+  =
+  \frac{8}{12}
+\]
+
+\[
+  \frac{1}{4}
+  =
+  \frac{1\times3}{4\times3}
+  =
+  \frac{3}{12}
+\]
+
+<p>Sumamos:</p>
+
+\[
+  \frac{8}{12}+\frac{3}{12}
+  =
+  \frac{11}{12}
+\]
+
+<div style="
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  background: #ffffff;
+  border: 2px solid #7e57c2;
+  color: #4527a0;
+  font-size: 29px;
+">
+  \[
+    \boxed{\frac{2}{3}+\frac{1}{4}=\frac{11}{12}}
+  \]
+</div>
+
+  </section>
+
+  <!-- MULTIPLICACIÓN CRUZADA -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #ef6c00;
+  font-size: 30px;
+">
+  Método de multiplicación cruzada
+</h2>
+
+<p>
+  También es posible sumar fracciones con diferente denominador mediante
+  la multiplicación cruzada:
+</p>
+
+<div style="
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  background: #fff3e0;
+  border: 2px dashed #fb8c00;
+  font-size: 27px;
+">
+  \[
+    \frac{a}{b}+\frac{c}{d}
+    =
+    \frac{a\cdot d+c\cdot b}{b\cdot d}
+  \]
+</div>
+
+<h3 style="color: #e65100; margin-top: 26px;">
+  Ejemplo
+</h3>
+
+\[
+  \frac{2}{3}+\frac{1}{4}
+\]
+
+<p>Multiplicamos en forma cruzada:</p>
+
+\[
+  2\times4=8
+\]
+
+\[
+  1\times3=3
+\]
+
+<p>Sumamos los resultados:</p>
+
+\[
+  8+3=11
+\]
+
+<p>Multiplicamos los denominadores:</p>
+
+\[
+  3\times4=12
+\]
+
+<div style="
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 28px;
+">
+  \[
+    \boxed{\frac{2}{3}+\frac{1}{4}=\frac{11}{12}}
+  \]
+</div>
+
+  </section>
+
+  <!-- SIMPLIFICACIÓN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #00796b;
+  font-size: 30px;
+">
+  Simplificación de fracciones
+</h2>
+
+<p>
+  Simplificar significa escribir una fracción utilizando números más
+  pequeños sin cambiar su valor.
+</p>
+
+<p>Por ejemplo:</p>
+
+\[
+  \frac{8}{12}
+\]
+
+<p>
+  El numerador y el denominador pueden dividirse entre \(4\):
+</p>
+
+\[
+  \frac{8\div4}{12\div4}
+  =
+  \frac{2}{3}
+\]
+
+<div style="
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+  background: #ffffff;
+  border: 2px solid #26a69a;
+  color: #00695c;
+  font-size: 28px;
+">
+  \[
+    \boxed{\frac{8}{12}=\frac{2}{3}}
+  \]
+</div>
+
+  </section>
+
+  <!-- RESULTADO IMPROPIO -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #fff3e0, #fce4ec);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #d84315;
+  font-size: 30px;
+">
+  Cuando el resultado es una fracción impropia
+</h2>
+
+\[
+  \frac{4}{5}+\frac{3}{5}
+  =
+  \frac{7}{5}
+\]
+
+<p>
+  La fracción \(\frac{7}{5}\) es impropia porque el numerador es mayor
+  que el denominador.
+</p>
+
+<p>Dividimos \(7\) entre \(5\):</p>
+
+\[
+  7\div5=1
+\]
+
+<p>
+  El cociente es \(1\) y el residuo es \(2\):
+</p>
+
+\[
+  \frac{7}{5}
+  =
+  1\frac{2}{5}
+\]
+
+<div style="
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ef6c00, #ec407a);
+  font-size: 29px;
+">
+  \[
+    \boxed{\frac{4}{5}+\frac{3}{5}=1\frac{2}{5}}
+  \]
+</div>
+
+  </section>
+
+  <!-- EJEMPLOS COTIDIANOS -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e3f2fd, #e0f7fa);
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #0277bd;
+  font-size: 30px;
+">
+  Ejemplos en situaciones cotidianas
+</h2>
+
+<article style="
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #ff7043;
+">
+
+  <h3 style="margin-top: 0; color: #d84315;">
+    Ejemplo 1. Una pizza
+  </h3>
+
+  <p>
+    Ana comió \(\frac{2}{8}\) de una pizza y Luis comió
+    \(\frac{3}{8}\). ¿Qué parte comieron entre los dos?
+  </p>
+
+  \[
+    \frac{2}{8}+\frac{3}{8}
+    =
+    \frac{5}{8}
+  \]
+
+  <div style="
+    padding: 15px;
+    border-radius: 13px;
+    text-align: center;
+    background: #fff3e0;
+    color: #d84315;
+    font-size: 26px;
+  ">
+    \[
+      \boxed{\frac{5}{8}\text{ de la pizza}}
+    \]
+  </div>
+
+</article>
+
+<article style="
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #29b6f6;
+">
+
+  <h3 style="margin-top: 0; color: #0277bd;">
+    Ejemplo 2. Una botella de agua
+  </h3>
+
+  <p>
+    Carlos bebió \(\frac{1}{3}\) de una botella por la mañana y
+    \(\frac{1}{6}\) por la tarde.
+  </p>
+
+  \[
+    \frac{1}{3}
+    =
+    \frac{2}{6}
+  \]
+
+  \[
+    \frac{2}{6}+\frac{1}{6}
+    =
+    \frac{3}{6}
+    =
+    \frac{1}{2}
+  \]
+
+  <div style="
+    padding: 15px;
+    border-radius: 13px;
+    text-align: center;
+    background: #e1f5fe;
+    color: #0277bd;
+    font-size: 26px;
+  ">
+    \[
+      \boxed{\frac{1}{2}\text{ de la botella}}
+    \]
+  </div>
+
+</article>
+
+<article style="
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #ab47bc;
+">
+
+  <h3 style="margin-top: 0; color: #7b1fa2;">
+    Ejemplo 3. Tiempo de estudio
+  </h3>
+
+  <p>
+    Sofía estudió \(\frac{3}{4}\) de hora de Matemáticas y
+    \(\frac{1}{2}\) de hora de Ciencias.
+  </p>
+
+  \[
+    \frac{1}{2}
+    =
+    \frac{2}{4}
+  \]
+
+  \[
+    \frac{3}{4}+\frac{2}{4}
+    =
+    \frac{5}{4}
+    =
+    1\frac{1}{4}
+  \]
+
+  <div style="
+    padding: 15px;
+    border-radius: 13px;
+    text-align: center;
+    background: #f3e5f5;
+    color: #7b1fa2;
+    font-size: 26px;
+  ">
+    \[
+      \boxed{1\frac{1}{4}\text{ horas}}
+    \]
+  </div>
+
+</article>
+
+<article style="
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  border-left: 7px solid #ffb300;
+">
+
+  <h3 style="margin-top: 0; color: #ef6c00;">
+    Ejemplo 4. Una receta
+  </h3>
+
+  <p>
+    Para preparar un pastel se utilizaron \(\frac{2}{3}\) de taza de
+    leche y después se agregó \(\frac{1}{4}\) de taza.
+  </p>
+
+  \[
+    \frac{2}{3}
+    =
+    \frac{8}{12}
+  \]
+
+  \[
+    \frac{1}{4}
+    =
+    \frac{3}{12}
+  \]
+
+  \[
+    \frac{8}{12}+\frac{3}{12}
+    =
+    \frac{11}{12}
+  \]
+
+  <div style="
+    padding: 15px;
+    border-radius: 13px;
+    text-align: center;
+    background: #fff8e1;
+    color: #ef6c00;
+    font-size: 26px;
+  ">
+    \[
+      \boxed{\frac{11}{12}\text{ de taza}}
+    \]
+  </div>
+
+</article>
+
+  </section>
+
+  <!-- ERRORES COMUNES -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #ffebee;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #c62828;
+  font-size: 30px;
+">
+  Errores comunes
+</h2>
+
+<article style="
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  border-left: 7px solid #e53935;
+">
+
+  <h3 style="margin-top: 0; color: #c62828;">
+    Sumar numeradores y denominadores
+  </h3>
+
+  <p><strong>Incorrecto:</strong></p>
+
+  \[
+    \frac{1}{3}+\frac{1}{4}
+    \neq
+    \frac{2}{7}
+  \]
+
+  <p><strong>Correcto:</strong></p>
+
+  \[
+    \frac{1}{3}
+    =
+    \frac{4}{12}
+  \]
+
+  \[
+    \frac{1}{4}
+    =
+    \frac{3}{12}
+  \]
+
+  \[
+    \frac{4}{12}+\frac{3}{12}
+    =
+    \frac{7}{12}
+  \]
+
+</article>
+
+<article style="
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  border-left: 7px solid #fb8c00;
+">
+
+  <h3 style="margin-top: 0; color: #e65100;">
+    Cambiar solamente el denominador
+  </h3>
+
+  <p>Esto es incorrecto:</p>
+
+  \[
+    \frac{1}{2}
+    \neq
+    \frac{1}{6}
+  \]
+
+  <p>
+    Se debe multiplicar el numerador y el denominador por el mismo número:
+  </p>
+
+  \[
+    \frac{1}{2}
+    =
+    \frac{1\times3}{2\times3}
+    =
+    \frac{3}{6}
+  \]
+
+</article>
+
+<article style="
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  border-left: 7px solid #3949ab;
+">
+
+  <h3 style="margin-top: 0; color: #303f9f;">
+    No simplificar el resultado
+  </h3>
+
+  \[
+    \frac{2}{8}+\frac{4}{8}
+    =
+    \frac{6}{8}
+  \]
+
+  <p>La fracción debe simplificarse:</p>
+
+  \[
+    \frac{6}{8}
+    =
+    \frac{3}{4}
+  \]
+
+</article>
+
+  </section>
+
+  <!-- RESUMEN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 30px;
+    border-radius: 24px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #3949ab, #7b1fa2);
+    box-shadow: 0 8px 22px rgba(69,39,160,0.24);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 32px;
+">
+  Resumen del procedimiento
+</h2>
+
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+">
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+  ">
+
+    <h3 style="margin-top: 0; color: #ffffff;">
+      Denominadores iguales
+    </h3>
+
+    <p>
+      1. Sumar los numeradores.<br>
+      2. Conservar el denominador.<br>
+      3. Simplificar el resultado.
+    </p>
+
+    \[
+      \frac{3}{10}+\frac{4}{10}
+      =
+      \frac{7}{10}
+    \]
+
+  </article>
+
+  <article style="
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+  ">
+
+    <h3 style="margin-top: 0; color: #ffffff;">
+      Denominadores diferentes
+    </h3>
+
+    <p>
+      1. Encontrar un denominador común.<br>
+      2. Crear fracciones equivalentes.<br>
+      3. Sumar los numeradores.<br>
+      4. Simplificar el resultado.
+    </p>
+
+    \[
+      \frac{1}{3}+\frac{1}{4}
+      =
+      \frac{4}{12}+\frac{3}{12}
+      =
+      \frac{7}{12}
+    \]
+
+  </article>
+
+</div>
+
+  </section>
+
+  <!-- CONCLUSIÓN -->
+
+  <section style="
+    margin-top: 28px;
+    padding: 30px;
+    border-radius: 22px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff8e1, #e8f5e9);
+    border: 2px solid #66bb6a;
+    box-shadow: 0 6px 18px rgba(38,50,56,0.09);
+  ">
+
+<h2 style="
+  margin-top: 0;
+  color: #2e7d32;
+  font-size: 31px;
+">
+  Conclusión
+</h2>
+
+<p style="font-size: 18px;">
+  Las fracciones representan partes iguales de un entero. Para sumarlas
+  correctamente debemos observar primero sus denominadores.
+</p>
+
+<p style="font-size: 18px;">
+  Si los denominadores son iguales, sumamos los numeradores. Si son
+  diferentes, debemos encontrar un denominador común y construir
+  fracciones equivalentes.
+</p>
+
+<div style="
+  max-width: 650px;
+  margin: 24px auto 0;
+  padding: 20px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #2e7d32;
+  font-size: 25px;
+  font-weight: bold;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+">
+  Primero igualamos las partes \newline y después las sumamos.
+</div>
+
+
+  </section>
+
+</section>
+
+
+',NULL,0,'generic','Básica',10,NULL,12,1,1,'2026-06-24T07:41:11.000Z','2026-07-14T08:28:43.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1431,301,NULL,'video','Video de apoyo','<p>Observa el siguiente video para aprender a sumar fracciones paso a paso, desde el caso más sencillo hasta fracciones mixtas.</p>
+<div class="video-embed-box">
+  <span class="play-icon">&#9654;</span>
+  <div>
+    <strong>Suma de fracciones — Paso a paso</strong>
+    <small>Duración aproximada: 8 minutos</small>
+  </div>
+</div>
+<h3>Temas que cubre el video</h3>
+<ul>
+  <li>Suma de fracciones con el mismo denominador</li>
+  <li>Cómo calcular el mínimo común múltiplo</li>
+  <li>Suma con denominadores diferentes</li>
+  <li>Suma de fracciones mixtas</li>
+  <li>Problemas aplicados con fracciones en la vida real</li>
+</ul>',NULL,0,'generic','Básica',10,NULL,8,2,1,'2026-06-24T07:41:11.000Z','2026-06-24T07:41:11.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1432,301,NULL,'example','Ejercicios de práctica','<h3>Aplica lo aprendido</h3>
+<p>Resuelve cada ejercicio usando las técnicas de los minis anteriores:</p>
+<ol>
+  <li>3/8 + 5/8 = 8/8 = <strong>1</strong></li>
+  <li>1/4 + 2/3 = 3/12 + 8/12 = <strong>11/12</strong></li>
+  <li>2&#189; + 1&#188; = 3 + 3/4 = <strong>3&#190;</strong></li>
+  <li>1/2 + 1/4 + 1/8 = 4/8 + 2/8 + 1/8 = <strong>7/8</strong></li>
+</ol>
+<h3>Problema aplicado</h3>
+<p>Una receta requiere 1/3 de taza de aceite y 2/5 de taza de leche. ¿Cuánto líquido hay en total?</p>
+<p class="formula-highlight">1/3 + 2/5 = 5/15 + 6/15 = 11/15 de taza</p>',NULL,0,'generic','Básica',10,NULL,10,3,1,'2026-06-24T07:02:14.000Z','2026-06-24T07:41:11.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1433,301,NULL,'activity','Actividad práctica','<p>Aplica lo que has aprendido resolviendo estos ejercicios sobre suma de fracciones:</p>
+<h3>Ejercicio 1 — Mismo denominador</h3>
+<p>Calcula: <strong>3/7 + 2/7 = ?</strong></p>
+<p><em>Respuesta: <strong>5/7</strong></em></p>
+<h3>Ejercicio 2 — Diferente denominador</h3>
+<p>Calcula: <strong>1/4 + 1/3 = ?</strong></p>
+<p><em>Respuesta: m.c.m.(4,3) = 12 &nbsp;→&nbsp; 3/12 + 4/12 = <strong>7/12</strong></em></p>
+<h3>Ejercicio 3 — Fracción mixta</h3>
+<p>Calcula: <strong>1½ + 2⅓ = ?</strong></p>
+<p><em>Respuesta: Enteros 1+2=3 · ½+⅓ = 3/6+2/6 = 5/6 → <strong>3 5/6</strong></em></p>
+<h3>Reto extra</h3>
+<p>¿Cuánto es 1/2 + 1/3 + 1/4?</p>
+<p><em>Respuesta: m.c.m.=12 → 6/12 + 4/12 + 3/12 = 13/12 = <strong>1 1/12</strong></em></p>',NULL,0,'generic','Básica',10,NULL,10,4,1,'2026-06-24T07:41:11.000Z','2026-06-24T07:41:11.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1434,301,NULL,'evaluation','Evaluación final','<h3>Evaluación: Suma de fracciones</h3>
+<p>Demuestra lo que aprendiste completando esta evaluación:</p>
+<h3>Ejercicio 1 (2 pts)</h3>
+<p>Calcula: 3/5 + 1/5</p>
+<p>Respuesta: <strong>4/5</strong></p>
+<h3>Ejercicio 2 (3 pts)</h3>
+<p>Calcula: 2/3 + 1/4</p>
+<p>Respuesta: <strong>11/12</strong></p>
+<h3>Ejercicio 3 (5 pts)</h3>
+<p>Un recipiente tiene 2/5 de litro de agua y se le agregan 3/8 de litro más. ¿Cuánto hay en total?</p>
+<p class="formula-highlight">2/5 + 3/8 = 16/40 + 15/40 = 31/40 litros</p>',NULL,0,'generic','Básica',10,NULL,4,5,1,'2026-06-24T07:02:14.000Z','2026-06-24T07:41:11.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1435,302,NULL,'presentation','Introducción','<section class="leccion-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; line-height: 1.7; color: #1f2937;">
+
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; background: linear-gradient(135deg, #dbeafe, #fef9c3); border-radius: 26px; padding: 30px; margin-bottom: 32px; box-shadow: 0 8px 22px rgba(0,0,0,0.10);">
+
+<div style="flex: 1 1 420px;">
+  <p style="display: inline-block; background: #1e3a8a; color: #ffffff; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: bold; margin: 0 0 14px;">
+    Tema de Matemáticas
+  </p>
+
+  <h1 style="font-size: 38px; color: #0f172a; margin: 0 0 14px; line-height: 1.2;">
+    Resolver ecuaciones paso a paso
+  </h1>
+
+  <p style="font-size: 18px; color: #334155; margin-bottom: 18px;">
+    En esta lección aprenderás a reconocer, resolver y comprobar ecuaciones donde existe un valor desconocido representado por la letra \(x\).
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 18px; padding: 18px; text-align: center; max-width: 320px;">
+    <span style="font-size: 34px; font-weight: bold; color: #1e3a8a;">
+      \(ax + b = c\)
+    </span>
+  </div>
+</div>
+
+<div style="flex: 0 1 360px; text-align: center;">
+  <div style="background: #ffffff; border-radius: 24px; padding: 34px 24px; box-shadow: 0 8px 22px rgba(0,0,0,0.14); border: 2px solid #dbeafe;">
+    <p style="margin: 0 0 14px; font-size: 18px; font-weight: bold; color: #2563eb;">
+      Objetivo de la lección
+    </p>
+
+    <h2 style="margin: 0; font-size: 34px; line-height: 1.15; color: #1e3a8a;">
+      Encuentra el valor desconocido
+    </h2>
+
+    <div style="margin: 22px auto 0; background: #eff6ff; border: 2px dashed #38bdf8; border-radius: 18px; padding: 16px; max-width: 260px;">
+      <span style="font-size: 32px; font-weight: bold; color: #0f172a;">
+        \(x = \ ?\)
+      </span>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 32px;">
+
+<div style="background: #eff6ff; border-radius: 18px; padding: 22px; border: 1px solid #bfdbfe;">
+  <h3 style="color: #1d4ed8; margin-top: 0; font-size: 22px;">
+    ¿Qué aprenderás?
+  </h3>
+  <p style="margin-bottom: 0;">
+    Aprenderás a resolver ecuaciones lineales usando un procedimiento claro y ordenado.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 18px; padding: 22px; border: 1px solid #bbf7d0;">
+  <h3 style="color: #15803d; margin-top: 0; font-size: 22px;">
+    Meta principal
+  </h3>
+  <p style="margin-bottom: 0;">
+    El objetivo será despejar la \(x\) para encontrar el valor desconocido.
+  </p>
+</div>
+
+<div style="background: #fff7ed; border-radius: 18px; padding: 22px; border: 1px solid #fed7aa;">
+  <h3 style="color: #c2410c; margin-top: 0; font-size: 22px;">
+    Idea clave
+  </h3>
+  <p style="margin-bottom: 0;">
+    Cada operación debe conservar la igualdad entre ambos lados de la ecuación.
+  </p>
+</div>
+```
+
+  </div>
+
+  <div style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+    <h2 style="color: #1e3a8a; font-size: 30px; margin-top: 0;">
+      1. ¿Qué es una ecuación lineal de una variable?
+    </h2>
+
+<p>
+  Las ecuaciones lineales de una variable son una parte fundamental del álgebra, ya que permiten representar situaciones en las que existe un valor desconocido. Ese valor se expresa comúnmente con una letra, como \(x\), y el propósito de la ecuación es encontrar cuánto vale.
+</p>
+
+<p>
+  Una ecuación lineal de una variable se caracteriza porque la incógnita aparece elevada a la primera potencia. Esto significa que la variable no está al cuadrado, al cubo ni dentro de raíces u otras operaciones más complejas.
+</p>
+
+<div style="background: #f8fafc; border-left: 6px solid #38bdf8; border-radius: 16px; padding: 20px; margin-top: 20px;">
+  <p style="margin: 0;">
+    En esta lección trabajaremos principalmente con ecuaciones de la forma:
+  </p>
+
+  <div style="text-align: center; margin-top: 16px;">
+    <span style="display: inline-block; background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 16px 34px; font-size: 34px; font-weight: bold; color: #1e3a8a;">
+      \(ax + b = c\)
+    </span>
+  </div>
+</div>
+
+  </div>
+
+  <div style="background: #f0fdfa; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #99f6e4;">
+    <h2 style="color: #0f766e; font-size: 30px; margin-top: 0;">
+      2. ¿Qué significa \(  \bm{ ax + b = c} \) ?
+    </h2>
+
+<p>
+  En la expresión \(ax + b = c\), cada parte tiene una función específica. Conocer estas partes ayuda a entender mejor el procedimiento.
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 22px;">
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 20px; border: 1px solid #ccfbf1;">
+    <h3 style="color: #0f766e; font-size: 28px; margin: 0 0 8px;">
+      \(  \bm{ x } \)
+    </h3>
+    <p style="margin-bottom: 0;">
+      Representa el valor desconocido que se desea encontrar.
+    </p>
+  </div>
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 20px; border: 1px solid #ccfbf1;">
+    <h3 style="color: #0f766e; font-size: 28px; margin: 0 0 8px;">
+      \(  \bm{ a } \)
+    </h3>
+    <p style="margin-bottom: 0;">
+      Es el número que multiplica a la variable. Se llama <strong>coeficiente</strong>.
+    </p>
+  </div>
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 20px; border: 1px solid #ccfbf1;">
+    <h3 style="color: #0f766e; font-size: 28px; margin: 0 0 8px;">
+      \(  \bm{ b } \)
+    </h3>
+    <p style="margin-bottom: 0;">
+      Es el número que se suma o se resta junto a la variable.
+    </p>
+  </div>
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 20px; border: 1px solid #ccfbf1;">
+    <h3 style="color: #0f766e; font-size: 28px; margin: 0 0 8px;">
+      \(  \bm{ c } \)
+    </h3>
+    <p style="margin-bottom: 0;">
+      Es el resultado que se encuentra al otro lado de la igualdad.
+    </p>
+  </div>
+
+</div>
+
+<p style="margin-top: 22px; margin-bottom: 0;">
+  Por lo tanto, una ecuación de la forma <span style="color: red;">  \(  \bm{ ax + b = c} \) </span> indica que una expresión con una variable tiene el mismo valor que una cantidad determinada.
+</p>
+
+  </div>
+
+  <div style="background: #fff7ed; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #fed7aa;">
+    <h2 style="color: #c2410c; font-size: 30px; margin-top: 0;">
+      3. Objetivo al resolver una ecuación
+    </h2>
+
+<p>
+  Resolver una ecuación significa encontrar el valor de la variable que hace verdadera la igualdad.
+</p>
+
+<div style="background: #ffffff; border-radius: 18px; padding: 22px; border-left: 6px solid #f97316;">
+  <p style="font-size: 20px; margin: 0;">
+    El objetivo principal es dejar la \(  \bm{ x } \) sola. A este proceso se le llama <strong>despejar la variable</strong>.
+  </p>
+</div>
+
+<p style="margin-top: 20px;">
+  Despejar no significa adivinar el resultado, sino transformar la ecuación paso a paso hasta conocer el valor de la incógnita.
+</p>
+
+  </div>
+
+  <div style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+    <h2 style="color: #7c3aed; font-size: 30px; margin-top: 0;">
+      4. Transformaciones equivalentes
+    </h2>
+
+<p>
+  Para resolver una ecuación se utilizan <strong>transformaciones equivalentes</strong>. Esto quiere decir que se pueden realizar operaciones en la ecuación siempre que se conserve la igualdad.
+</p>
+
+<p>
+  Las operaciones que se aplican deben mantener el mismo valor en ambos lados de la ecuación. De esta manera, aunque la forma de la ecuación cambie, su solución seguirá siendo la misma.
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 22px; text-align: center;">
+
+  <div style="background: #f5f3ff; border-radius: 16px; padding: 18px; font-size: 20px; font-weight: bold; color: #5b21b6;">
+    Sumar
+  </div>
+
+  <div style="background: #f5f3ff; border-radius: 16px; padding: 18px; font-size: 20px; font-weight: bold; color: #5b21b6;">
+    Restar
+  </div>
+
+  <div style="background: #f5f3ff; border-radius: 16px; padding: 18px; font-size: 20px; font-weight: bold; color: #5b21b6;">
+    Multiplicar
+  </div>
+
+  <div style="background: #f5f3ff; border-radius: 16px; padding: 18px; font-size: 20px; font-weight: bold; color: #5b21b6;">
+    Dividir
+  </div>
+
+</div>
+
+<p style="margin-top: 22px; margin-bottom: 0;">
+  Estas operaciones se utilizan de manera estratégica para separar la variable de los números que la acompañan.
+</p>
+
+  </div>
+
+  <div style="background: #eff6ff; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #bfdbfe;">
+    <h2 style="color: #1d4ed8; font-size: 30px; margin-top: 0;">
+      5. Procedimiento general
+    </h2>
+
+<p>
+  Para resolver una ecuación de la forma \(ax + b = c\), se sigue un proceso ordenado:
+</p>
+
+<div style="display: grid; gap: 18px; margin-top: 22px;">
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 22px; border-left: 7px solid #2563eb;">
+    <h3 style="color: #1d4ed8; margin-top: 0;">
+      Paso 1: Identificar la ecuación
+    </h3>
+    <div style="text-align: center; font-size: 50px; font-weight: bold; color: #1e3a8a;">
+      \(ax + b = c\)
+    </div>
+  </div>
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 22px; border-left: 7px solid #2563eb;">
+    <h3 style="color: #1d4ed8; margin-top: 0;">
+      Paso 2: Separar el término con x
+    </h3>
+    <p>
+      Primero se elimina el número que se suma o se resta junto a la variable.
+    </p>
+    <div style="text-align: center; font-size: 50px; font-weight: bold; color: #1e3a8a;">
+      \(ax = c - b\)
+    </div>
+  </div>
+
+  <div style="background: #ffffff; border-radius: 18px; padding: 22px; border-left: 7px solid #2563eb;">
+    <h3 style="color: #1d4ed8; margin-top: 0;">
+      Paso 3: Despejar la variable
+    </h3>
+    <p>
+      Después se elimina el número que multiplica a la variable dividiendo entre el coeficiente.
+    </p>
+    <div style="text-align: center; font-size: 50px; font-weight: bold; color: #1e3a8a;">
+      \( x = \frac{(c-b)}{a} \)
+    </div>
+  </div>
+
+</div>
+
+  </div>
+
+  <div style="background: #fef2f2; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #fecaca;">
+    <h2 style="color: #b91c1c; font-size: 30px; margin-top: 0;">
+      6. Cuidado con los signos
+    </h2>
+
+<p>
+  Los signos son muy importantes al resolver ecuaciones. Un signo positivo o negativo puede cambiar completamente el resultado.
+</p>
+
+<p>
+  Cuando se transforma una ecuación, se debe revisar con cuidado si un número está sumando, restando, multiplicando o dividiendo. Cada operación debe tratarse correctamente para conservar la igualdad.
+</p>
+
+<div style="background: #ffffff; border-radius: 18px; padding: 20px; border-left: 6px solid #ef4444;">
+  <p style="margin: 0;">
+    Un error común es cambiar números de lugar sin respetar la operación correspondiente. Por eso es mejor pensar en operaciones equivalentes y no solo en “mover” números.
+  </p>
+</div>
+
+  </div>
+
+  <div style="background: #ecfdf5; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #bbf7d0;">
+    <h2 style="color: #15803d; font-size: 30px; margin-top: 0;">
+      7. Comprobación de la solución
+    </h2>
+
+<p>
+  Después de encontrar el valor de <strong>x</strong>, es necesario comprobar la respuesta.
+</p>
+
+<p>
+  Comprobar significa sustituir el valor encontrado en la ecuación original. Si al hacerlo ambos lados de la igualdad tienen el mismo valor, entonces la solución es correcta.
+</p>
+
+<div style="background: #ffffff; border-radius: 18px; padding: 20px; border-left: 6px solid #22c55e;">
+  <p style="margin: 0;">
+    La comprobación permite verificar el procedimiento y detectar posibles errores de cálculo o de signos.
+  </p>
+</div>
+
+  </div>
+
+  <div style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 28px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+    <h2 style="color: #9333ea; font-size: 30px; margin-top: 0;">
+      8. Errores comunes
+    </h2>
+
+<p>
+  Al resolver ecuaciones lineales de una variable, algunos errores frecuentes son:
+</p>
+
+<div style="display: grid; gap: 12px; margin-top: 18px;">
+
+  <div style="background: #faf5ff; border-radius: 14px; padding: 16px; border-left: 5px solid #9333ea;">
+    Confundir el coeficiente con el término independiente.
+  </div>
+
+  <div style="background: #faf5ff; border-radius: 14px; padding: 16px; border-left: 5px solid #9333ea;">
+    Olvidar aplicar una operación de forma equivalente.
+  </div>
+
+  <div style="background: #faf5ff; border-radius: 14px; padding: 16px; border-left: 5px solid #9333ea;">
+    Cambiar signos sin revisar la operación original.
+  </div>
+
+  <div style="background: #faf5ff; border-radius: 14px; padding: 16px; border-left: 5px solid #9333ea;">
+    Dividir incorrectamente entre el coeficiente.
+  </div>
+
+  <div style="background: #faf5ff; border-radius: 14px; padding: 16px; border-left: 5px solid #9333ea;">
+    No comprobar el resultado al finalizar.
+  </div>
+
+</div>
+
+<p style="margin-top: 20px; margin-bottom: 0;">
+  Evitar estos errores ayuda a resolver ecuaciones con mayor seguridad y precisión.
+</p>
+
+  </div>
+
+  <div style="background: linear-gradient(135deg, #dbeafe, #dcfce7); border-radius: 24px; padding: 30px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.08);">
+    <h2 style="color: #1e3a8a; font-size: 32px; margin-top: 0;">
+      Conclusión
+    </h2>
+
+<p>
+  Las ecuaciones lineales de una variable permiten encontrar valores desconocidos mediante un procedimiento ordenado. En la forma \(  \bm{ ax + b = c } \), la variable se despeja separando primero el término que se suma o se resta y después eliminando el coeficiente que multiplica a la incógnita.
+</p>
+
+<p>
+  Resolver ecuaciones no consiste solamente en obtener un resultado, sino en comprender cómo se transforma una igualdad paso a paso hasta encontrar el valor que la hace verdadera.
+</p>
+
+<p style="font-size: 19px; font-weight: bold; color: #14532d; margin-bottom: 0;">
+  Dominar este procedimiento será una base importante para resolver problemas algebraicos más avanzados.
+</p>
+
+  </div>
+
+</section>
+',NULL,0,'generic','Básica',10,NULL,15,10,1,'2026-06-25T23:38:57.000Z','2026-07-02T06:27:11.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1436,302,NULL,'video','Video-Leccion','<iframe width="560" height="315" src="https://www.youtube.com/embed/W1F22Rtp8_o?si=rDWAnmODS--JqhMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',NULL,0,'generic','Básica',10,NULL,0,20,1,'2026-07-01T06:03:39.000Z','2026-07-04T00:34:28.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1437,302,NULL,'activity','Actividad','<iframe allow="fullscreen; autoplay; allow-top-navigation-by-user-activation" allowfullscreen width="795" height="690" frameborder="0" src="https://es.educaplay.com/juego/29615598-ecuaciones_de_una_variable.html"></iframe>
+<p>
+</p>
+Instrucción de la actividad
+<p></p>
+
+Resuelve los siguientes ejercicios de ecuaciones lineales de una variable en la forma ax + b = c. Lee con atención cada planteamiento, identifica la ecuación correspondiente y despeja la x utilizando operaciones contrarias.
+
+Recuerda seguir el procedimiento paso a paso','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,30,1,'2026-06-25T23:38:57.000Z','2026-07-01T06:05:59.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1438,302,NULL,'video','','<section class="video-leccion-ecuaciones">
+  <p>
+    Observa el siguiente video para reforzar el tema de ecuaciones lineales de una variable.
+  </p>
+
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px;">
+    <iframe 
+      src="https://www.youtube.com/embed/28eEPh-BfE0?si=JLPSSWAD7MFfJgMqG" 
+      title="Video de apoyo: Ecuaciones lineales de una variable"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+</section>
+',NULL,0,'generic','Básica',10,NULL,5,50,1,'2026-06-25T23:49:07.000Z','2026-07-01T06:05:59.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1439,302,NULL,'example','Nuevos ejemplos','<section class="ejemplos-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; color: #1f2937; line-height: 1.7;">
+
+  <div style="background: linear-gradient(135deg, #dbeafe, #fef3c7); border-radius: 24px; padding: 32px; text-align: center; margin-bottom: 34px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);">
+    <h2 style="font-size: 34px; color: #1e3a8a; margin: 0 0 12px;">
+      Ejemplos resueltos
+    </h2>
+    <p style="font-size: 18px; color: #334155; margin: 0;">
+      Observa cómo se resuelven ecuaciones lineales de una variable usando contexto, procedimiento y explicación final.
+    </p>
+  </div>
+
+  <article class="ejemplo" style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 30px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+
+
+<h3 style="font-size: 28px; color: #1e3a8a; margin-top: 0;">
+  Ejemplo 1: Compra de libretas
+</h3>
+
+<div style="background: #eff6ff; border-left: 6px solid #2563eb; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #1d4ed8; margin-top: 0;">Contexto</h4>
+  <p style="margin-bottom: 0;">
+    Sofía compró varias libretas del mismo precio. Además, pagó <strong>$10</strong> por una pluma. En total gastó <strong>$70</strong>. Cada libreta cuesta <strong>$15</strong>. Queremos saber cuántas libretas compró.
+  </p>
+</div>
+
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #0f172a; margin-top: 0;">Planteamiento</h4>
+  <p>
+    La cantidad de libretas se representa con la letra <strong>x</strong>.
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 18px; text-align: center;">
+    <strong style="font-size: 30px; color: #1e40af;">\(15x + 10 = 70\)</strong>
+  </div>
+
+  <p style="margin-bottom: 0; margin-top: 16px;">
+    Donde <strong>15x</strong> representa el costo de las libretas, <strong>10</strong> representa el costo de la pluma y <strong>70</strong> representa el total pagado.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #15803d; margin-top: 0;">Procedimiento paso a paso</h4>
+
+  <div style="display: grid; gap: 14px;">
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 1:</strong> Identificamos el número que está sumando junto a la variable.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x + 10 = 70\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 2:</strong> Como el <strong>10</strong> está sumando, usamos la operación contraria: restar.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x = 70 - 10\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 3:</strong> Resolvemos la resta.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x = 60\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 4:</strong> Como el <strong>15</strong> multiplica a la variable, dividimos entre 15.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \( x = \frac{60}{15} \)
+      </div>
+    </div>
+
+    <div style="background: #dcfce7; border-radius: 14px; padding: 18px; text-align: center;">
+      <strong style="font-size: 30px; color: #14532d;">\(x = 4\)</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background: #fff7ed; border-left: 6px solid #f97316; border-radius: 16px; padding: 20px;">
+  <h4 style="font-size: 22px; color: #c2410c; margin-top: 0;">Explicación final</h4>
+  <p style="margin-bottom: 0;">
+    Sofía compró <strong>4 libretas</strong>. Primero se separó el costo de la pluma y después se dividió el dinero restante entre el precio de cada libreta.
+  </p>
+</div>
+
+  </article>
+
+  <article class="ejemplo" style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 30px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+
+<h3 style="font-size: 28px; color: #1e3a8a; margin-top: 0;">
+  Ejemplo 2: Preguntas correctas en un concurso
+</h3>
+
+<div style="background: #eff6ff; border-left: 6px solid #2563eb; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #1d4ed8; margin-top: 0;">Contexto</h4>
+  <p style="margin-bottom: 0;">
+    En un concurso, cada respuesta correcta vale <strong>6 puntos</strong>. Además, todos los participantes reciben <strong>8 puntos</strong> por iniciar el juego. Daniel obtuvo <strong>44 puntos</strong> en total. Queremos saber cuántas respuestas correctas tuvo.
+  </p>
+</div>
+
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #0f172a; margin-top: 0;">Planteamiento</h4>
+  <p>
+    La cantidad de respuestas correctas se representa con <strong>x</strong>.
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 18px; text-align: center;">
+    <strong style="font-size: 30px; color: #1e40af;">\(6x + 8 = 44\)</strong>
+  </div>
+
+  <p style="margin-bottom: 0; margin-top: 16px;">
+    Donde <strong>6x</strong> representa los puntos por respuestas correctas, <strong>8</strong> representa los puntos iniciales y <strong>44</strong> representa el puntaje total.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #15803d; margin-top: 0;">Procedimiento paso a paso</h4>
+
+  <div style="display: grid; gap: 14px;">
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 1:</strong> Identificamos el número que se suma a los puntos de las respuestas correctas.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(6x + 8 = 44\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 2:</strong> Como el <strong>8</strong> está sumando, restamos 8.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(6x = 44 - 8\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 3:</strong> Resolvemos la resta.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(6x = 36\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 4:</strong> Dividimos entre 6 para encontrar el valor de x.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \( x = \frac{36}{6} \)
+      </div>
+    </div>
+
+    <div style="background: #dcfce7; border-radius: 14px; padding: 18px; text-align: center;">
+      <strong style="font-size: 30px; color: #14532d;">\(x = 6\)</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background: #fff7ed; border-left: 6px solid #f97316; border-radius: 16px; padding: 20px;">
+  <h4 style="font-size: 22px; color: #c2410c; margin-top: 0;">Explicación final</h4>
+  <p style="margin-bottom: 0;">
+    Daniel tuvo <strong>6 respuestas correctas</strong>. La ecuación permitió quitar primero los puntos iniciales y después calcular cuántas respuestas correctas formaban el puntaje restante.
+  </p>
+</div>
+
+  </article>
+
+  <article class="ejemplo" style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 30px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+
+<h3 style="font-size: 28px; color: #1e3a8a; margin-top: 0;">
+  Ejemplo 3: Ahorro para comprar un regalo
+</h3>
+
+<div style="background: #eff6ff; border-left: 6px solid #2563eb; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #1d4ed8; margin-top: 0;">Contexto</h4>
+  <p style="margin-bottom: 0;">
+    Camila ya tenía <strong>$25</strong> ahorrados. Después comenzó a guardar <strong>$30</strong> cada semana. Al final juntó <strong>$175</strong>. Queremos saber durante cuántas semanas ahorró.
+  </p>
+</div>
+
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #0f172a; margin-top: 0;">Planteamiento</h4>
+  <p>
+    La cantidad de semanas se representa con <strong>x</strong>.
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 18px; text-align: center;">
+    <strong style="font-size: 30px; color: #1e40af;">\(30x + 25 = 175\)</strong>
+  </div>
+
+  <p style="margin-bottom: 0; margin-top: 16px;">
+    Donde <strong>30x</strong> representa el ahorro semanal acumulado, <strong>25</strong> representa el dinero que ya tenía y <strong>175</strong> representa el total ahorrado.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #15803d; margin-top: 0;">Procedimiento paso a paso</h4>
+
+  <div style="display: grid; gap: 14px;">
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 1:</strong> Identificamos el dinero que Camila ya tenía.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">\(
+        30x + 25 = 175\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 2:</strong> Como el <strong>25</strong> está sumando, restamos 25.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">\(
+        30x = 175 - 25\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 3:</strong> Resolvemos la resta.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">\(
+        30x = 150\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 4:</strong> Dividimos entre 30 para encontrar el número de semanas.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \( x = \frac{150}{30} \)
+      </div>
+    </div>
+
+    <div style="background: #dcfce7; border-radius: 14px; padding: 18px; text-align: center;">
+      <strong style="font-size: 30px; color: #14532d;">\(x = 5\)</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background: #fff7ed; border-left: 6px solid #f97316; border-radius: 16px; padding: 20px;">
+  <h4 style="font-size: 22px; color: #c2410c; margin-top: 0;">Explicación final</h4>
+  <p style="margin-bottom: 0;">
+    Camila ahorró durante <strong>5 semanas</strong>. Primero se separó el dinero inicial y después se dividió el ahorro restante entre la cantidad que guardaba cada semana.
+  </p>
+</div>
+
+  </article>
+
+  <article class="ejemplo" style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 30px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+
+<h3 style="font-size: 28px; color: #1e3a8a; margin-top: 0;">
+  Ejemplo 4: Paquetes de botellas
+</h3>
+
+<div style="background: #eff6ff; border-left: 6px solid #2563eb; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #1d4ed8; margin-top: 0;">Contexto</h4>
+  <p style="margin-bottom: 0;">
+    En una reunión se compraron varios paquetes de botellas de agua. Cada paquete trae <strong>12 botellas</strong>. Además, ya había <strong>6 botellas</strong> sueltas. En total se reunieron <strong>54 botellas</strong>. Queremos saber cuántos paquetes se compraron.
+  </p>
+</div>
+
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #0f172a; margin-top: 0;">Planteamiento</h4>
+  <p>
+    La cantidad de paquetes se representa con <strong>x</strong>.
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 18px; text-align: center;">
+    <strong style="font-size: 30px; color: #1e40af;">\(12x + 6 = 54\)</strong>
+  </div>
+
+  <p style="margin-bottom: 0; margin-top: 16px;">
+    Donde <strong>12x</strong> representa las botellas en paquetes, <strong>6</strong> representa las botellas sueltas y <strong>54</strong> representa el total de botellas.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #15803d; margin-top: 0;">Procedimiento paso a paso</h4>
+
+  <div style="display: grid; gap: 14px;">
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 1:</strong> Identificamos las botellas sueltas.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(12x + 6 = 54\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 2:</strong> Como el <strong>6</strong> está sumando, restamos 6.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(12x = 54 - 6\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 3:</strong> Resolvemos la resta.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(12x = 48\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 4:</strong> Dividimos entre 12 para saber cuántos paquetes se compraron.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+       \( x = \frac{48}{12} \)
+      </div>
+    </div>
+
+    <div style="background: #dcfce7; border-radius: 14px; padding: 18px; text-align: center;">
+      <strong style="font-size: 30px; color: #14532d;">\(x = 4\)</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background: #fff7ed; border-left: 6px solid #f97316; border-radius: 16px; padding: 20px;">
+  <h4 style="font-size: 22px; color: #c2410c; margin-top: 0;">Explicación final</h4>
+  <p style="margin-bottom: 0;">
+    Se compraron <strong>4 paquetes</strong> de botellas. La ecuación permitió diferenciar las botellas sueltas de las botellas que venían en paquetes.
+  </p>
+</div>
+
+  </article>
+
+  <article class="ejemplo" style="background: #ffffff; border-radius: 22px; padding: 28px; margin-bottom: 30px; border: 1px solid #e5e7eb; box-shadow: 0 6px 18px rgba(0,0,0,0.07);">
+
+<h3 style="font-size: 28px; color: #1e3a8a; margin-top: 0;">
+  Ejemplo 5: Problema con resta
+</h3>
+
+<div style="background: #eff6ff; border-left: 6px solid #2563eb; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #1d4ed8; margin-top: 0;">Contexto</h4>
+  <p style="margin-bottom: 0;">
+    Un estudiante tenía varias bolsas con la misma cantidad de dulces. Regaló <strong>7 dulces</strong> y le quedaron <strong>53 dulces</strong>. Cada bolsa contenía <strong>15 dulces</strong>. Queremos saber cuántas bolsas tenía al inicio.
+  </p>
+</div>
+
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #0f172a; margin-top: 0;">Planteamiento</h4>
+  <p>
+    La cantidad de bolsas se representa con <strong>x</strong>.
+  </p>
+
+  <div style="background: #ffffff; border: 2px dashed #38bdf8; border-radius: 16px; padding: 18px; text-align: center;">
+    <strong style="font-size: 30px; color: #1e40af;">\(15x - 7 = 53\)</strong>
+  </div>
+
+  <p style="margin-bottom: 0; margin-top: 16px;">
+    Donde <strong>15x</strong> representa los dulces que había en las bolsas, <strong>-7</strong> representa los dulces que regaló y <strong>53</strong> representa los dulces que quedaron.
+  </p>
+</div>
+
+<div style="background: #f0fdf4; border-radius: 16px; padding: 20px; margin-bottom: 22px;">
+  <h4 style="font-size: 22px; color: #15803d; margin-top: 0;">Procedimiento paso a paso</h4>
+
+  <div style="display: grid; gap: 14px;">
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 1:</strong> Identificamos el número que está restando.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x - 7 = 53\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 2:</strong> Como el <strong>7</strong> está restando, usamos la operación contraria: sumar.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x = 53 + 7\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 3:</strong> Resolvemos la suma.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \(15x = 60\)
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 14px; padding: 16px; border-left: 5px solid #22c55e;">
+      <strong>Paso 4:</strong> Dividimos entre 15 para conocer cuántas bolsas tenía al inicio.
+      <div style="text-align: center; margin-top: 10px; font-size: 24px; font-weight: bold; color: #166534;">
+        \( x = \frac{60}{15} \)
+      </div>
+    </div>
+
+    <div style="background: #dcfce7; border-radius: 14px; padding: 18px; text-align: center;">
+      <strong style="font-size: 30px; color: #14532d;">\(x = 4\)</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background: #fff7ed; border-left: 6px solid #f97316; border-radius: 16px; padding: 20px;">
+  <h4 style="font-size: 22px; color: #c2410c; margin-top: 0;">Explicación final</h4>
+  <p style="margin-bottom: 0;">
+    El estudiante tenía <strong>4 bolsas</strong> al inicio. Como había regalado 7 dulces, se sumaron de nuevo para conocer cuántos dulces tenía originalmente en las bolsas.
+  </p>
+</div>
+
+  </article>
+
+</section>
+',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-06-25T23:52:22.000Z','2026-07-04T00:22:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1440,302,1435,'pptx','Presentacion','uploads/presentations/pres_67_1784140499_presentacion_ecuaciones_lineales_balanza.pptx',NULL,0,'generic','Básica',10,NULL,0,80,1,'2026-06-26T05:52:12.000Z','2026-08-28T00:48:50.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1441,302,NULL,'evaluation','Nueva evaluacion','','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,100,1,'2026-07-04T06:12:36.000Z','2026-07-04T06:12:55.000Z');
 CREATE TABLE "practica_ejercicios" ("id", "section_id", "json_data", "ai_model", "generated_at", "updated_at");
 INSERT INTO "practica_ejercicios" VALUES(1,11,'{"exercise_type":"vertical_addition","ejercicios":[{"id":1,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,5],"llevadas":[""]},{"id":2,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[7,2],"llevadas":[""]},{"id":3,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[4,6],"llevadas":[""]},{"id":4,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[8,1],"llevadas":[""]},{"id":5,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[2,9],"llevadas":[""]},{"id":6,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[5,3],"llevadas":[""]},{"id":7,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[6,4],"llevadas":[""]},{"id":8,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[1,7],"llevadas":[""]},{"id":9,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[9,2],"llevadas":[""]},{"id":10,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,8],"llevadas":[""]}]}','gpt-4.1-nano','2026-07-08T23:15:48.000Z','2026-07-08T23:15:48.000Z');
 INSERT INTO "practica_ejercicios" VALUES(2,39,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación 3x + 4 = 10.","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación 5x + 3 = 13.","resultado":"2"},{"id":3,"ejercicio":"Determina x si 2x + 5 = 11.","resultado":"3"},{"id":4,"ejercicio":"Halla x en la ecuación 4x + 2 = 10.","resultado":"2"},{"id":5,"ejercicio":"Resuelve para x: 6x + 1 = 19.","resultado":"3"},{"id":6,"ejercicio":"Calcula x en la ecuación 7x + 3 = 24.","resultado":"3"},{"id":7,"ejercicio":"Encuentra x si 8x + 4 = 20.","resultado":"2"},{"id":8,"ejercicio":"Determina x en la ecuación 9x + 2 = 20.","resultado":"2"},{"id":9,"ejercicio":"Resuelve la ecuación 2x + 7 = 15.","resultado":"4"},{"id":10,"ejercicio":"Halla x en la ecuación 3x + 6 = 15.","resultado":"3"}]}','gpt-4.1-nano','2026-07-02T23:32:09.000Z','2026-07-02T23:32:09.000Z');
 INSERT INTO "practica_ejercicios" VALUES(20,80,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación: 3x + 2 = 8","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación: 5x - 4 = 6","resultado":"2"},{"id":3,"ejercicio":"Determina el valor de x: 2x + 7 = 13","resultado":"3"},{"id":4,"ejercicio":"Resuelve para x: 4x - 9 = 7","resultado":"4"},{"id":5,"ejercicio":"Encuentra la solución de: x + 5 = 10","resultado":"5"},{"id":6,"ejercicio":"Calcula x en: 6x - 3 = 9","resultado":"2"},{"id":7,"ejercicio":"Resuelve la ecuación: 7x + 2 = 16","resultado":"2"},{"id":8,"ejercicio":"Encuentra x: 3x - 5 = 4","resultado":"3"},{"id":9,"ejercicio":"Determina el valor de x: 8x + 1 = 25","resultado":"3"},{"id":10,"ejercicio":"Resuelve para x: 2x + 6 = 12","resultado":"3"}]}','deepseek-r1:32b','2026-07-04T06:13:47.000Z','2026-07-04T06:13:47.000Z');
+INSERT INTO "practica_ejercicios" VALUES(21,1426,'{"exercise_type":"vertical_addition","ejercicios":[{"id":1,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,5],"llevadas":[""]},{"id":2,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[7,2],"llevadas":[""]},{"id":3,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[4,6],"llevadas":[""]},{"id":4,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[8,1],"llevadas":[""]},{"id":5,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[2,9],"llevadas":[""]},{"id":6,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[5,3],"llevadas":[""]},{"id":7,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[6,4],"llevadas":[""]},{"id":8,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[1,7],"llevadas":[""]},{"id":9,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[9,2],"llevadas":[""]},{"id":10,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,8],"llevadas":[""]}]}','gpt-4.1-nano','2026-07-08T23:15:48.000Z','2026-07-08T23:15:48.000Z');
+INSERT INTO "practica_ejercicios" VALUES(22,1437,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación 3x + 4 = 10.","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación 5x + 3 = 13.","resultado":"2"},{"id":3,"ejercicio":"Determina x si 2x + 5 = 11.","resultado":"3"},{"id":4,"ejercicio":"Halla x en la ecuación 4x + 2 = 10.","resultado":"2"},{"id":5,"ejercicio":"Resuelve para x: 6x + 1 = 19.","resultado":"3"},{"id":6,"ejercicio":"Calcula x en la ecuación 7x + 3 = 24.","resultado":"3"},{"id":7,"ejercicio":"Encuentra x si 8x + 4 = 20.","resultado":"2"},{"id":8,"ejercicio":"Determina x en la ecuación 9x + 2 = 20.","resultado":"2"},{"id":9,"ejercicio":"Resuelve la ecuación 2x + 7 = 15.","resultado":"4"},{"id":10,"ejercicio":"Halla x en la ecuación 3x + 6 = 15.","resultado":"3"}]}','gpt-4.1-nano','2026-07-02T23:32:09.000Z','2026-07-02T23:32:09.000Z');
+INSERT INTO "practica_ejercicios" VALUES(23,1441,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación: 3x + 2 = 8","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación: 5x - 4 = 6","resultado":"2"},{"id":3,"ejercicio":"Determina el valor de x: 2x + 7 = 13","resultado":"3"},{"id":4,"ejercicio":"Resuelve para x: 4x - 9 = 7","resultado":"4"},{"id":5,"ejercicio":"Encuentra la solución de: x + 5 = 10","resultado":"5"},{"id":6,"ejercicio":"Calcula x en: 6x - 3 = 9","resultado":"2"},{"id":7,"ejercicio":"Resuelve la ecuación: 7x + 2 = 16","resultado":"2"},{"id":8,"ejercicio":"Encuentra x: 3x - 5 = 4","resultado":"3"},{"id":9,"ejercicio":"Determina el valor de x: 8x + 1 = 25","resultado":"3"},{"id":10,"ejercicio":"Resuelve para x: 2x + 6 = 12","resultado":"3"}]}','deepseek-r1:32b','2026-07-04T06:13:47.000Z','2026-07-04T06:13:47.000Z');
 CREATE TABLE preview_metadata (generated_at, source_database);
-INSERT INTO "preview_metadata" VALUES('2026-08-28T00:45:14.523Z','academia-matematicas-soa');
+INSERT INTO "preview_metadata" VALUES('2026-08-28T00:51:12.092Z','academia-matematicas-soa');
 COMMIT;
