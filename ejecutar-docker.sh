@@ -19,7 +19,7 @@ cd "${PROJECT_ROOT}"
 compose=(docker compose --env-file "${ENV_FILE}" -f docker-compose.yml)
 if [[ "${DNS_ACTIVO,,}" == true && "${HTTPS_ACTIVO,,}" == true ]]; then
   bash "${PROJECT_ROOT}/scripts/generar-certificado-local.sh" \
-    "${DNS_PORTAL_HOST}" "${DNS_ADMIN_HOST}" "${DNS_API_HOST}"
+    "${DNS_PORTAL_HOST}" "${DNS_ADMIN_HOST}"
   compose+=(-f docker-compose.dns.yml)
 fi
 up_args=(up -d)
@@ -30,5 +30,5 @@ if [[ "${1:-}" != "--no-build" ]]; then up_args+=(--build); fi
 echo
 echo "Portal estudiantes: ${PORTAL_PUBLIC_URL}"
 echo "Administración:     ${ADMIN_PUBLIC_URL}"
-echo "API Gateway:        ${API_PUBLIC_URL}"
+echo "API del navegador:  ${PORTAL_PUBLIC_URL}/api (proxy interno; Gateway no publicado)"
 echo "MySQL del servidor: ${DB_HOST}:${DB_PORT}"

@@ -114,7 +114,7 @@ services:
       learning-service: { condition: service_healthy }
       practice-service: { condition: service_healthy }
       ai-service: { condition: service_healthy }
-    ports: ["${GATEWAY_PORT:-4600}:${GATEWAY_PORT:-4600}"]
+    expose: ["${GATEWAY_PORT:-4600}"]
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
       interval: 10s
@@ -129,8 +129,7 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         FRONTEND: frontend-estudiantes
-        VITE_API_URL: ${VITE_STUDENT_API_URL:-}
-        VITE_GATEWAY_PORT: ${VITE_GATEWAY_PORT:-}
+        VITE_API_URL: ""
         VITE_STUDENT_APP_URL: ${VITE_STUDENT_APP_URL:-}
     depends_on:
       api-gateway: { condition: service_healthy }
@@ -144,8 +143,7 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         FRONTEND: frontend-administracion
-        VITE_API_URL: ${VITE_ADMIN_API_URL:-}
-        VITE_GATEWAY_PORT: ${VITE_GATEWAY_PORT:-}
+        VITE_API_URL: ""
         VITE_STUDENT_APP_URL: ${VITE_STUDENT_APP_URL:-}
     depends_on:
       api-gateway: { condition: service_healthy }

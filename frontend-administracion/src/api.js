@@ -1,6 +1,4 @@
-const gatewayPort = import.meta.env.VITE_GATEWAY_PORT || '4600';
-const browserGatewayUrl = `${window.location.protocol}//${window.location.hostname}:${gatewayPort}`;
-const BASE_URL = import.meta.env.VITE_ADMIN_API_URL || import.meta.env.VITE_API_URL || browserGatewayUrl;
+const BASE_URL = import.meta.env.VITE_ADMIN_API_URL || import.meta.env.VITE_API_URL || window.location.origin;
 const GATEWAY_ORIGIN = new URL(BASE_URL, window.location.origin).origin;
 
 const authorizationHeaders = () => {

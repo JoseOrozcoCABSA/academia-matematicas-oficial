@@ -9,8 +9,6 @@ services:
     environment:
       PORTAL_HOST: ${DNS_PORTAL_HOST:?DNS_PORTAL_HOST es obligatorio}
       ADMIN_HOST: ${DNS_ADMIN_HOST:?DNS_ADMIN_HOST es obligatorio}
-      API_HOST: ${DNS_API_HOST:?DNS_API_HOST es obligatorio}
-      API_PORT: ${GATEWAY_PORT:-4600}
     ports: ["443:443"]
     networks: [academia-math]
     volumes:
