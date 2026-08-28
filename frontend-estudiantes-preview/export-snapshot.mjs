@@ -16,10 +16,23 @@ const tables = [
   'aprendizaje_medios_leccion', 'aprendizaje_configuracion_sitio',
   'practica_ejercicios',
 ];
-const connection = await mysql.createConnection({
-  host: process.env.DB_HOST, port: Number(process.env.DB_PORT), user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD, database: process.env.DB_NAME,
-});
+let connection;
+try {
+  connection = await mysql.createConnection({
+    host: process.env.DB_HOST, port: Number(process.env.DB_PORT), user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD, database: process.env.DB_NAME, connectTimeout: 8000,
+  });
+} catch (error) {
+  if (error?.code === 'ETIMEDOUT') {
+    throw new Error(
+      `No existe ruta hacia MySQL (${process.env.DB_HOST}:${process.env.DB_PORT}). ` +
+      'DB_HOST es una IP privada; genere el snapshot desde la red interna. ' +
+      'Para levantar el preview no ejecute este exportador: use ejecutar-todo-frontend-estudiantes-preview.sh.',
+      { cause: error },
+    );
+  }
+  throw error;
+}
 const snapshot = { generated_at: new Date().toISOString(), source_database: process.env.DB_NAME, tables: {} };
 try {
   for (const table of tables) {
