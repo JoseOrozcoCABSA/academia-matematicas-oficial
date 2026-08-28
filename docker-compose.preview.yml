@@ -1,0 +1,30 @@
+name: academia-matematicas-preview
+services:
+  preview-service:
+    image: python:3.13-alpine
+    restart: unless-stopped
+    command: ["python", "/app/server.py"]
+    environment: { PREVIEW_DB_PATH: /data/academia-preview.sqlite }
+    volumes:
+      - ./frontend-estudiantes-preview/server.py:/app/server.py:ro
+      - ./frontend-estudiantes-preview/data:/data:ro
+    expose: ["4700"]
+    networks: [preview]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:4700/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 8
+
+  frontend-estudiantes-preview:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/frontend-preview.Dockerfile
+    depends_on:
+      preview-service: { condition: service_healthy }
+    ports: ["${PREVIEW_DOCKER_PORT:-4612}:80"]
+    networks: [preview]
+
+networks:
+  preview: { driver: bridge }
