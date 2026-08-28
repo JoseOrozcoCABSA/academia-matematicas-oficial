@@ -16,6 +16,18 @@ detect_public_ip() {
 is_private_ip() {
   [[ "$1" =~ ^10\. || "$1" =~ ^192\.168\. || "$1" =~ ^172\.(1[6-9]|2[0-9]|3[01])\. || "$1" == "127.0.0.1" ]]
 }
+requested_ip=""
+for argument in "$@"; do
+  case "${argument}" in
+    --ip-servidor=*|--ip-publica=*) requested_ip="${argument#*=}" ;;
+    --detectar-ip-publica) requested_ip="auto" ;;
+    -h|--help)
+      echo 'Uso: bash ejecutar-todo-frontend-estudiantes-preview.sh [--detectar-ip-publica | --ip-publica=IP]'
+      exit 0
+      ;;
+    *) echo "ERROR: opción desconocida: ${argument}" >&2; exit 2 ;;
+  esac
+done
 [[ -f "${ENV_FILE}" ]] || { echo "ERROR: falta ${ENV_FILE}." >&2; exit 1; }
 command -v docker >/dev/null 2>&1 || { echo 'ERROR: Docker no está instalado.' >&2; exit 1; }
 SQLITE_FILE="${ROOT}/frontend-estudiantes-preview/data/academia-preview.sqlite"
@@ -31,6 +43,7 @@ docker compose --env-file "${ENV_FILE}" -f "${ROOT}/docker-compose.preview.yml" 
 preview_port="$(sed -n 's/^PREVIEW_DOCKER_PORT=//p' "${ENV_FILE}" | tail -n 1 | tr -d '\r')"
 preview_port="${preview_port:-4612}"
 server_ip="$(sed -n 's/^SERVER_IP=//p' "${ENV_FILE}" | tail -n 1 | tr -d '\r')"
+[[ -z "${requested_ip}" ]] || server_ip="${requested_ip}"
 ip_mode="$(sed -n 's/^IP_DETECTION_MODE=//p' "${ENV_FILE}" | tail -n 1 | tr -d '\r')"
 ip_mode="${ip_mode:-public}"
 if [[ "${server_ip}" == "auto" || -z "${server_ip}" ]] || { [[ "${ip_mode}" == "public" ]] && is_private_ip "${server_ip}"; }; then
