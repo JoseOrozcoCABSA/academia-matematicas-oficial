@@ -4,7 +4,12 @@ import env from './env.js';
 const corsOptions: CorsOptions = {
   origin(origin, callback) {
     if (!origin || env.corsOrigins.includes(origin)) callback(null, true);
-    else callback(new Error('Origen CORS no permitido'));
+    else {
+      const error = new Error('Origen CORS no permitido') as Error & { status?: number; code?: string };
+      error.status = 403;
+      error.code = 'CORS_ORIGIN_DENIED';
+      callback(error);
+    }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
