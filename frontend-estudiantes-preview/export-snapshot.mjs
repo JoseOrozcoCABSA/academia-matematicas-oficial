@@ -23,7 +23,7 @@ try {
     password: process.env.DB_PASSWORD, database: process.env.DB_NAME, connectTimeout: 8000,
   });
 } catch (error) {
-  if (error?.code === 'ETIMEDOUT') {
+  if (error?.code === 'ETIMEDOUT' || error?.code === 'EAI_AGAIN' || error?.code === 'ENOTFOUND') {
     throw new Error(
       `No existe ruta hacia MySQL (${process.env.DB_HOST}:${process.env.DB_PORT}). ` +
       'DB_HOST es una IP privada; genere el snapshot desde la red interna. ' +
