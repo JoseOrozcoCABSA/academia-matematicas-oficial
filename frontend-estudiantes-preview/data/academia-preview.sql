@@ -161,9 +161,9 @@ INSERT INTO "aprendizaje_lecciones" VALUES(150,12,'P6 - Probabilidad teórica y 
 INSERT INTO "aprendizaje_lecciones" VALUES(294,7,'Suma de números naturales','suma-numeros-naturales','Grado: P1. Area: Suma. Aprende a sumar números naturales y a resolver situaciones de la vida cotidiana usando la adición.','topic','+','emoji','','24 + 13 = 37',NULL,'Básica',35,1,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
 INSERT INTO "aprendizaje_lecciones" VALUES(295,7,'Suma de fracciones','suma-fracciones','Grado: P4. Area: Fracciones. Aprende a sumar fracciones con el mismo o distinto denominador mediante ejercicios paso a paso.','topic','½','emoji',NULL,'1/2 + 1/3 = ?',NULL,'Básica',60,2,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
 INSERT INTO "aprendizaje_lecciones" VALUES(296,26,'Ecuaciones lineales de una variable','ecuaciones-lineales-s1','Grado: S1. Area: Ecuaciones. En este tema aprenderás a resolver ecuaciones lineales de una variable en la forma \(ax + b = c\). El objetivo es identificar los números que acompañan a la variable, usar operaciones contrarias para despejar la \(x\) y comprobar que el resultado sea correcto. También se trabajará la idea de mantener el equilibrio en ambos lados de la ecuación. \(\)','topic','+','emoji','','',NULL,'Basica',30,10,1,'2026-08-27T01:19:36.000Z','2026-08-27T01:21:12.000Z');
-INSERT INTO "aprendizaje_lecciones" VALUES(300,30,'Suma de números naturales','suma-numeros-naturales-cuarto-primaria','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.','topic','+','emoji','','24 + 13 = 37',NULL,'Básica',35,1,1,'2026-06-24T07:02:12.000Z','2026-08-28T00:55:39.000Z');
-INSERT INTO "aprendizaje_lecciones" VALUES(301,31,'Suma de fracciones','suma-fracciones-quinto-primaria','Aprende a sumar fracciones con el mismo o distinto denominador mediante ejercicios paso a paso.','topic','½','emoji',NULL,'1/2 + 1/3 = ?',NULL,'Básica',60,2,1,'2026-06-24T07:02:12.000Z','2026-08-28T00:55:39.000Z');
-INSERT INTO "aprendizaje_lecciones" VALUES(302,32,'Ecuaciones lineales de una variable','ecuaciones-lineales-primero-secundaria','En este tema aprenderás a resolver ecuaciones lineales de una variable en la forma \(ax + b = c\). El objetivo es identificar los números que acompañan a la variable, usar operaciones contrarias para despejar la \(x\) y comprobar que el resultado sea correcto. También se trabajará la idea de mantener el equilibrio en ambos lados de la ecuación. \(\)','topic','+','emoji','','',NULL,'Basica',30,10,1,'2026-06-25T23:38:57.000Z','2026-08-28T00:55:39.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(300,30,'Suma de números naturales','suma-numeros-naturales-p4','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.','topic','+','emoji','','24 + 13 = 37',NULL,'Básica',35,1,1,'2026-06-24T07:02:12.000Z','2026-08-28T01:05:08.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(301,31,'Suma de fracciones','suma-fracciones-p5','Aprende a sumar fracciones con el mismo o distinto denominador mediante ejercicios paso a paso.','topic','½','emoji',NULL,'1/2 + 1/3 = ?',NULL,'Básica',60,2,1,'2026-06-24T07:02:12.000Z','2026-08-28T01:05:08.000Z');
+INSERT INTO "aprendizaje_lecciones" VALUES(302,32,'Ecuaciones lineales de una variable','ecuaciones-lineales-s1-secundaria','En este tema aprenderás a resolver ecuaciones lineales de una variable en la forma \(ax + b = c\). El objetivo es identificar los números que acompañan a la variable, usar operaciones contrarias para despejar la \(x\) y comprobar que el resultado sea correcto. También se trabajará la idea de mantener el equilibrio en ambos lados de la ecuación. \(\)','topic','+','emoji','','',NULL,'Basica',30,10,1,'2026-06-25T23:38:57.000Z','2026-08-28T01:05:08.000Z');
 CREATE TABLE "aprendizaje_medios" ("id", "title", "media_type", "file_path", "thumbnail_path", "external_url", "alt_text", "upload_context", "wp_attachment_id", "width", "height", "file_size", "created_at");
 INSERT INTO "aprendizaje_medios" VALUES(6,'Presentación: suma de números naturales','document','/api/learning/uploads/cabsa-suma-numeros-naturales.pptx',NULL,NULL,'Presentación didáctica sobre la suma de números naturales','content',NULL,NULL,NULL,107794,'2026-08-01T07:15:29.000Z');
 INSERT INTO "aprendizaje_medios" VALUES(7,'Presentación: ecuaciones lineales','document','/api/learning/uploads/cabsa-ecuaciones-lineales.pptx',NULL,NULL,'Presentación didáctica sobre ecuaciones lineales','content',NULL,NULL,NULL,109410,'2026-08-01T07:15:29.000Z');
@@ -17438,152 +17438,152 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(655,296,651,'pptx','Presentac
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(656,296,804,'video','Video-lección','<iframe width="560" height="315" src="https://www.youtube.com/embed/W1F22Rtp8_o?si=rDWAnmODS--JqhMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',NULL,0,'generic','Básica',10,NULL,0,20,1,'2026-08-27T01:21:12.000Z','2026-08-27T21:00:24.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(657,296,1314,'evaluation','Nueva evaluación','','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,100,1,'2026-08-27T01:21:12.000Z','2026-08-27T21:00:24.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(658,294,726,'pptx','Presentación de apoyo','/api/learning/uploads/cabsa-suma-numeros-naturales.pptx',NULL,0,'generic','Básica',10,6,0,70,1,'2026-08-27T01:21:12.000Z','2026-08-27T21:00:24.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(659,8,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(660,9,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(661,10,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(662,11,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(663,12,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(664,13,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(665,14,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(666,15,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(667,16,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(668,17,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(669,18,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(670,19,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(671,20,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(672,21,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(673,22,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(674,38,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(675,39,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(676,40,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(677,41,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(678,42,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(679,43,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(680,44,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(681,45,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(682,46,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(683,47,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(684,48,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(685,49,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(686,50,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(687,63,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(688,64,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(689,65,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(690,66,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(691,67,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(692,68,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(693,69,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(694,70,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(695,71,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(696,72,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(697,73,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(698,74,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(699,75,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(700,76,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(701,89,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(702,90,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(703,91,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(704,92,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(705,93,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(706,94,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(707,95,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(708,96,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(709,97,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(710,98,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(711,111,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(712,112,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(713,113,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(714,114,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(715,115,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(716,116,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(717,117,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(718,118,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(719,128,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(720,129,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(721,130,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(722,131,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(723,132,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(724,133,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(725,134,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(726,294,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(727,295,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(728,23,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(729,24,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(730,25,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(731,26,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(732,51,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(733,52,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(734,77,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(735,78,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(736,27,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(737,28,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(738,29,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(739,30,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(740,31,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(741,53,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(742,54,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(743,55,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(744,79,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(745,80,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(746,81,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(747,82,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(748,100,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(749,101,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(750,102,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(751,103,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(752,120,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(753,121,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(754,122,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(755,138,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(756,139,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(757,140,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(758,32,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(759,33,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(760,34,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(761,35,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(762,36,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(763,37,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(764,56,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(765,57,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(766,58,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(767,59,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(768,60,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(769,83,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(770,84,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(771,85,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(772,86,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(773,104,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(774,105,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(775,106,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(776,107,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(777,123,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(778,124,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(779,141,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(780,142,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(781,143,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(782,61,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(783,87,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(784,109,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(785,126,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(786,146,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(787,147,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(788,148,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(789,62,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(790,88,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(791,110,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(792,127,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(793,149,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(794,150,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(795,99,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(796,119,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(797,135,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(798,136,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(799,137,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(800,108,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(801,125,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(802,144,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(803,145,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(804,296,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:30:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(659,8,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(660,9,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(661,10,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(662,11,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(663,12,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(664,13,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(665,14,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(666,15,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(667,16,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(668,17,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(669,18,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(670,19,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(671,20,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(672,21,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(673,22,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(674,38,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(675,39,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(676,40,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(677,41,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(678,42,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(679,43,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(680,44,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(681,45,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(682,46,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(683,47,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(684,48,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(685,49,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(686,50,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(687,63,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(688,64,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(689,65,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(690,66,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(691,67,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(692,68,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(693,69,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(694,70,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(695,71,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(696,72,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(697,73,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(698,74,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(699,75,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(700,76,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(701,89,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(702,90,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(703,91,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(704,92,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(705,93,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(706,94,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(707,95,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(708,96,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(709,97,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(710,98,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(711,111,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(712,112,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(713,113,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(714,114,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(715,115,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(716,116,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(717,117,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(718,118,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(719,128,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(720,129,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(721,130,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(722,131,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(723,132,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(724,133,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(725,134,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(726,294,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(727,295,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(728,23,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(729,24,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(730,25,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(731,26,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(732,51,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(733,52,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(734,77,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(735,78,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(736,27,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(737,28,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(738,29,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(739,30,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(740,31,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(741,53,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(742,54,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(743,55,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(744,79,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(745,80,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(746,81,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(747,82,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(748,100,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(749,101,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(750,102,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(751,103,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(752,120,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(753,121,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(754,122,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(755,138,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(756,139,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(757,140,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(758,32,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(759,33,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(760,34,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(761,35,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(762,36,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(763,37,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(764,56,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(765,57,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(766,58,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(767,59,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(768,60,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(769,83,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(770,84,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(771,85,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(772,86,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(773,104,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(774,105,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(775,106,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(776,107,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(777,123,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(778,124,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(779,141,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(780,142,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(781,143,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(782,61,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(783,87,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(784,109,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(785,126,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(786,146,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(787,147,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(788,148,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(789,62,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(790,88,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(791,110,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(792,127,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(793,149,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(794,150,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(795,99,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(796,119,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(797,135,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(798,136,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(799,137,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(800,108,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(801,125,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(802,144,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(803,145,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(804,296,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-27T21:00:24.000Z','2026-08-28T00:59:13.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(914,8,NULL,'activity','Actividad','',NULL,1,'generic','Básica',10,NULL,0,2,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(915,9,NULL,'activity','Actividad','',NULL,1,'generic','Básica',10,NULL,0,2,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(916,10,NULL,'activity','Actividad','',NULL,1,'generic','Básica',10,NULL,0,2,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
@@ -17875,7 +17875,7 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1311,125,NULL,'evaluation','E
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1312,144,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1313,145,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1314,296,NULL,'evaluation','Evaluación','',NULL,1,'generic','Básica',10,NULL,0,3,1,'2026-08-27T21:00:24.000Z','2026-08-27T21:04:08.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1424,300,NULL,'presentation','Aprendemos a contar','
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1424,300,1442,'presentation','Aprendemos a contar','
 <head>
   
   
@@ -18913,8 +18913,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1424,300,NULL,'presentation',
 </div>
 
 </body>
-',NULL,0,'generic','Básica',10,NULL,8,10,1,'2026-06-24T07:02:14.000Z','2026-08-18T06:51:42.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1425,300,NULL,'example','Ejemplos resueltos','<section style="max-width: 950px; margin: 0 auto; padding: 24px; font-family: Arial, sans-serif; line-height: 1.7; color: #263238;">
+',NULL,0,'generic','Básica',10,NULL,8,10,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1425,300,1442,'example','Ejemplos resueltos','<section style="max-width: 950px; margin: 0 auto; padding: 24px; font-family: Arial, sans-serif; line-height: 1.7; color: #263238;">
 
   <div style="background: linear-gradient(135deg, #42a5f5, #7e57c2); padding: 28px; border-radius: 22px; text-align: center; color: white; box-shadow: 0 6px 16px rgba(0,0,0,0.18);">
     <h1 style="margin: 0; font-size: 34px;">Ejemplos resueltos</h1>
@@ -19266,12 +19266,12 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1425,300,NULL,'example','Ejem
     </p>
   </div>
 
-</section>',NULL,0,'generic','Básica',10,NULL,10,40,1,'2026-06-24T07:02:14.000Z','2026-07-11T06:11:42.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1426,300,NULL,'activity','Actividad práctica','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,8,50,1,'2026-06-24T07:02:14.000Z','2026-07-08T05:55:18.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1427,300,NULL,'evaluation','Evaluación final','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,4,60,1,'2026-06-24T07:02:14.000Z','2026-07-11T06:17:10.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1428,300,NULL,'pptx','Presentacion de apoyo','uploads/presentations/pres_84_1783461456_presentacion_colorida_suma_numeros_naturales_primaria.pptx',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-07-08T05:57:30.000Z','2026-07-08T06:09:01.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1429,300,NULL,'presentation','Aprendemos a contar','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.',NULL,0,'generic','Básica',10,NULL,0,80,1,'2026-08-18T04:38:17.000Z','2026-08-18T04:38:17.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1430,301,NULL,'presentation','Introducción a la suma de fracciones','
+</section>',NULL,0,'generic','Básica',10,NULL,10,40,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1426,300,1445,'activity','Actividad práctica','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,8,50,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1427,300,1448,'evaluation','Evaluación final','','crea suma básicas con contexto',1,'generic','Básica',10,NULL,4,60,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1428,300,1442,'pptx','Presentacion de apoyo','uploads/presentations/pres_84_1783461456_presentacion_colorida_suma_numeros_naturales_primaria.pptx',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-07-08T05:57:30.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1429,300,1442,'presentation','Aprendemos a contar','En esta lección, el alumno aprenderá a contar desde el número 1, realizar conteos ascendentes y descendentes sencillos, contar objetos de manera ordenada y relacionar cada objeto con un número. También practicará cómo evitar repetir u omitir elementos durante el conteo y reconocer cantidades pequeñas de forma visual.',NULL,0,'generic','Básica',10,NULL,0,80,1,'2026-08-18T04:38:17.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1430,301,1443,'presentation','Introducción a la suma de fracciones','
   <header style="
     position: relative;
     overflow: hidden;
@@ -21139,8 +21139,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1430,301,NULL,'presentation',
 </section>
 
 
-',NULL,0,'generic','Básica',10,NULL,12,1,1,'2026-06-24T07:41:11.000Z','2026-07-14T08:28:43.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1431,301,NULL,'video','Video de apoyo','<p>Observa el siguiente video para aprender a sumar fracciones paso a paso, desde el caso más sencillo hasta fracciones mixtas.</p>
+',NULL,0,'generic','Básica',10,NULL,12,1,1,'2026-06-24T07:41:11.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1431,301,1443,'video','Video de apoyo','<p>Observa el siguiente video para aprender a sumar fracciones paso a paso, desde el caso más sencillo hasta fracciones mixtas.</p>
 <div class="video-embed-box">
   <span class="play-icon">&#9654;</span>
   <div>
@@ -21155,8 +21155,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1431,301,NULL,'video','Video 
   <li>Suma con denominadores diferentes</li>
   <li>Suma de fracciones mixtas</li>
   <li>Problemas aplicados con fracciones en la vida real</li>
-</ul>',NULL,0,'generic','Básica',10,NULL,8,2,1,'2026-06-24T07:41:11.000Z','2026-06-24T07:41:11.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1432,301,NULL,'example','Ejercicios de práctica','<h3>Aplica lo aprendido</h3>
+</ul>',NULL,0,'generic','Básica',10,NULL,8,2,1,'2026-06-24T07:41:11.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1432,301,1443,'example','Ejercicios de práctica','<h3>Aplica lo aprendido</h3>
 <p>Resuelve cada ejercicio usando las técnicas de los minis anteriores:</p>
 <ol>
   <li>3/8 + 5/8 = 8/8 = <strong>1</strong></li>
@@ -21166,8 +21166,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1432,301,NULL,'example','Ejer
 </ol>
 <h3>Problema aplicado</h3>
 <p>Una receta requiere 1/3 de taza de aceite y 2/5 de taza de leche. ¿Cuánto líquido hay en total?</p>
-<p class="formula-highlight">1/3 + 2/5 = 5/15 + 6/15 = 11/15 de taza</p>',NULL,0,'generic','Básica',10,NULL,10,3,1,'2026-06-24T07:02:14.000Z','2026-06-24T07:41:11.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1433,301,NULL,'activity','Actividad práctica','<p>Aplica lo que has aprendido resolviendo estos ejercicios sobre suma de fracciones:</p>
+<p class="formula-highlight">1/3 + 2/5 = 5/15 + 6/15 = 11/15 de taza</p>',NULL,0,'generic','Básica',10,NULL,10,3,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1433,301,1446,'activity','Actividad práctica','<p>Aplica lo que has aprendido resolviendo estos ejercicios sobre suma de fracciones:</p>
 <h3>Ejercicio 1 — Mismo denominador</h3>
 <p>Calcula: <strong>3/7 + 2/7 = ?</strong></p>
 <p><em>Respuesta: <strong>5/7</strong></em></p>
@@ -21179,8 +21179,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1433,301,NULL,'activity','Act
 <p><em>Respuesta: Enteros 1+2=3 · ½+⅓ = 3/6+2/6 = 5/6 → <strong>3 5/6</strong></em></p>
 <h3>Reto extra</h3>
 <p>¿Cuánto es 1/2 + 1/3 + 1/4?</p>
-<p><em>Respuesta: m.c.m.=12 → 6/12 + 4/12 + 3/12 = 13/12 = <strong>1 1/12</strong></em></p>',NULL,0,'generic','Básica',10,NULL,10,4,1,'2026-06-24T07:41:11.000Z','2026-06-24T07:41:11.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1434,301,NULL,'evaluation','Evaluación final','<h3>Evaluación: Suma de fracciones</h3>
+<p><em>Respuesta: m.c.m.=12 → 6/12 + 4/12 + 3/12 = 13/12 = <strong>1 1/12</strong></em></p>',NULL,1,'generic','Básica',10,NULL,10,4,1,'2026-06-24T07:41:11.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1434,301,1449,'evaluation','Evaluación final','<h3>Evaluación: Suma de fracciones</h3>
 <p>Demuestra lo que aprendiste completando esta evaluación:</p>
 <h3>Ejercicio 1 (2 pts)</h3>
 <p>Calcula: 3/5 + 1/5</p>
@@ -21190,8 +21190,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1434,301,NULL,'evaluation','E
 <p>Respuesta: <strong>11/12</strong></p>
 <h3>Ejercicio 3 (5 pts)</h3>
 <p>Un recipiente tiene 2/5 de litro de agua y se le agregan 3/8 de litro más. ¿Cuánto hay en total?</p>
-<p class="formula-highlight">2/5 + 3/8 = 16/40 + 15/40 = 31/40 litros</p>',NULL,0,'generic','Básica',10,NULL,4,5,1,'2026-06-24T07:02:14.000Z','2026-06-24T07:41:11.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1435,302,NULL,'presentation','Introducción','<section class="leccion-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; line-height: 1.7; color: #1f2937;">
+<p class="formula-highlight">2/5 + 3/8 = 16/40 + 15/40 = 31/40 litros</p>',NULL,1,'generic','Básica',10,NULL,4,5,1,'2026-06-24T07:02:14.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1435,302,1444,'presentation','Introducción','<section class="leccion-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; line-height: 1.7; color: #1f2937;">
 
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; background: linear-gradient(135deg, #dbeafe, #fef9c3); border-radius: 26px; padding: 30px; margin-bottom: 32px; box-shadow: 0 8px 22px rgba(0,0,0,0.10);">
 
@@ -21558,8 +21558,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1435,302,NULL,'presentation',
   </div>
 
 </section>
-',NULL,0,'generic','Básica',10,NULL,15,10,1,'2026-06-25T23:38:57.000Z','2026-07-02T06:27:11.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1436,302,NULL,'video','Video-Leccion','<iframe width="560" height="315" src="https://www.youtube.com/embed/W1F22Rtp8_o?si=rDWAnmODS--JqhMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',NULL,0,'generic','Básica',10,NULL,0,20,1,'2026-07-01T06:03:39.000Z','2026-07-04T00:34:28.000Z');
+',NULL,0,'generic','Básica',10,NULL,15,10,1,'2026-06-25T23:38:57.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1436,302,1444,'video','Video-Leccion','<iframe width="560" height="315" src="https://www.youtube.com/embed/W1F22Rtp8_o?si=rDWAnmODS--JqhMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',NULL,0,'generic','Básica',10,NULL,0,20,1,'2026-07-01T06:03:39.000Z','2026-08-28T00:59:13.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1437,302,NULL,'activity','Actividad','<iframe allow="fullscreen; autoplay; allow-top-navigation-by-user-activation" allowfullscreen width="795" height="690" frameborder="0" src="https://es.educaplay.com/juego/29615598-ecuaciones_de_una_variable.html"></iframe>
 <p>
 </p>
@@ -21569,7 +21569,7 @@ Instrucción de la actividad
 Resuelve los siguientes ejercicios de ecuaciones lineales de una variable en la forma ax + b = c. Lee con atención cada planteamiento, identifica la ecuación correspondiente y despeja la x utilizando operaciones contrarias.
 
 Recuerda seguir el procedimiento paso a paso','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,30,1,'2026-06-25T23:38:57.000Z','2026-07-01T06:05:59.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1438,302,NULL,'video','','<section class="video-leccion-ecuaciones">
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1438,302,1444,'video','','<section class="video-leccion-ecuaciones">
   <p>
     Observa el siguiente video para reforzar el tema de ecuaciones lineales de una variable.
   </p>
@@ -21585,8 +21585,8 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1438,302,NULL,'video','','<se
   </div>
 
 </section>
-',NULL,0,'generic','Básica',10,NULL,5,50,1,'2026-06-25T23:49:07.000Z','2026-07-01T06:05:59.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1439,302,NULL,'example','Nuevos ejemplos','<section class="ejemplos-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; color: #1f2937; line-height: 1.7;">
+',NULL,0,'generic','Básica',10,NULL,5,50,1,'2026-06-25T23:49:07.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1439,302,1444,'example','Nuevos ejemplos','<section class="ejemplos-ecuaciones-lineales" style="font-family: Arial, sans-serif; max-width: 1050px; margin: 0 auto; padding: 24px; color: #1f2937; line-height: 1.7;">
 
   <div style="background: linear-gradient(135deg, #dbeafe, #fef3c7); border-radius: 24px; padding: 32px; text-align: center; margin-bottom: 34px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);">
     <h2 style="font-size: 34px; color: #1e3a8a; margin: 0 0 12px;">
@@ -21974,9 +21974,17 @@ INSERT INTO "aprendizaje_secciones_leccion" VALUES(1439,302,NULL,'example','Nuev
   </article>
 
 </section>
-',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-06-25T23:52:22.000Z','2026-07-04T00:22:13.000Z');
+',NULL,0,'generic','Básica',10,NULL,0,70,1,'2026-06-25T23:52:22.000Z','2026-08-28T00:59:13.000Z');
 INSERT INTO "aprendizaje_secciones_leccion" VALUES(1440,302,1435,'pptx','Presentacion','uploads/presentations/pres_67_1784140499_presentacion_ecuaciones_lineales_balanza.pptx',NULL,0,'generic','Básica',10,NULL,0,80,1,'2026-06-26T05:52:12.000Z','2026-08-28T00:48:50.000Z');
-INSERT INTO "aprendizaje_secciones_leccion" VALUES(1441,302,NULL,'evaluation','Nueva evaluacion','','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,100,1,'2026-07-04T06:12:36.000Z','2026-07-04T06:12:55.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1441,302,1450,'evaluation','Nueva evaluacion','','ejercicios para resolver ecuaciones lineales de una variable en su forma general: ax + b = c con coeficientes naturales y solución entera.',1,'generic','Básica',10,NULL,0,100,1,'2026-07-04T06:12:36.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1442,300,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1443,301,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1444,302,NULL,'presentation','Lecciones','',NULL,0,'generic','Básica',10,NULL,0,1,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1445,300,NULL,'activity','Actividad','',NULL,0,'generic','Básica',10,NULL,0,2,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1446,301,NULL,'activity','Actividad','',NULL,0,'generic','Básica',10,NULL,0,2,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1448,300,NULL,'evaluation','Evaluación','',NULL,0,'generic','Básica',10,NULL,0,3,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1449,301,NULL,'evaluation','Evaluación','',NULL,0,'generic','Básica',10,NULL,0,3,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
+INSERT INTO "aprendizaje_secciones_leccion" VALUES(1450,302,NULL,'evaluation','Evaluación','',NULL,0,'generic','Básica',10,NULL,0,3,1,'2026-08-28T00:59:13.000Z','2026-08-28T00:59:13.000Z');
 CREATE TABLE "practica_ejercicios" ("id", "section_id", "json_data", "ai_model", "generated_at", "updated_at");
 INSERT INTO "practica_ejercicios" VALUES(1,11,'{"exercise_type":"vertical_addition","ejercicios":[{"id":1,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,5],"llevadas":[""]},{"id":2,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[7,2],"llevadas":[""]},{"id":3,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[4,6],"llevadas":[""]},{"id":4,"ejercicio":"Resuelve la suma vertical","resultado":"9","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[8,1],"llevadas":[""]},{"id":5,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[2,9],"llevadas":[""]},{"id":6,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[5,3],"llevadas":[""]},{"id":7,"ejercicio":"Resuelve la suma vertical","resultado":"10","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[6,4],"llevadas":[""]},{"id":8,"ejercicio":"Resuelve la suma vertical","resultado":"8","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[1,7],"llevadas":[""]},{"id":9,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[9,2],"llevadas":[""]},{"id":10,"ejercicio":"Resuelve la suma vertical","resultado":"11","tipo":"operacion_vertical","operacion":"suma","simbolo":"+","operandos":[3,8],"llevadas":[""]}]}','gpt-4.1-nano','2026-07-08T23:15:48.000Z','2026-07-08T23:15:48.000Z');
 INSERT INTO "practica_ejercicios" VALUES(2,39,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación 3x + 4 = 10.","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación 5x + 3 = 13.","resultado":"2"},{"id":3,"ejercicio":"Determina x si 2x + 5 = 11.","resultado":"3"},{"id":4,"ejercicio":"Halla x en la ecuación 4x + 2 = 10.","resultado":"2"},{"id":5,"ejercicio":"Resuelve para x: 6x + 1 = 19.","resultado":"3"},{"id":6,"ejercicio":"Calcula x en la ecuación 7x + 3 = 24.","resultado":"3"},{"id":7,"ejercicio":"Encuentra x si 8x + 4 = 20.","resultado":"2"},{"id":8,"ejercicio":"Determina x en la ecuación 9x + 2 = 20.","resultado":"2"},{"id":9,"ejercicio":"Resuelve la ecuación 2x + 7 = 15.","resultado":"4"},{"id":10,"ejercicio":"Halla x en la ecuación 3x + 6 = 15.","resultado":"3"}]}','gpt-4.1-nano','2026-07-02T23:32:09.000Z','2026-07-02T23:32:09.000Z');
@@ -21985,5 +21993,5 @@ INSERT INTO "practica_ejercicios" VALUES(21,1426,'{"exercise_type":"vertical_add
 INSERT INTO "practica_ejercicios" VALUES(22,1437,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación 3x + 4 = 10.","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación 5x + 3 = 13.","resultado":"2"},{"id":3,"ejercicio":"Determina x si 2x + 5 = 11.","resultado":"3"},{"id":4,"ejercicio":"Halla x en la ecuación 4x + 2 = 10.","resultado":"2"},{"id":5,"ejercicio":"Resuelve para x: 6x + 1 = 19.","resultado":"3"},{"id":6,"ejercicio":"Calcula x en la ecuación 7x + 3 = 24.","resultado":"3"},{"id":7,"ejercicio":"Encuentra x si 8x + 4 = 20.","resultado":"2"},{"id":8,"ejercicio":"Determina x en la ecuación 9x + 2 = 20.","resultado":"2"},{"id":9,"ejercicio":"Resuelve la ecuación 2x + 7 = 15.","resultado":"4"},{"id":10,"ejercicio":"Halla x en la ecuación 3x + 6 = 15.","resultado":"3"}]}','gpt-4.1-nano','2026-07-02T23:32:09.000Z','2026-07-02T23:32:09.000Z');
 INSERT INTO "practica_ejercicios" VALUES(23,1441,'{"ejercicios":[{"id":1,"ejercicio":"Resuelve la ecuación: 3x + 2 = 8","resultado":"2"},{"id":2,"ejercicio":"Encuentra x en la ecuación: 5x - 4 = 6","resultado":"2"},{"id":3,"ejercicio":"Determina el valor de x: 2x + 7 = 13","resultado":"3"},{"id":4,"ejercicio":"Resuelve para x: 4x - 9 = 7","resultado":"4"},{"id":5,"ejercicio":"Encuentra la solución de: x + 5 = 10","resultado":"5"},{"id":6,"ejercicio":"Calcula x en: 6x - 3 = 9","resultado":"2"},{"id":7,"ejercicio":"Resuelve la ecuación: 7x + 2 = 16","resultado":"2"},{"id":8,"ejercicio":"Encuentra x: 3x - 5 = 4","resultado":"3"},{"id":9,"ejercicio":"Determina el valor de x: 8x + 1 = 25","resultado":"3"},{"id":10,"ejercicio":"Resuelve para x: 2x + 6 = 12","resultado":"3"}]}','deepseek-r1:32b','2026-07-04T06:13:47.000Z','2026-07-04T06:13:47.000Z');
 CREATE TABLE preview_metadata (generated_at, source_database);
-INSERT INTO "preview_metadata" VALUES('2026-08-28T00:57:46.876Z','academia-matematicas-soa');
+INSERT INTO "preview_metadata" VALUES('2026-08-28T01:07:15.506Z','academia-matematicas-soa');
 COMMIT;

@@ -12,9 +12,9 @@ const stamp = new Date().toISOString().replace(/[-:TZ.]/g, '').slice(0, 14);
 const backup = `academia_matematicas_backup_grados_${stamp}`;
 const tables = ['aprendizaje_categorias', 'aprendizaje_lecciones', 'aprendizaje_secciones_leccion', 'aprendizaje_medios', 'aprendizaje_recursos', 'aprendizaje_medios_leccion', 'practica_ejercicios'];
 const gradeByLessonSlug = {
-  'suma-numeros-naturales': { name: 'Cuarto de primaria', slug: 'cuarto-primaria', lessonSlug: 'suma-numeros-naturales-cuarto-primaria', level: 'primaria', order: 4 },
-  'suma-fracciones': { name: 'Quinto de primaria', slug: 'quinto-primaria', lessonSlug: 'suma-fracciones-quinto-primaria', level: 'primaria', order: 5 },
-  'ecuaciones-lineales-s1': { name: 'Primero de secundaria', slug: 'primero-secundaria', lessonSlug: 'ecuaciones-lineales-primero-secundaria', level: 'secundaria', order: 1 },
+  'suma-numeros-naturales': { name: 'Cuarto de primaria', slug: 'cuarto-primaria', lessonSlug: 'suma-numeros-naturales-p4', previousSlug: 'suma-numeros-naturales-cuarto-primaria', level: 'primaria', order: 4 },
+  'suma-fracciones': { name: 'Quinto de primaria', slug: 'quinto-primaria', lessonSlug: 'suma-fracciones-p5', previousSlug: 'suma-fracciones-quinto-primaria', level: 'primaria', order: 5 },
+  'ecuaciones-lineales-s1': { name: 'Primero de secundaria', slug: 'primero-secundaria', lessonSlug: 'ecuaciones-lineales-s1-secundaria', previousSlug: 'ecuaciones-lineales-primero-secundaria', level: 'secundaria', order: 1 },
 };
 const connection = await mysql.createConnection({
   host: process.env.DB_HOST, port: Number(process.env.DB_PORT || 3306), user: process.env.DB_USER,
@@ -63,7 +63,8 @@ try {
   if (sourceLessons.length !== 3) throw new Error(`Se esperaban 3 lecciones; se encontraron ${sourceLessons.length}.`);
   const targetSlugs = sourceLessons.map((lesson) => gradeByLessonSlug[lesson.slug].lessonSlug);
   const legacySlugs = sourceLessons.map((lesson) => `${lesson.slug}-respaldo-historico`);
-  const [loaded] = await connection.query('SELECT id,slug FROM aprendizaje_lecciones WHERE slug IN (?) OR slug IN (?)', [targetSlugs, legacySlugs]);
+  const previousSlugs = sourceLessons.map((lesson) => gradeByLessonSlug[lesson.slug].previousSlug);
+  const [loaded] = await connection.query('SELECT id,slug FROM aprendizaje_lecciones WHERE slug IN (?) OR slug IN (?) OR slug IN (?)', [targetSlugs, legacySlugs, previousSlugs]);
   if (loaded.length && loaded.length !== targetSlugs.length) throw new Error('La carga está incompleta; no se modificó la base.');
 
   await createBackup();
@@ -72,9 +73,9 @@ try {
   if (loaded.length === targetSlugs.length) {
     for (const lesson of sourceLessons) {
       const grade = gradeByLessonSlug[lesson.slug];
-      await connection.query('UPDATE aprendizaje_lecciones SET category_id=?,title=?,sort_order=?,slug=? WHERE slug IN (?,?)', [
+      await connection.query('UPDATE aprendizaje_lecciones SET category_id=?,title=?,sort_order=?,slug=? WHERE slug IN (?,?,?)', [
         gradeIds.get(grade.slug), lesson.title, lesson.sort_order, grade.lessonSlug,
-        `${lesson.slug}-respaldo-historico`, grade.lessonSlug,
+        `${lesson.slug}-respaldo-historico`, grade.previousSlug, grade.lessonSlug,
       ]);
     }
     await connection.query("UPDATE aprendizaje_medios SET title=REPLACE(title,' (respaldo histórico)','') WHERE title LIKE '% (respaldo histórico)'");

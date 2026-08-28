@@ -1,15 +1,25 @@
-name: academia-matematicas-preview
+name: ${COMPOSE_PROJECT_NAME:-academia-matematicas-final}-preview
+x-preview: &preview
+  restart: unless-stopped
+  init: true
+  networks: [academia-interna]
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" }
+
 services:
   preview-service:
+    <<: *preview
     image: python:3.13-alpine
-    restart: unless-stopped
     command: ["python", "/app/server.py"]
     environment: { PREVIEW_DB_PATH: /data/academia-preview.sqlite }
     volumes:
       - ./frontend-estudiantes-preview/server.py:/app/server.py:ro
       - ./frontend-estudiantes-preview/data:/data:ro
     expose: ["4700"]
-    networks: [preview]
+    pids_limit: 96
+    mem_limit: 256m
+    cpus: 0.5
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:4700/health"]
       interval: 10s
@@ -17,14 +27,16 @@ services:
       retries: 8
 
   frontend-estudiantes-preview:
-    restart: unless-stopped
+    <<: *preview
     build:
       context: .
       dockerfile: docker/frontend-preview.Dockerfile
     depends_on:
       preview-service: { condition: service_healthy }
     ports: ["${PREVIEW_DOCKER_PORT:-4612}:80"]
-    networks: [preview]
+    pids_limit: 96
+    mem_limit: 128m
+    cpus: 0.5
 
 networks:
-  preview: { driver: bridge }
+  academia-interna: { driver: bridge }
