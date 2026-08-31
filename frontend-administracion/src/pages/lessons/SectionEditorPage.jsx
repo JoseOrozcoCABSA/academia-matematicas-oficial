@@ -115,13 +115,14 @@ export default function SectionEditorPage({ section, lesson, sections, media, se
     return found;
   }, [section.id, sections]);
 
-  const focusHtml = (position) => {
+  const focusHtml = (selection) => {
     const field = editorRef.current;
     if (!field) return;
     window.requestAnimationFrame(() => {
-      const offset = Math.max(0, Math.min(Number(position) || 0, field.value.length));
-      field.focus(); field.setSelectionRange(offset, offset);
-      field.scrollTop = Math.max(0, (field.value.slice(0, offset).split('\n').length - 3) * 18);
+      const start = Math.max(0, Math.min(Number(selection?.start ?? selection?.position ?? selection) || 0, field.value.length));
+      const end = Math.max(start, Math.min(Number(selection?.end) || start, field.value.length));
+      field.focus(); field.setSelectionRange(start, end);
+      field.scrollTop = Math.max(0, (field.value.slice(0, start).split('\n').length - 3) * 18);
     });
   };
   const insert = (before, after, fallback) => {

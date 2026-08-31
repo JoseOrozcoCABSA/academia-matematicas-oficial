@@ -158,18 +158,19 @@ export default function LessonStructurePage({ lesson, onBack }) {
     setSectionDraft((current) => ({ ...current, body_html: value }));
     window.requestAnimationFrame(() => { field.focus(); field.setSelectionRange(start + before.length, start + before.length + selected.length); });
   };
-  const focusInlineHtml = (position) => {
+  const focusInlineHtml = (selection) => {
     const field = contentEditorRef.current;
     if (!field) return;
     window.requestAnimationFrame(() => {
-      const offset = Math.max(0, Math.min(Number(position) || 0, field.value.length));
-      const line = field.value.slice(0, offset).split('\n').length - 1;
-      field.focus(); field.setSelectionRange(offset, offset);
+      const start = Math.max(0, Math.min(Number(selection?.start ?? selection?.position ?? selection) || 0, field.value.length));
+      const end = Math.max(start, Math.min(Number(selection?.end) || start, field.value.length));
+      const line = field.value.slice(0, start).split('\n').length - 1;
+      field.focus(); field.setSelectionRange(start, end);
       field.scrollTop = Math.max(0, (line - 2) * 18);
     });
   };
   useEffect(() => {
-    const focusFromPreview = (event) => focusInlineHtml(event.detail?.position);
+    const focusFromPreview = (event) => focusInlineHtml(event.detail);
     window.addEventListener('academia-html-source-select', focusFromPreview);
     return () => window.removeEventListener('academia-html-source-select', focusFromPreview);
   }, [focusInlineHtml]);

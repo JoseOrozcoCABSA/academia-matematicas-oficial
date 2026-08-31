@@ -45,6 +45,7 @@ export function PresentationPreview({ path, file }) {
 
 export function MathPreview({ data, file, onHtmlSelect }) {
   const previewRef = useRef(null);
+  const [selectedBlock, setSelectedBlock] = useState('');
   const html = useMemo(() => sanitizeContentHtml(data?.body_html || ''), [data?.body_html]);
   useEffect(() => {
     if (previewRef.current) renderMathInElement(previewRef.current, MATH_OPTIONS);
@@ -58,8 +59,10 @@ export function MathPreview({ data, file, onHtmlSelect }) {
     if (!data?.body_html) return;
     const preview = previewRef.current;
     const target = event.target instanceof Element ? event.target : null;
-    const element = target?.closest('p,h1,h2,h3,h4,h5,h6,li,blockquote,pre,table,figure,img,video,audio');
+    const element = target?.closest('p,h1,h2,h3,h4,h5,h6,li,ul,ol,blockquote,pre,table,figure,img,video,audio,iframe,aside,section,div');
     if (!preview || !element || !preview.contains(element)) return;
+    preview.querySelector('.content-preview-selected')?.classList.remove('content-preview-selected');
+    element.classList.add('content-preview-selected');
     const source = String(data.body_html);
     const outerHtml = element.outerHTML;
     const visibleText = (element.textContent || '').trim();
@@ -67,12 +70,26 @@ export function MathPreview({ data, file, onHtmlSelect }) {
     if (position < 0 && visibleText) position = source.indexOf(visibleText);
     if (position < 0) position = source.toLowerCase().indexOf(`<${element.tagName.toLowerCase()}`);
     if (position >= 0) {
-      if (onHtmlSelect) onHtmlSelect(position);
-      else window.dispatchEvent(new CustomEvent('academia-html-source-select', { detail: { position } }));
+      const tag = element.tagName.toLowerCase();
+      let start = source.lastIndexOf('<', position);
+      if (start < 0) start = position;
+      let end;
+      if (!['img', 'video', 'audio', 'iframe'].includes(tag)) {
+        const closing = source.toLowerCase().indexOf(`</${tag}>`, Math.max(start, position));
+        end = closing >= 0 ? closing + tag.length + 3 : position + visibleText.length;
+      } else {
+        const closing = source.indexOf('>', Math.max(start, position));
+        end = closing >= 0 ? closing + 1 : start;
+      }
+      const detail = { position: start, start, end, tag, label: visibleText.slice(0, 80) };
+      setSelectedBlock(`<${tag}>${visibleText ? ` · ${visibleText.slice(0, 48)}` : ''}`);
+      if (onHtmlSelect) onHtmlSelect(detail);
+      else window.dispatchEvent(new CustomEvent('academia-html-source-select', { detail }));
     }
   };
   return (
-    <div ref={previewRef} className={data?.body_html ? 'content-preview content-preview--editable' : 'content-preview'} onClick={selectSource} title={data?.body_html ? 'Haz clic en un bloque para ubicarlo en el HTML.' : undefined}>
+    <div ref={previewRef} className={data?.body_html ? 'content-preview content-preview--editable' : 'content-preview'} onClick={selectSource} title={data?.body_html ? 'Haz clic en un bloque para seleccionar su HTML completo.' : undefined}>
+      {selectedBlock && <span className="content-preview-selection-label">Seleccionado: {selectedBlock}</span>}
       {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <p>{data?.summary || data?.description || data?.hero_expression || 'La vista previa aparecerá aquí.'}</p>}
     </div>
   );

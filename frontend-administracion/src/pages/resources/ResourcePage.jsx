@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, Image, Layers3, Pencil, Plus, RefreshCw, Search, Trash2 } from 'lucide-react';
+import { BookOpen, Image, Layers3, MoveRight, Pencil, Plus, RefreshCw, Search, Trash2 } from 'lucide-react';
 import { gatewayApi } from '@/api';
 import FormEditor from '../../components/forms/FormEditor';
 import LessonStructurePage from '../lessons/LessonStructurePage';
 import { BOOLEAN_FIELDS, LOOKUP_FIELDS, OPTION_LABELS, SYSTEM_FIELDS, label } from '../../config/resourceFields';
+import './lesson-relations.css';
 
 const rowsOf = (result) => result?.rows ?? (Array.isArray(result) ? result : []);
 
@@ -21,6 +22,7 @@ export default function ResourcePage({ config }) {
   const [modelStatuses, setModelStatuses] = useState([]);
   const [lookups, setLookups] = useState({});
   const [lessonWorkspace, setLessonWorkspace] = useState(null);
+  const [movingLessonId, setMovingLessonId] = useState(null);
 
   const load = async (next = resource) => {
     setLoading(true); setError('');
@@ -154,6 +156,15 @@ export default function ResourcePage({ config }) {
       await load();
     } catch (reason) { setError(reason.message); }
   };
+  const relocateLesson = async (row, categoryId) => {
+    if (!categoryId || String(categoryId) === String(row.category_id)) return;
+    const destination = categoryOptions.find((option) => String(option.value) === String(categoryId));
+    if (!window.confirm(`¿Mover “${row.title}” a ${destination?.plainLabel || 'la nueva área'}? Sus secciones y actividades permanecerán vinculadas.`)) return;
+    setMovingLessonId(row.id); setError('');
+    try { await gatewayApi.update('learning', 'aprendizaje_lecciones', row.id, { category_id: Number(categoryId) }); await load(); }
+    catch (reason) { setError(reason.message); }
+    finally { setMovingLessonId(null); }
+  };
   if (lessonWorkspace) return <LessonStructurePage lesson={lessonWorkspace} onBack={() => { setLessonWorkspace(null); void load(); }} />;
   return (
     <div className="page-content">
@@ -176,7 +187,7 @@ export default function ResourcePage({ config }) {
           </div>
           <p className="lesson-filter-tip"><Search /> La búsqueda libre también revisa título, clave curricular, resumen, tema y subtema.</p>
         </div>}
-        {config.cardView ? <div className="media-grid">{visibleRows.map((row) => <article key={row.id}><div className="media-thumb">{row.media_type === 'image' ? <Image /> : row.media_type === 'video' ? '▶' : 'DOC'}</div><strong>{row.title}</strong><small>{row.file_path || row.external_url || 'Sin ruta'}</small><div className="actions"><button onClick={() => setEditor({ record: row })}><Pencil /> Editar</button><button className="danger" onClick={() => remove(row)}><Trash2 /></button></div></article>)}</div> : isLessonCatalog ? <div className="lesson-admin-grid">{visibleRows.map((row) => <article key={row.id} className="lesson-admin-card"><div className="lesson-admin-card-head"><span><BookOpen /></span><i className={row.published ? 'published' : ''}>{row.published ? 'Visible' : 'Borrador'}</i></div><small>{displayValue(row, 'category_id')}</small><h3>{row.title || `Lección #${row.id}`}</h3><p>{row.summary || row.description || 'Sin descripción. Puedes agregarla desde los datos generales.'}</p><div className="lesson-admin-meta"><span>Clave: {row.curriculum_key || row.slug || `#${row.id}`}</span>{row.estimated_minutes && <span>{row.estimated_minutes} min</span>}</div><div className="lesson-admin-actions"><button className="admin-primary" onClick={() => setLessonWorkspace(row)}><Layers3 /> Editar contenido</button><button className="admin-secondary" onClick={() => setEditor({ record: row })}><Pencil /> Datos</button><button className="danger icon-only" aria-label="Eliminar lección" onClick={() => remove(row)}><Trash2 /></button></div></article>)}</div> : <div className="table-wrap"><table className="admin-table"><thead><tr>{displayColumns.map((column) => <th key={column}>{label(column)}</th>)}{!config.readMostly && <th>Acciones</th>}</tr></thead><tbody>{visibleRows.map((row, index) => <tr key={primaryKeys.map((key) => row[key]).join(':') || index}>{displayColumns.map((column) => <td key={column}>{BOOLEAN_FIELDS.has(column) ? <span className={`status ${row[column] ? 'published' : ''}`}>{row[column] ? 'Sí' : 'No'}</span> : <span title={displayValue(row, column)}>{displayValue(row, column)}</span>}</td>)}{!config.readMostly && <td><div className="actions"><button onClick={() => setEditor({ record: row })}><Pencil /> Editar</button><button className="danger" onClick={() => remove(row)}><Trash2 /></button></div></td>}</tr>)}</tbody></table></div>}
+        {config.cardView ? <div className="media-grid">{visibleRows.map((row) => <article key={row.id}><div className="media-thumb">{row.media_type === 'image' ? <Image /> : row.media_type === 'video' ? '▶' : 'DOC'}</div><strong>{row.title}</strong><small>{row.file_path || row.external_url || 'Sin ruta'}</small><div className="actions"><button onClick={() => setEditor({ record: row })}><Pencil /> Editar</button><button className="danger" onClick={() => remove(row)}><Trash2 /></button></div></article>)}</div> : isLessonCatalog ? <div className="lesson-admin-grid">{visibleRows.map((row) => <article key={row.id} className="lesson-admin-card"><div className="lesson-admin-card-head"><span><BookOpen /></span><i className={row.published ? 'published' : ''}>{row.published ? 'Visible' : 'Borrador'}</i></div><div className="lesson-relation-path"><span>{categoryFor(row)?.educationLevel || 'Sin nivel'}</span><b>›</b><span>{gradeLabel(gradeCode(row)) || 'Sin grado'}</span><b>›</b><strong>{displayValue(row, 'category_id')}</strong><b>›</b><span>Lección</span></div><h3>{row.title || `Lección #${row.id}`}</h3><p>{row.summary || row.description || 'Sin descripción. Puedes agregarla desde los datos generales.'}</p><div className="lesson-admin-meta"><span>Clave: {row.curriculum_key || row.slug || `#${row.id}`}</span>{row.estimated_minutes && <span>{row.estimated_minutes} min</span>}</div><label className="lesson-relocate"><span><MoveRight /> Mover tema a otra área</span><select value={row.category_id || ''} disabled={String(movingLessonId) === String(row.id)} onChange={(event) => void relocateLesson(row, event.target.value)}>{categoryOptions.map((option) => <option value={option.value} key={option.value}>{option.educationLevel} · {option.plainLabel}</option>)}</select></label><div className="lesson-admin-actions"><button className="admin-primary" onClick={() => setLessonWorkspace(row)}><Layers3 /> Editar contenido</button><button className="admin-secondary" onClick={() => setEditor({ record: row })}><Pencil /> Datos</button><button className="danger icon-only" aria-label="Eliminar lección" onClick={() => remove(row)}><Trash2 /></button></div></article>)}</div> : <div className="table-wrap"><table className="admin-table"><thead><tr>{displayColumns.map((column) => <th key={column}>{label(column)}</th>)}{!config.readMostly && <th>Acciones</th>}</tr></thead><tbody>{visibleRows.map((row, index) => <tr key={primaryKeys.map((key) => row[key]).join(':') || index}>{displayColumns.map((column) => <td key={column}>{BOOLEAN_FIELDS.has(column) ? <span className={`status ${row[column] ? 'published' : ''}`}>{row[column] ? 'Sí' : 'No'}</span> : <span title={displayValue(row, column)}>{displayValue(row, column)}</span>}</td>)}{!config.readMostly && <td><div className="actions"><button onClick={() => setEditor({ record: row })}><Pencil /> Editar</button><button className="danger" onClick={() => remove(row)}><Trash2 /></button></div></td>}</tr>)}</tbody></table></div>}
         {loading && <div className="table-state">Cargando información…</div>}
         {!loading && !visibleRows.length && <div className="table-state">No se encontraron registros.</div>}
       </section>

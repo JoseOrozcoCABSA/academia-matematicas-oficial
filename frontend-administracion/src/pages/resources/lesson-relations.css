@@ -1,0 +1,6 @@
+.lesson-relation-path{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:12px;color:#6e625c;font-size:9px;text-transform:capitalize}
+.lesson-relation-path span,.lesson-relation-path strong{padding:4px 6px;border-radius:6px;background:#f8f1e4}
+.lesson-relation-path strong{color:var(--wine)}.lesson-relation-path b{color:var(--gold)}
+.lesson-relocate{display:grid;gap:5px;margin:0 0 12px;padding:10px;border:1px solid #ead9ad;border-radius:9px;background:#fffbef}
+.lesson-relocate>span{display:flex;align-items:center;gap:6px;color:var(--wine);font-size:9px;font-weight:850}.lesson-relocate svg{width:13px;height:13px}
+.lesson-relocate select{width:100%;min-height:36px;padding:0 9px;border:1px solid var(--line);border-radius:7px;background:#fff;color:inherit;font-size:10px}

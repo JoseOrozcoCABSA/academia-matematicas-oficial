@@ -99,13 +99,14 @@ export default function FormEditor({ title, resource, columns, primaryKeys, reco
     return invalid;
   }, [lookups.parent_section_id, record?.id]);
   const update = (field, value) => setData((current) => ({ ...current, [field]: value }));
-  const focusHtml = (position) => {
+  const focusHtml = (selection) => {
     const field = htmlEditorRef.current;
     if (!field) return;
     window.requestAnimationFrame(() => {
-      const offset = Math.max(0, Math.min(Number(position) || 0, field.value.length));
-      const line = field.value.slice(0, offset).split('\n').length - 1;
-      field.focus(); field.setSelectionRange(offset, offset);
+      const start = Math.max(0, Math.min(Number(selection?.start ?? selection?.position ?? selection) || 0, field.value.length));
+      const end = Math.max(start, Math.min(Number(selection?.end) || start, field.value.length));
+      const line = field.value.slice(0, start).split('\n').length - 1;
+      field.focus(); field.setSelectionRange(start, end);
       field.scrollTop = Math.max(0, (line - 2) * 18);
     });
   };
