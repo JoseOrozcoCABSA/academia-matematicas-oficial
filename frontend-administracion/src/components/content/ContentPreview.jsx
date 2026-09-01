@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import renderMathInElement from 'katex/contrib/auto-render';
 import { gatewayApi } from '@/api';
-import { sanitizeContentHtml } from '@/utils/sanitizeContentHtml';
+import { sanitizeContentDocument, sanitizeContentHtml } from '@/utils/sanitizeContentHtml';
 
 const MATH_OPTIONS = {
   delimiters: [
@@ -82,9 +82,10 @@ export function MathPreview({ data, file, onHtmlSelect }) {
   const previewRef = useRef(null);
   const [selectedBlock, setSelectedBlock] = useState('');
   const html = useMemo(() => sanitizeContentHtml(data?.body_html || ''), [data?.body_html]);
+  const previewDocument = useMemo(() => sanitizeContentDocument(data?.body_html || ''), [data?.body_html]);
   useEffect(() => {
-    if (previewRef.current) renderMathInElement(previewRef.current, MATH_OPTIONS);
-  }, [html, data]);
+    if (previewRef.current && !previewDocument) renderMathInElement(previewRef.current, MATH_OPTIONS);
+  }, [html, data, previewDocument]);
   if (data?.title && !data?.section_type && !data?.body_html) return <LessonPreview data={data} />;
   if (data?.section_type === 'pptx') {
     return file || data?.body_html
@@ -123,10 +124,43 @@ export function MathPreview({ data, file, onHtmlSelect }) {
       else window.dispatchEvent(new CustomEvent('academia-html-source-select', { detail }));
     }
   };
+  const prepareDocumentPreview = (event) => {
+    const frameDocument = event.currentTarget.contentDocument;
+    if (!frameDocument?.body) return;
+    renderMathInElement(frameDocument.body, MATH_OPTIONS);
+    frameDocument.onclick = (clickEvent) => {
+      if (!data?.body_html) return;
+      const element = typeof clickEvent.target?.closest === 'function'
+        ? clickEvent.target.closest('p,h1,h2,h3,h4,h5,h6,li,ul,ol,blockquote,pre,table,figure,img,video,audio,iframe,aside,section,div')
+        : null;
+      if (!element) return;
+      frameDocument.querySelector('.content-preview-selected')?.classList.remove('content-preview-selected');
+      element.classList.add('content-preview-selected');
+      if (!frameDocument.getElementById('admin-preview-selection-style')) {
+        const markerStyle = frameDocument.createElement('style');
+        markerStyle.id = 'admin-preview-selection-style';
+        markerStyle.textContent = '.content-preview-selected{outline:3px solid #8f1d2c!important;outline-offset:4px}';
+        frameDocument.head.appendChild(markerStyle);
+      }
+      const source = String(data.body_html);
+      const text = (element.textContent || '').trim();
+      let position = text ? source.indexOf(text) : -1;
+      if (position < 0) position = source.toLowerCase().indexOf(`<${element.tagName.toLowerCase()}`);
+      if (position < 0) return;
+      const tag = element.tagName.toLowerCase();
+      const start = Math.max(0, source.lastIndexOf('<', position));
+      const closing = source.toLowerCase().indexOf(`</${tag}>`, position);
+      const end = closing >= 0 ? closing + tag.length + 3 : position + text.length;
+      setSelectedBlock(`<${tag}>${text ? ` · ${text.slice(0, 48)}` : ''}`);
+      const detail = { position: start, start, end, tag, label: text.slice(0, 80) };
+      if (onHtmlSelect) onHtmlSelect(detail);
+      else window.dispatchEvent(new CustomEvent('academia-html-source-select', { detail }));
+    };
+  };
   return (
-    <div ref={previewRef} className={data?.body_html ? 'content-preview content-preview--editable' : 'content-preview'} onClick={selectSource} title={data?.body_html ? 'Haz clic en un bloque para seleccionar su HTML completo.' : undefined}>
+    <div ref={previewRef} className={data?.body_html ? 'content-preview content-preview--editable' : 'content-preview'} onClick={previewDocument ? undefined : selectSource} title={data?.body_html ? 'Haz clic en un bloque para seleccionar su HTML completo.' : undefined}>
       {selectedBlock && <span className="content-preview-selection-label">Seleccionado: {selectedBlock}</span>}
-      {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <p>{data?.summary || data?.description || data?.hero_expression || 'La vista previa aparecerá aquí.'}</p>}
+      {previewDocument ? <iframe className="html-document-preview" title="Previsualización del contenido HTML" sandbox="allow-same-origin" srcDoc={previewDocument} onLoad={prepareDocumentPreview} /> : html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <p>{data?.summary || data?.description || data?.hero_expression || 'La vista previa aparecerá aquí.'}</p>}
     </div>
   );
 }
