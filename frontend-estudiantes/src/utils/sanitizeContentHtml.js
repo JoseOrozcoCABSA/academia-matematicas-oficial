@@ -1,8 +1,8 @@
 const allowedTags = new Set([
-  'A', 'BLOCKQUOTE', 'BR', 'DIV', 'EM', 'FIGCAPTION', 'FIGURE',
-  'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HR', 'IFRAME', 'IMG', 'LI', 'OL', 'P',
-  'PRE', 'SOURCE', 'SPAN', 'STRONG', 'TABLE', 'TBODY', 'TD',
-  'TH', 'THEAD', 'TR', 'UL', 'VIDEO',
+  'A', 'ARTICLE', 'ASIDE', 'BLOCKQUOTE', 'BR', 'DIV', 'EM', 'FIGCAPTION', 'FIGURE',
+  'FOOTER', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HEADER', 'HR', 'IFRAME', 'IMG',
+  'LI', 'MAIN', 'OL', 'P', 'PRE', 'SECTION', 'SOURCE', 'SPAN', 'STRONG', 'TABLE',
+  'TBODY', 'TD', 'TH', 'THEAD', 'TR', 'UL', 'VIDEO',
 ]);
 
 const removableTags = new Set([
@@ -95,4 +95,29 @@ export const sanitizeContentHtml = (html = '') => {
   });
 
   return documentNode.body.innerHTML;
+};
+
+const safeStyleSheet = (value = '') => value
+  .replace(/@import[\s\S]*?;/gi, '')
+  .replace(/url\s*\([^)]*\)/gi, 'none')
+  .replace(/expression\s*\([^)]*\)/gi, '')
+  .replace(/<\/style/gi, '<\\/style');
+
+/**
+ * Construye un documento aislado para lecciones creadas como HTML completo.
+ * Conserva sus estilos, pero elimina scripts, eventos y recursos CSS remotos.
+ */
+export const sanitizeContentDocument = (html = '') => {
+  if (!html || typeof window === 'undefined') return '';
+  const documentNode = new DOMParser().parseFromString(html, 'text/html');
+  const styles = [...documentNode.querySelectorAll('style')]
+    .map((element) => safeStyleSheet(element.textContent || ''))
+    .filter(Boolean)
+    .map((style) => `<style>${style}</style>`)
+    .join('\n');
+  const bodyClass = documentNode.body.getAttribute('class');
+  const bodyStyle = safeInlineStyle(documentNode.body.getAttribute('style') || '');
+  const bodyAttributes = `${bodyClass ? ` class="${bodyClass.replace(/["<>]/g, '')}"` : ''}${bodyStyle ? ` style="${bodyStyle.replace(/"/g, '&quot;')}"` : ''}`;
+  const content = sanitizeContentHtml(html);
+  return `<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">${styles}<style>html,body{max-width:100%;overflow-x:hidden}body{margin:0;min-height:1px}*,*::before,*::after{box-sizing:border-box}img,video,iframe{max-width:100%;height:auto}</style></head><body${bodyAttributes}>${content}</body></html>`;
 };

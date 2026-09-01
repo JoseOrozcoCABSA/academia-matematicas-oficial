@@ -4,7 +4,7 @@ import { BookOpen, Bot, Calculator, Check, ChevronDown, ChevronRight, Clock3, Fi
 import renderMathInElement from 'katex/contrib/auto-render';
 import 'katex/dist/katex.min.css';
 import { aiApi, learningApi, practiceApi } from '@/api';
-import { sanitizeContentHtml } from '@/utils/sanitizeContentHtml';
+import { sanitizeContentDocument } from '@/utils/sanitizeContentHtml';
 import { MathSidebar } from '@/components/layout/StudentShell';
 
 const MATH_OPTIONS = {
@@ -110,13 +110,30 @@ function buildLessonTabs(sections) {
 }
 
 function SectionHtml({ html }) {
-  const containerRef = useRef(null);
-  const safeHtml = useMemo(() => sanitizeContentHtml(html), [html]);
-  useEffect(() => {
-    if (containerRef.current) renderMathInElement(containerRef.current, MATH_OPTIONS);
-  }, [safeHtml]);
+  const frameRef = useRef(null);
+  const safeDocument = useMemo(() => sanitizeContentDocument(html), [html]);
+  useEffect(() => () => {
+    const frameWindow = frameRef.current?.contentWindow;
+    if (frameWindow?.__lessonResizeObserver) frameWindow.__lessonResizeObserver.disconnect();
+  }, []);
   if (!html) return null;
-  return <div ref={containerRef} className="legacy-content" dangerouslySetInnerHTML={{ __html: safeHtml }} />;
+  const prepareFrame = (event) => {
+    const frame = event.currentTarget;
+    const frameDocument = frame.contentDocument;
+    if (!frameDocument?.body) return;
+    renderMathInElement(frameDocument.body, MATH_OPTIONS);
+    const resize = () => {
+      const height = Math.max(frameDocument.body.scrollHeight, frameDocument.documentElement.scrollHeight, 180);
+      frame.style.height = `${Math.min(height + 4, 5000)}px`;
+    };
+    resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(frameDocument.body);
+    frame.contentWindow.__lessonResizeObserver?.disconnect();
+    frame.contentWindow.__lessonResizeObserver = observer;
+    frameDocument.querySelectorAll('img,video,iframe').forEach((media) => media.addEventListener('load', resize, { once: true }));
+  };
+  return <iframe ref={frameRef} className="lesson-html-document" title="Contenido de la lección" sandbox="allow-same-origin" srcDoc={safeDocument} onLoad={prepareFrame} />;
 }
 
 function MathText({ children, className }) {
