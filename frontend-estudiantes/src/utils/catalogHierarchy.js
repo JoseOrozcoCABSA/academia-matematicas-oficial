@@ -31,6 +31,17 @@ export function lessonsForGrade(catalog, levelSlug, gradeCode) {
   });
 }
 
+export function quickLessonsForGrade(catalog, levelSlug, gradeCode) {
+  return lessonsForGrade(catalog, levelSlug, gradeCode)
+    .filter((lesson) => lesson.published !== false)
+    .sort((a, b) => {
+      const aQuick = Number(a.quick_lesson_order) || Number.MAX_SAFE_INTEGER;
+      const bQuick = Number(b.quick_lesson_order) || Number.MAX_SAFE_INTEGER;
+      return aQuick - bQuick || Number(a.sort_order) - Number(b.sort_order) || Number(a.id) - Number(b.id);
+    })
+    .map((lesson, index) => ({ ...lesson, quick_lesson_order: Number(lesson.quick_lesson_order) || index + 1 }));
+}
+
 export function findGrade(levelSlug, gradeCode) {
   return (GRADES_BY_LEVEL[levelSlug] ?? []).find((grade) => grade.code === normalizeGrade(gradeCode));
 }

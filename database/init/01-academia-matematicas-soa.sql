@@ -376,4 +376,11 @@ UPDATE `aprendizaje_secciones_leccion`
 SET `ai_exercises_enabled`=1
 WHERE `section_type` IN ('activity','evaluation','exam');
 
+ALTER TABLE `aprendizaje_lecciones`
+  ADD COLUMN `quick_lesson_order` int unsigned DEFAULT NULL AFTER `sort_order`;
+
+UPDATE `aprendizaje_lecciones`
+SET `quick_lesson_order` = `sort_order`
+WHERE `quick_lesson_order` IS NULL;
+
 SET FOREIGN_KEY_CHECKS=1;

@@ -1,7 +1,7 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
-import { BookOpen, ChevronRight, GraduationCap, Layers3, Shapes } from 'lucide-react';
+import { BookOpen, ChevronRight, GraduationCap, Layers3, Play, Shapes, Zap } from 'lucide-react';
 import { MathSidebar, RightRail } from '@/components/layout/StudentShell';
-import { findGrade, GRADES_BY_LEVEL, lessonArea, lessonGrade, lessonsForGrade } from '@/utils/catalogHierarchy';
+import { findGrade, GRADES_BY_LEVEL, lessonArea, lessonGrade, lessonsForGrade, quickLessonsForGrade } from '@/utils/catalogHierarchy';
 
 const categoryMap = (catalog) => new Map((catalog?.categories ?? []).map((category) => [Number(category.id), category]));
 
@@ -87,12 +87,15 @@ export function Categories({ catalog }) {
   const grade = findGrade(levelSlug, gradeCode);
   if (catalog && (!level || !grade)) return <Navigate to="/" replace />;
   const gradeLessons = lessonsForGrade(catalog, levelSlug, gradeCode);
+  const quickLessons = quickLessonsForGrade(catalog, levelSlug, gradeCode);
+  const firstQuickLesson = quickLessons[0];
   const lessonsByCategory = new Map();
   gradeLessons.forEach((lesson) => lessonsByCategory.set(Number(lesson.category_id), [...(lessonsByCategory.get(Number(lesson.category_id)) || []), lesson]));
   const categories = (catalog?.categories ?? []).filter((category) => lessonsByCategory.has(Number(category.id)));
   return <main className="catalog-hierarchy-page">
     <Breadcrumbs items={[{ label: 'Niveles educativos', to: '/niveles' }, { label: level?.name || 'Nivel', to: `/niveles/${levelSlug}` }, { label: grade?.name || gradeCode }]} />
     <PageIntro eyebrow="PASO 3 DE 4 · TEMA" title="¿Qué quieres aprender?" description={`Estos son los temas disponibles para ${grade?.name || gradeCode}. Elige uno para consultar sus lecciones.`} />
+    {firstQuickLesson && <section className="quick-lesson-launch"><span><Zap /></span><div><small>LECCIÓN RÁPIDA #{firstQuickLesson.quick_lesson_order}</small><h2>Empieza ahora con {firstQuickLesson.title.replace(/^\s*(?:PRE\d|P\d|S\d)\s*-\s*/i, '')}</h2><p>Abre directamente la primera lección de la secuencia de {grade?.name}. Después podrás continuar según el orden configurado.</p></div><Link to={`/lecciones/${firstQuickLesson.slug}`}><Play /> Iniciar lección rápida</Link></section>}
     <section className="category-selection-grid">{categories.map((category, index) => {
       const lessons = lessonsByCategory.get(Number(category.id)) || [];
       const areas = new Set(lessons.map(lessonArea));
@@ -120,6 +123,7 @@ export function Lessons({ catalog }) {
   const category = categories.find((item) => item.slug === categorySlug && item.education_level === levelSlug);
   if (catalog && (!level || !grade || !category)) return <Navigate to="/" replace />;
   const lessons = lessonsForGrade(catalog, levelSlug, gradeCode).filter((lesson) => Number(lesson.category_id) === Number(category?.id));
+  const quickOrderById = new Map(quickLessonsForGrade(catalog, levelSlug, gradeCode).map((lesson) => [Number(lesson.id), lesson.quick_lesson_order]));
   const grouped = lessons.reduce((map, lesson) => {
     const area = lessonArea(lesson);
     map.set(area, [...(map.get(area) || []), lesson]);
@@ -130,7 +134,7 @@ export function Lessons({ catalog }) {
     <PageIntro eyebrow="PASO 4 DE 4 · LECCIÓN" title={category?.name || 'Lecciones'} description={`Elige una lección de ${grade?.name || gradeCode}. Puedes avanzar a tu propio ritmo.`} />
     <div className="lesson-area-groups">{[...grouped.entries()].map(([area, areaLessons]) => <section className="lesson-area-group" key={area}>
       <header><span><Layers3 /></span><div><small>ÁREA</small><h2>{area}</h2><p>{areaLessons.length} {areaLessons.length === 1 ? 'lección' : 'lecciones'}</p></div></header>
-      <div className="area-lessons">{areaLessons.map((lesson, index) => <Link to={`/lecciones/${lesson.slug}`} key={lesson.id}><span className={`lesson-icon-badge tone-${index % 5 + 1}`}>{lesson.icon || '∑'}</span><div><strong>{lesson.title.replace(/^\s*(?:PRE\d|P\d|S\d)\s*-\s*/i, '')}</strong><small>{lesson.summary}</small><div className="lesson-meta-line">{lesson.difficulty} · {lesson.duration_minutes || 20} min</div></div><em>Comenzar ›</em></Link>)}</div>
+      <div className="area-lessons">{areaLessons.map((lesson, index) => <Link to={`/lecciones/${lesson.slug}`} key={lesson.id}><span className={`lesson-icon-badge tone-${index % 5 + 1}`}>{lesson.icon || '∑'}</span><div><strong>{lesson.title.replace(/^\s*(?:PRE\d|P\d|S\d)\s*-\s*/i, '')}</strong><small>{lesson.summary}</small><div className="lesson-meta-line"><b>Rápida #{quickOrderById.get(Number(lesson.id))}</b>{lesson.difficulty} · {lesson.duration_minutes || 20} min</div></div><em>Comenzar ›</em></Link>)}</div>
     </section>)}</div>
     {!lessons.length && <div className="empty-state"><BookOpen /><h2>No hay lecciones en esta categoría</h2><p>El editor puede agregar contenido para este grado desde el panel de gestión.</p></div>}
   </main>;

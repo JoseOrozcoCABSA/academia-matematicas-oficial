@@ -1,7 +1,7 @@
 export const LABELS = {
   id: 'ID', name: 'Nombre', nombre: 'Nombre', title: 'Título', titulo: 'Título', slug: 'Slug',
   description: 'Descripción', summary: 'Resumen', education_level: 'Nivel educativo', icon: 'Icono',
-  color: 'Color', sort_order: 'Orden', active: 'Activo', published: 'Publicado', category_id: 'Área',
+  color: 'Color', sort_order: 'Orden técnico', quick_lesson_order: 'Lección rápida · orden', active: 'Activo', published: 'Publicado', category_id: 'Área',
   lesson_id: 'Pertenece a la lección', parent_section_id: 'Sublección de (opcional)', section_type: 'Tipo de contenido',
   body_html: 'Contenido HTML y LaTeX', ai_prompt: 'Instrucción para IA', ai_exercises_enabled: 'Ejercicios con IA',
   media_id: 'Medio', duration_minutes: 'Duración (minutos)', page_type: 'Tipo de página', icon_type: 'Tipo de icono',
@@ -22,7 +22,7 @@ export const LABELS = {
 
 export const SYSTEM_FIELDS = new Set(['created_at', 'updated_at', 'creado_en', 'actualizado_en', 'generated_at', 'password_hash', 'wp_attachment_id']);
 export const BOOLEAN_FIELDS = new Set(['active', 'published', 'ai_exercises_enabled', 'activo', 'completed']);
-export const NUMBER_FIELDS = new Set(['id', 'category_id', 'lesson_id', 'parent_section_id', 'media_id', 'hero_media_id', 'section_id', 'sort_order', 'duration_minutes', 'target_actions', 'user_id', 'usuario_id', 'leccion_id', 'seccion_id', 'challenge_id', 'progress_count', 'progress_percent', 'score_percent', 'tokens', 'width', 'height', 'file_size']);
+export const NUMBER_FIELDS = new Set(['id', 'category_id', 'lesson_id', 'parent_section_id', 'media_id', 'hero_media_id', 'section_id', 'sort_order', 'quick_lesson_order', 'duration_minutes', 'target_actions', 'user_id', 'usuario_id', 'leccion_id', 'seccion_id', 'challenge_id', 'progress_count', 'progress_percent', 'score_percent', 'tokens', 'width', 'height', 'file_size']);
 export const LONG_FIELDS = new Set(['description', 'summary', 'body_html', 'ai_prompt', 'json_data', 'answers', 'completed_sections', 'setting_value', 'configuracion', 'contenido', 'instructions', 'config_json', 'entrada', 'resultado', 'error']);
 export const JSON_FIELDS = new Set(['json_data', 'answers', 'completed_sections', 'configuracion', 'config_json', 'entrada', 'resultado']);
 export const SELECTS = {
@@ -59,6 +59,7 @@ export const FIELD_HELP = {
   page_type: '“Tema con pestañas” agrupa el contenido; “Ruta paso a paso” muestra las secciones en secuencia.',
   section_type: 'Define cómo se presenta y utiliza este contenido dentro de la lección.',
   sort_order: 'Determina la posición dentro de su mismo nivel de la jerarquía.',
+  quick_lesson_order: 'Número consecutivo usado para iniciar y continuar las lecciones rápidas dentro de cada grado.',
 };
 
 export const RESOURCE_SELECTS = {

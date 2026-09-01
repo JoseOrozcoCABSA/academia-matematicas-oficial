@@ -18,6 +18,7 @@ Leccion.init({
   "difficulty": { type: DataTypes.STRING(40), allowNull: false, defaultValue: "Básica" },
   "duration_minutes": { type: DataTypes.INTEGER.UNSIGNED, allowNull: false, defaultValue: 0 },
   "sort_order": { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+  "quick_lesson_order": { type: DataTypes.INTEGER.UNSIGNED, allowNull: true },
   "published": { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 0 },
   "created_at": { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
   "updated_at": { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
