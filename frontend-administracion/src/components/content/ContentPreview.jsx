@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import renderMathInElement from 'katex/contrib/auto-render';
 import { gatewayApi } from '@/api';
 import { sanitizeContentDocument, sanitizeContentHtml } from '@/utils/sanitizeContentHtml';
+import { installKatexFrameStyles } from '@/utils/katexFrameStyles';
 
 const MATH_OPTIONS = {
   delimiters: [
@@ -127,6 +128,7 @@ export function MathPreview({ data, file, onHtmlSelect }) {
   const prepareDocumentPreview = (event) => {
     const frameDocument = event.currentTarget.contentDocument;
     if (!frameDocument?.body) return;
+    installKatexFrameStyles(frameDocument);
     renderMathInElement(frameDocument.body, MATH_OPTIONS);
     frameDocument.onclick = (clickEvent) => {
       if (!data?.body_html) return;

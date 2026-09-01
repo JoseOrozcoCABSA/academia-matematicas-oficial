@@ -5,6 +5,7 @@ import renderMathInElement from 'katex/contrib/auto-render';
 import 'katex/dist/katex.min.css';
 import { aiApi, learningApi, practiceApi } from '@/api';
 import { sanitizeContentDocument } from '@/utils/sanitizeContentHtml';
+import { installKatexFrameStyles } from '@/utils/katexFrameStyles';
 import { MathSidebar } from '@/components/layout/StudentShell';
 
 const MATH_OPTIONS = {
@@ -121,6 +122,7 @@ function SectionHtml({ html }) {
     const frame = event.currentTarget;
     const frameDocument = frame.contentDocument;
     if (!frameDocument?.body) return;
+    installKatexFrameStyles(frameDocument);
     renderMathInElement(frameDocument.body, MATH_OPTIONS);
     const resize = () => {
       const height = Math.max(frameDocument.body.scrollHeight, frameDocument.documentElement.scrollHeight, 180);
