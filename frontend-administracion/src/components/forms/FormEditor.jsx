@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Plus, Save, Trash2, X } from 'lucide-react';
 import { MathPreview } from '../content/ContentPreview';
+import LessonLocationPicker from '../lessons/LessonLocationPicker';
 import { BOOLEAN_FIELDS, FIELD_HELP, JSON_FIELDS, LONG_FIELDS, LOOKUP_FIELDS, NUMBER_FIELDS, OPTION_LABELS, RESOURCE_SELECTS, SELECTS, SYSTEM_FIELDS, label } from '../../config/resourceFields';
 
 function validateGameConfiguration(value) {
@@ -99,6 +100,13 @@ export default function FormEditor({ title, resource, columns, primaryKeys, reco
     return invalid;
   }, [lookups.parent_section_id, record?.id]);
   const update = (field, value) => setData((current) => ({ ...current, [field]: value }));
+  const lessonGrade = (() => {
+    const source = [data.grade_code, data.grade, data.grado, data.curriculum_key, data.slug, data.title].filter(Boolean).join(' ');
+    const match = source.match(/(?:^|[^A-Z0-9])(PRE|P|S)[\s_-]?(\d)(?:[^0-9]|$)/i);
+    if (!match) return 'Grado no identificado';
+    const level = match[1].toUpperCase() === 'P' ? 'Primaria' : match[1].toUpperCase() === 'S' ? 'Secundaria' : 'Preparatoria';
+    return `${level} · ${match[2]}°`;
+  })();
   const focusHtml = (selection) => {
     const field = htmlEditorRef.current;
     if (!field) return;
@@ -161,6 +169,7 @@ export default function FormEditor({ title, resource, columns, primaryKeys, reco
                 : (lookups[key] || []);
               const emptyLabel = key === 'parent_section_id' ? 'Sección directa de la lección (sin padre)' : 'Sin asignar';
               const changeLookup = (event) => setData((current) => ({ ...current, [key]: event.target.value, ...(key === 'lesson_id' ? { parent_section_id: '' } : {}) }));
+              if (resource === 'aprendizaje_lecciones' && key === 'category_id') return <div className="full" key={key}><LessonLocationPicker options={options} value={data[key]} gradeLabel={lessonGrade} onChange={(value) => update(key, value)} /></div>;
               return <label key={key}>{label(key)}<select value={data[key] ?? ''} onChange={changeLookup}><option value="">{emptyLabel}</option>{options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</select>{FIELD_HELP[key] && <small className="field-help">{FIELD_HELP[key]}</small>}</label>;
             }
             const selectOptions = RESOURCE_SELECTS[resource]?.[key] ?? SELECTS[key];
