@@ -9,6 +9,7 @@ const LessonPage = lazy(() => import('@/pages/LessonPage'));
 const PracticePage = lazy(() => import('@/pages/PracticePage'));
 const TutorPage = lazy(() => import('@/pages/TutorPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const PrimaryInteractivePage = lazy(() => import('@/pages/PrimaryInteractivePage'));
 
 export default function App() {
   const [user, setUser, logout] = useStoredUser();
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/lecciones" element={<Lessons catalog={catalog} />} />
             <Route path="/lecciones/:slug" element={<LessonPage catalog={catalog} dashboard={dashboard} user={user} refreshDashboard={loadDashboard} />} />
             <Route path="/practica" element={<PracticePage user={user} />} />
+            <Route path="/actividades" element={<PrimaryInteractivePage user={user} />} />
             <Route path="/tutor" element={<TutorPage user={user} />} />
           </Routes>
         </StudentShell>

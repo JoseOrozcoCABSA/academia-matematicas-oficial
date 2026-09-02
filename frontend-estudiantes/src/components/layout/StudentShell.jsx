@@ -16,6 +16,7 @@ export function Header({ user, logout }) {
       </Link>
       <nav className={open ? 'global-nav is-open' : 'global-nav'}>
         <NavLink to="/" end onClick={() => setOpen(false)}>Inicio</NavLink>
+        <NavLink to="/actividades" onClick={() => setOpen(false)}>Actividades</NavLink>
         <NavLink to="/practica" onClick={() => setOpen(false)}>Práctica</NavLink>
         <NavLink to="/tutor" onClick={() => setOpen(false)}>Tutor IA</NavLink>
         <button className="mobile-logout" type="button" onClick={() => { setOpen(false); logout(); }}><LogOut size={16} /> Salir</button>
@@ -38,7 +39,7 @@ export function Footer() {
     <footer className="platform-footer">
       <div className="footer-main">
         <section className="footer-brand"><img src={logoHorizontal} alt="Academia CABSA" /><p>Una experiencia de aprendizaje enfocada en comprender, practicar y aplicar las matemáticas paso a paso.</p></section>
-        <nav><strong>Aprendizaje</strong><Link to="/">Inicio</Link><Link to="/niveles">Lecciones</Link><Link to="/practica">Práctica guiada</Link></nav>
+        <nav><strong>Aprendizaje</strong><Link to="/">Inicio</Link><Link to="/niveles">Lecciones</Link><Link to="/actividades">Actividades interactivas</Link><Link to="/practica">Práctica guiada</Link></nav>
         <nav><strong>Herramientas</strong><Link to="/tutor">Tutor matemático IA</Link><Link to="/niveles">Contenido interactivo</Link><span>Fórmulas con LaTeX</span></nav>
         <section className="footer-seal"><span>∑</span><div><strong>Academia Matemáticas</strong><small>Aprende a tu ritmo · Avanza con confianza</small></div></section>
       </div>
