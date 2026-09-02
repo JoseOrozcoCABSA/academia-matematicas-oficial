@@ -9,7 +9,7 @@ PREVIEW_COMPOSE="${ROOT}/docker-compose.preview.yml"
 
 if [[ "${1:-}" != "--confirmar" ]]; then
   echo 'Este comando elimina los contenedores de la plataforma de matematicas.' >&2
-  echo 'Conserva el preview, sus datos SQLite, volumenes e imagenes.' >&2
+  echo 'Conserva el preview y sus datos SQLite; elimina contenedores e imagenes de la plataforma completa.' >&2
   echo "Uso: bash $(basename "$0") --confirmar" >&2
   exit 2
 fi
@@ -32,8 +32,9 @@ if [[ "${preview_count}" -lt 2 ]]; then
 fi
 
 echo '===== 2. Retirar servicios SOA de Academia de Matematicas ====='
-# No se usa -v ni --rmi: datos persistentes e imagenes siguen siendo recuperables.
-docker compose --env-file "${ENV_FILE}" -f "${MAIN_COMPOSE}" down --remove-orphans
+# `--rmi all` elimina solo las imagenes declaradas por este proyecto Compose.
+# No se usa `-v`: las bases y demas volumenes siguen siendo recuperables.
+docker compose --env-file "${ENV_FILE}" -f "${MAIN_COMPOSE}" down --remove-orphans --rmi all
 
 echo '===== 3. Retirar el contenedor heredado independiente ====='
 legacy_name='academia-matematicas'
@@ -41,6 +42,13 @@ if docker container inspect "${legacy_name}" >/dev/null 2>&1; then
   docker rm -f "${legacy_name}"
 else
   echo "INFO: ${legacy_name} ya no existe."
+fi
+
+legacy_image='academia-matematicas:latest'
+if docker image inspect "${legacy_image}" >/dev/null 2>&1; then
+  docker image rm "${legacy_image}"
+else
+  echo "INFO: la imagen ${legacy_image} ya no existe."
 fi
 
 echo '===== 4. Verificacion final ====='
@@ -55,5 +63,7 @@ docker compose --env-file "${ENV_FILE}" -f "${PREVIEW_COMPOSE}" ps
 preview_port="$(sed -n 's/^PREVIEW_DOCKER_PORT=//p' "${ENV_FILE}" | tail -n 1 | tr -d '\r')"
 echo
 echo "LISTO: solo permanece el preview de Academia de Matematicas en el puerto ${preview_port:-4612}."
-echo 'Los volumenes e imagenes no fueron eliminados y permiten recuperar la plataforma posteriormente.'
-
+echo 'Se eliminaron los contenedores y las imagenes de la plataforma completa.'
+echo 'Se conservaron el preview, su imagen activa, SQLite y los volumenes de datos.'
+echo
+docker system df
