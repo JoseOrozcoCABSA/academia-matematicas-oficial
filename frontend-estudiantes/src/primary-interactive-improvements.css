@@ -1,0 +1,157 @@
+.p1-header-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.p1-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.p1-hero > div:first-child,
+.p1-hero .p1-score {
+  position: relative;
+  z-index: 2;
+}
+
+.p1-hero-art {
+  width: 150px;
+  height: 150px;
+  margin-left: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 15px #2b113044);
+  transform: rotate(7deg);
+}
+
+.p1-activity-nav button {
+  position: relative;
+  min-height: 136px;
+  padding-right: 72px;
+  overflow: hidden;
+}
+
+.p1-activity-nav button > img {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  opacity: .88;
+  transition: transform .2s ease;
+}
+
+.p1-activity-nav button:hover > img,
+.p1-activity-nav button.active > img {
+  transform: rotate(5deg) scale(1.08);
+}
+
+.fruit-dots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(46px, 66px));
+  place-content: center;
+}
+
+.fruit-dots img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 5px #29121b20);
+}
+
+.tree {
+  padding: 0 0 34px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tree:hover,
+.tree:focus-visible {
+  border-color: #d79b19;
+  background: #fff8e9;
+  outline: none;
+}
+
+.tree > small {
+  position: absolute;
+  bottom: 5px;
+  color: #626477;
+  font-weight: 800;
+}
+
+.tree-crown {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  place-content: center;
+}
+
+.tree-crown img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 4px #163b1830);
+}
+
+.hundred-layout {
+  grid-template-columns: minmax(420px, 760px) 220px;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.hundred-board.missing {
+  max-width: 720px;
+  margin: 20px auto;
+}
+
+@media (max-width: 700px) {
+  .p1-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hundred-layout {
+    display: block;
+  }
+
+  .tree {
+    padding-bottom: 30px;
+  }
+
+  .p1-hero-art {
+    position: absolute;
+    right: -20px;
+    bottom: -18px;
+    width: 120px;
+    height: 120px;
+    opacity: .45;
+  }
+
+  .p1-activity-nav button {
+    padding-right: 55px;
+  }
+
+  .p1-activity-nav button > img {
+    width: 49px;
+    height: 49px;
+  }
+
+  .fruit-dots {
+    grid-template-columns: repeat(3, 46px);
+  }
+
+  .fruit-dots img,
+  .tree-crown img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .tree-crown {
+    grid-template-columns: repeat(3, 40px);
+  }
+}

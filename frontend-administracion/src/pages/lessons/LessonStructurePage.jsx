@@ -5,6 +5,8 @@ import FormEditor from '../../components/forms/FormEditor';
 import { MathPreview } from '../../components/content/ContentPreview';
 import SectionEditorPage from './SectionEditorPage';
 import { OPTION_LABELS, SELECTS } from '../../config/resourceFields';
+import { activityIdFromUrl, interactiveActivityUrl, INTERACTIVE_ACTIVITIES } from '../../config/interactiveActivities';
+import './interactive-activities.css';
 
 /** Normaliza listas directas y respuestas paginadas/anidadas del Gateway. */
 const rowsOf = (result) => {
@@ -46,6 +48,10 @@ export default function LessonStructurePage({ lesson, onBack }) {
   const [sectionDraft, setSectionDraft] = useState(null);
   const [savingSection, setSavingSection] = useState(false);
   const [creatingDefaults, setCreatingDefaults] = useState(false);
+  const [lessonResources, setLessonResources] = useState([]);
+  const [selectedActivityIds, setSelectedActivityIds] = useState([]);
+  const [savingActivities, setSavingActivities] = useState(false);
+  const [activityNotice, setActivityNotice] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const contentEditorRef = useRef(null);
@@ -53,12 +59,13 @@ export default function LessonStructurePage({ lesson, onBack }) {
   const load = async () => {
     setLoading(true); setError('');
     try {
-      const [catalog, lessonResult, sectionResult, categoryResult, mediaResult] = await Promise.all([
+      const [catalog, lessonResult, sectionResult, categoryResult, mediaResult, resourceResult] = await Promise.all([
         gatewayApi.resources('learning'),
         gatewayApi.list('learning', 'aprendizaje_lecciones', 500),
         gatewayApi.listWhere('learning', 'aprendizaje_secciones_leccion', { lesson_id: lesson.id }, 100),
         gatewayApi.list('learning', 'aprendizaje_categorias', 500),
         gatewayApi.list('learning', 'aprendizaje_medios', 500),
+        gatewayApi.listWhere('learning', 'aprendizaje_recursos', { lesson_id: lesson.id }, 200),
       ]);
       const allLessons = rowsOf(lessonResult);
       const allSections = rowsOf(sectionResult);
@@ -68,6 +75,9 @@ export default function LessonStructurePage({ lesson, onBack }) {
       setCurrentLesson(allLessons.find((item) => String(item.id) === String(lesson.id)) || currentLesson);
       const lessonSections = allSections.filter((item) => String(item.lesson_id) === String(lesson.id));
       setSections(lessonSections);
+      const loadedResources = rowsOf(resourceResult);
+      setLessonResources(loadedResources);
+      setSelectedActivityIds(loadedResources.map((item) => activityIdFromUrl(item.url)).filter((id) => INTERACTIVE_ACTIVITIES.some((activity) => activity.id === id)));
       setSelectedId((current) => lessonSections.some((item) => String(item.id) === String(current)) ? current : (lessonSections[0]?.id ?? null));
       setDefinitions({
         lesson: (catalog.resources || []).find((item) => item.resource === 'aprendizaje_lecciones'),
@@ -101,6 +111,30 @@ export default function LessonStructurePage({ lesson, onBack }) {
   const saveLesson = async (data) => {
     await gatewayApi.update('learning', 'aprendizaje_lecciones', currentLesson.id, data);
     setEditor(null); await load();
+  };
+
+  const toggleInteractiveActivity = (id) => {
+    setActivityNotice('');
+    setSelectedActivityIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  };
+
+  const saveInteractiveActivities = async () => {
+    setSavingActivities(true); setActivityNotice(''); setError('');
+    try {
+      const managed = lessonResources.filter((resource) => INTERACTIVE_ACTIVITIES.some((activity) => activity.id === activityIdFromUrl(resource.url)));
+      const existingIds = new Set(managed.map((resource) => activityIdFromUrl(resource.url)));
+      await Promise.all(managed.filter((resource) => !selectedActivityIds.includes(activityIdFromUrl(resource.url)))
+        .map((resource) => gatewayApi.remove('learning', 'aprendizaje_recursos', resource.id)));
+      await Promise.all(INTERACTIVE_ACTIVITIES.filter((activity) => selectedActivityIds.includes(activity.id) && !existingIds.has(activity.id))
+        .map((activity, index) => gatewayApi.create('learning', 'aprendizaje_recursos', {
+          lesson_id: Number(currentLesson.id), title: activity.title, description: activity.description,
+          resource_type: 'interactive', url: interactiveActivityUrl(activity.id),
+          sort_order: 200 + index, published: true,
+        })));
+      await load();
+      setActivityNotice('Actividades vinculadas correctamente a la lección.');
+    } catch (reason) { setError(reason instanceof Error ? reason.message : 'No fue posible guardar las actividades.'); }
+    finally { setSavingActivities(false); }
   };
 
   const saveSection = async (data, file) => {
@@ -257,6 +291,7 @@ export default function LessonStructurePage({ lesson, onBack }) {
     <button type="button" className="lesson-back" onClick={onBack}>← Volver al listado de lecciones</button>
     <header className="lesson-structure-header"><div><p className="eyebrow">ESTRUCTURA DE LA LECCIÓN · #{currentLesson.id}</p><h1>{currentLesson.title}</h1><p>{currentLesson.summary || 'Sin resumen capturado.'}</p><div className="lesson-context"><span>Área: {lookups.category_id?.find((item) => String(item.value) === String(currentLesson.category_id))?.plainLabel || `#${currentLesson.category_id}`}</span><span>{currentLesson.page_type === 'path' ? 'Ruta paso a paso' : 'Tema con pestañas'}</span><span>{sections.length} contenidos</span></div></div><button type="button" className="admin-secondary" onClick={() => setEditor({ kind: 'lesson', record: currentLesson })}><Pencil /> Editar datos generales</button></header>
     <section className="lesson-workflow"><div className="active"><small>1</small><strong>Lección principal</strong><span>{currentLesson.title}</span></div><b>→</b><div><small>2</small><strong>Apartados padre</strong><span>Lección, Actividad y Evaluación</span></div><b>→</b><div><small>3</small><strong>Contenidos</strong><span>Lecturas, videos, exámenes y más</span></div></section>
+    <section className="lesson-interactive-selector"><header><div><span className="eyebrow">ACTIVIDADES DE LA LECCIÓN</span><h2>Selecciona las actividades interactivas</h2><p>Puedes incluir una o varias. El alumno abrirá directamente la actividad elegida desde esta lección.</p></div><button type="button" className="admin-primary" disabled={savingActivities || loading} onClick={saveInteractiveActivities}><Save /> {savingActivities ? 'Guardando…' : 'Guardar actividades'}</button></header><div className="interactive-activity-grid">{INTERACTIVE_ACTIVITIES.map((activity) => <label className={`interactive-activity-option${selectedActivityIds.includes(activity.id) ? ' selected' : ''}`} key={activity.id}><input type="checkbox" checked={selectedActivityIds.includes(activity.id)} onChange={() => toggleInteractiveActivity(activity.id)} /><span><strong>{activity.title}</strong><small>{activity.description}</small></span></label>)}</div>{activityNotice && <div className="interactive-activity-notice">{activityNotice}</div>}</section>
     <div className="lesson-structure-toolbar"><div><h2>Apartados principales de la lección</h2><p>Por defecto son Lecciones, Actividad y Evaluación. Dentro de cada contenido puedes seguir creando elementos hijos.</p></div><div className="lesson-toolbar-actions">{missingDefaultTabs.length > 0 && <button type="button" className="admin-secondary" disabled={creatingDefaults} onClick={createDefaultTabs}><Plus /> {creatingDefaults ? 'Organizando…' : 'Crear y organizar apartados predeterminados'}</button>}<button type="button" className="admin-primary" onClick={() => setCreationTarget({ mode: 'tab', parentId: null })}><Plus /> Añadir apartado padre</button></div></div>
     {creationTarget && <section className="lesson-type-picker"><header><div><small>{creationTarget.mode === 'tab' ? 'NUEVO APARTADO PADRE' : `CONTENIDO DENTRO DE “${creationTarget.parentTitle}”`}</small><h2>{creationTarget.mode === 'tab' ? 'Selecciona el tipo de apartado' : '¿Qué deseas agregar?'}</h2><p>{creationTarget.mode === 'tab' ? 'Los apartados habituales son Lección, Actividad y Evaluación.' : 'Selecciona uno de los 10 tipos disponibles.'}</p></div><button type="button" className="admin-secondary" onClick={() => setCreationTarget(null)}>Cancelar</button></header><div className={creationTarget.mode === 'tab' ? 'lesson-type-grid tab-types' : 'lesson-type-grid'}>{(creationTarget.mode === 'tab' ? TAB_TEMPLATES.map((item) => [item.type, item.icon, item.title, item.description]) : CONTENT_TYPES).map(([type, icon, title, description]) => <button type="button" key={`${type}-${title}`} onClick={() => chooseCreationType(type, title)}><b>{icon}</b><strong>{title}</strong><small>{description}</small><span>Seleccionar →</span></button>)}</div></section>}
     {error && <div className="alert error">{error}</div>}

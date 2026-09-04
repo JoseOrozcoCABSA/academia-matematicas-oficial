@@ -1,15 +1,28 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Check, ChevronLeft, ChevronRight, RotateCcw, Sparkles, Volume2 } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import '@/primary-interactive.css';
+import '@/primary-interactive-improvements.css';
+import backpackImage from '../../../imgs/9.png';
+import calculatorImage from '../../../imgs/2.png';
+import notebookImage from '../../../imgs/10.png';
+import bookImage from '../../../imgs/34.png';
+import strawberryImage from '../../../imgs/18.png';
+import bananaImage from '../../../imgs/19.png';
+import kiwiImage from '../../../imgs/20.png';
+import lemonImage from '../../../imgs/22.png';
+import pearImage from '../../../imgs/23.png';
+import pineappleImage from '../../../imgs/30.png';
 
 const activities = [
-  ['serpiente', 'Serpiente numérica', 'Ordena del 1 al 10'],
-  ['sonidos', '¿Qué número sigue?', 'Escucha y completa'],
-  ['cantidades', 'Más o menos', 'Compara colecciones'],
-  ['bosque', 'El bosque de frutas', 'Cuenta y compara'],
-  ['tablero', 'Tablero parlante', 'Explora del 1 al 100'],
-  ['faltantes', 'Números faltantes', 'Completa el tablero'],
+  ['serpiente', 'Serpiente numérica', 'Ordena del 1 al 10', backpackImage],
+  ['sonidos', '¿Qué número sigue?', 'Escucha y completa', calculatorImage],
+  ['cantidades', 'Más o menos', 'Compara colecciones', strawberryImage],
+  ['bosque', 'El bosque de frutas', 'Cuenta y compara', pineappleImage],
+  ['tablero', 'Tablero parlante', 'Explora del 1 al 100', bookImage],
+  ['faltantes', 'Números faltantes', 'Completa el tablero', notebookImage],
 ];
+const fruitImages = [strawberryImage, bananaImage, kiwiImage, lemonImage, pearImage, pineappleImage];
 
 const numberWords = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte'];
 const word = (number) => number <= 20 ? numberWords[number] : number < 30 ? `veinti${numberWords[number - 20]}` : number < 40 ? `treinta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 50 ? `cuarenta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 60 ? `cincuenta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 70 ? `sesenta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 80 ? `setenta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 90 ? `ochenta${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : number < 100 ? `noventa${number % 10 ? ` y ${numberWords[number % 10]}` : ''}` : 'cien';
@@ -18,10 +31,16 @@ const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 function speak(text) {
   if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const message = new SpeechSynthesisUtterance(String(text));
-  message.lang = 'es-MX'; message.rate = .82; message.pitch = 1.08;
-  window.speechSynthesis.speak(message);
+  const synthesis = window.speechSynthesis;
+  synthesis.cancel();
+  window.setTimeout(() => {
+    const message = new SpeechSynthesisUtterance(String(text));
+    const voices = synthesis.getVoices();
+    message.voice = voices.find((voice) => voice.lang.toLowerCase() === 'es-mx')
+      || voices.find((voice) => voice.lang.toLowerCase().startsWith('es')) || null;
+    message.lang = message.voice?.lang || 'es-MX'; message.rate = .82; message.pitch = 1.08; message.volume = 1;
+    synthesis.resume(); synthesis.speak(message);
+  }, 40);
 }
 
 function Feedback({ state, children }) {
@@ -55,21 +74,21 @@ function QuantityGame({ complete }) {
   const [round,setRound]=useState(makeRound);const[feedback,setFeedback]=useState('');
   const answer=round.mode==='más'?Math.max(round.left,round.right):Math.min(round.left,round.right);
   const choose=(value)=>{if(value===answer){setFeedback('success');speak(`Correcto. Aquí hay ${round.mode}`);complete();}else{setFeedback('error');speak(`Observa otra vez. Busca donde hay ${round.mode}`);}};
-  return <Game title="Más o menos" instruction={`¿Dónde hay ${round.mode} puntos? Toca la tarjeta correcta.`} reset={()=>{setRound(makeRound());setFeedback('');}}><button className="listen-inline" onClick={()=>speak(`¿Dónde hay ${round.mode} puntos?`)}><Volume2/>Escuchar pregunta</button><div className="quantity-pair">{[['left',round.left],['right',round.right]].map(([side,count])=><button onClick={()=>choose(count)} aria-label={`${count} puntos, lado ${side==='left'?'izquierdo':'derecho'}`} key={side}><span className="dots">{Array.from({length:count},(_,i)=><i key={i}/>)}</span><small>{side==='left'?'Izquierda':'Derecha'}</small></button>)}</div><Feedback state={feedback}>{feedback==='success'?'¡Exacto! Comparaste las dos cantidades.':feedback==='error'?'Cuenta los puntos de cada tarjeta.':'Puedes contar cada punto con el dedo.'}</Feedback></Game>;
+  return <Game title="Más o menos" instruction={`¿Dónde hay ${round.mode} frutas? Toca la tarjeta correcta.`} reset={()=>{setRound(makeRound());setFeedback('');}}><button className="listen-inline" onClick={()=>speak(`¿Dónde hay ${round.mode} frutas?`)}><Volume2/>Escuchar pregunta</button><div className="quantity-pair">{[['left',round.left],['right',round.right]].map(([side,count],group)=><button onClick={()=>choose(count)} aria-label={`${count} frutas, lado ${side==='left'?'izquierdo':'derecho'}`} key={side}><span className="dots fruit-dots">{Array.from({length:count},(_,i)=><img src={fruitImages[(i+group*2)%fruitImages.length]} alt="" key={i}/>)}</span><small>{side==='left'?'Izquierda':'Derecha'} · {count} frutas</small></button>)}</div><Feedback state={feedback}>{feedback==='success'?'¡Exacto! Comparaste las dos cantidades.':feedback==='error'?'Cuenta las frutas de cada tarjeta.':'Puedes contar cada fruta con el dedo.'}</Feedback></Game>;
 }
 
 function ForestGame({ complete }) {
-  const makeRound=()=>({left:random(1,8),right:random(1,8)});const[round,setRound]=useState(makeRound);const[feedback,setFeedback]=useState('');
-  const expected=round.left===round.right?'=':round.left>round.right?'>':'<';
-  const choose=(symbol)=>{if(symbol===expected){setFeedback('success');speak(`${round.left} ${symbol==='>'?'es mayor que':symbol==='<'?'es menor que':'es igual a'} ${round.right}`);complete();}else{setFeedback('error');speak('Cuenta las frutas y vuelve a comparar');}};
-  return <Game title="El bosque de frutas" instruction="Cuenta las frutas y elige el signo correcto." reset={()=>{setRound(makeRound());setFeedback('');}}><div className="forest"><Tree count={round.left}/><b className="comparison-mark">?</b><Tree count={round.right}/></div><div className="symbol-choices">{['<','=','>'].map(x=><button onClick={()=>choose(x)} key={x}>{x}</button>)}</div><Feedback state={feedback}>{feedback==='success'?`${round.left} ${expected} ${round.right}. ¡Comparación correcta!`:feedback==='error'?'Recuerda: la boca grande mira al número mayor.':'¿Cuál árbol tiene más frutas?'}</Feedback></Game>;
+  const makeRound=()=>{let left=random(1,8),right=random(1,8);while(left===right)right=random(1,8);return{left,right};};const[round,setRound]=useState(makeRound);const[feedback,setFeedback]=useState('');
+  const expected=round.left>round.right?'left':'right';
+  const choose=(side)=>{if(side===expected){setFeedback('success');speak(`Correcto. El lado ${side==='left'?'izquierdo':'derecho'} tiene más frutas`);complete();}else{setFeedback('error');speak('Cuenta las frutas de ambos lados y vuelve a intentarlo');}};
+  return <Game title="El bosque de frutas" instruction="Cuenta las frutas y toca el árbol que tiene más." reset={()=>{setRound(makeRound());setFeedback('');}}><button className="listen-inline" onClick={()=>speak('Cuenta las frutas. Toca el árbol que tiene más')}><Volume2/>Escuchar indicación</button><div className="forest"><Tree count={round.left} side="izquierdo" onClick={()=>choose('left')}/><Tree count={round.right} side="derecho" onClick={()=>choose('right')}/></div><Feedback state={feedback}>{feedback==='success'?`¡Correcto! ${Math.max(round.left,round.right)} es la cantidad mayor.`:feedback==='error'?'Cuenta otra vez las frutas de cada árbol.':'Toca el árbol de la izquierda o el de la derecha.'}</Feedback></Game>;
 }
 
-function Tree({count}) { return <div className="tree" aria-label={`Árbol con ${count} frutas`}><div className="tree-crown">{Array.from({length:count},(_,i)=><i key={i}>●</i>)}</div><span/><strong>{count}</strong></div>; }
+function Tree({count,side,onClick}) { return <button type="button" className="tree" onClick={onClick} aria-label={`Árbol ${side} con ${count} frutas`}><div className="tree-crown">{Array.from({length:count},(_,i)=><img src={fruitImages[(i+(side==='derecho'?3:0))%fruitImages.length]} alt="" key={i}/>)}</div><span/><strong>{count}</strong><small>Lado {side}</small></button>; }
 
 function TalkingBoard({ complete }) {
   const[selected,setSelected]=useState(null);const pick=(n)=>{setSelected(n);speak(`${n}, ${word(n)}`);complete();};
-  return <Game title="Tablero parlante" instruction="Toca cualquier casilla. Escucharás el número y verás cómo se escribe." reset={()=>setSelected(null)}><div className="hundred-layout"><div className="hundred-board">{Array.from({length:100},(_,i)=><button className={selected===i+1?'selected':''} onClick={()=>pick(i+1)} key={i}>{i+1}</button>)}</div><aside className="number-display">{selected?<><small>NÚMERO</small><strong>{selected}</strong><b>{word(selected)}</b><button onClick={()=>speak(`${selected}, ${word(selected)}`)}><Volume2/>Repetir</button></>:<><Volume2/><p>Elige una casilla para comenzar.</p></>}</aside></div></Game>;
+  return <Game title="Tablero parlante" instruction="Toca cualquier casilla. Escucharás el número y verás cómo se escribe." reset={()=>setSelected(null)}><button className="listen-inline" onClick={()=>speak('Toca cualquier casilla para escuchar el número')}><Volume2/>Escuchar indicación</button><div className="hundred-layout"><div className="hundred-board">{Array.from({length:100},(_,i)=><button className={selected===i+1?'selected':''} onClick={()=>pick(i+1)} key={i}>{i+1}</button>)}</div><aside className="number-display">{selected?<><small>NÚMERO</small><strong>{selected}</strong><b>{word(selected)}</b><button onClick={()=>speak(`${selected}, ${word(selected)}`)}><Volume2/>Repetir</button></>:<><Volume2/><p>Elige una casilla para comenzar.</p></>}</aside></div></Game>;
 }
 
 function MissingBoard({ complete }) {
@@ -82,11 +101,14 @@ function MissingBoard({ complete }) {
   return <Game title="Números faltantes" instruction={current?'Escucha y elige el número que completa la casilla iluminada.':'¡Completaste todo el tablero!'} reset={reset}><button className="listen-inline" onClick={()=>speak(`¿Dónde está el número ${current}?`)} disabled={!current}><Volume2/>Escuchar número</button><div className="hundred-board missing">{Array.from({length:100},(_,i)=>i+1).map(n=>round.missing.includes(n)&&!solved.includes(n)?<button className={n===current?'target':''} disabled aria-label="Casilla vacía" key={n}>?</button>:<span key={n}>{n}</span>)}</div>{current&&<div className="number-choices compact missing-options">{options.map(n=><button onClick={()=>place(n)} key={n}>{n}</button>)}</div>}<Feedback state={feedback}>{!current?'¡Tablero completo! Excelente trabajo.':feedback==='error'?'Observa los números vecinos y escucha otra vez.':'Elige una de las tres opciones.'}</Feedback></Game>;
 }
 
-function Game({title,instruction,reset,children}) { return <section className="p1-game"><header><div><small>ACTIVIDAD INTERACTIVA · P1</small><h2>{title}</h2><p>{instruction}</p></div><button onClick={reset}><RotateCcw/>Reiniciar</button></header>{children}</section>; }
+function Game({title,instruction,reset,children}) { return <section className="p1-game"><header><div><small>ACTIVIDAD INTERACTIVA · P1</small><h2>{title}</h2><p>{instruction}</p></div><div className="p1-header-actions"><button onClick={()=>speak(instruction)}><Volume2/>Escuchar</button><button onClick={reset}><RotateCcw/>Reiniciar</button></div></header>{children}</section>; }
 
 export default function PrimaryInteractivePage({user}) {
-  const storageKey=`p1-progress-${user?.id||'guest'}`;const[saved,setSaved]=useState(()=>JSON.parse(localStorage.getItem(storageKey)||'{}'));const[index,setIndex]=useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const requestedIndex = activities.findIndex((activity) => activity[0] === searchParams.get('actividad'));
+  const storageKey=`p1-progress-${user?.id||'guest'}`;const[saved,setSaved]=useState(()=>JSON.parse(localStorage.getItem(storageKey)||'{}'));const[index,setIndex]=useState(requestedIndex >= 0 ? requestedIndex : 0);
+  const selectActivity = (nextIndex) => { const next = Math.max(0, Math.min(nextIndex, activities.length - 1)); setIndex(next); const params = new URLSearchParams(searchParams); params.set('actividad', activities[next][0]); setSearchParams(params, { replace: true }); };
   const complete=()=>{const next={...saved,[activities[index][0]]:true};setSaved(next);localStorage.setItem(storageKey,JSON.stringify(next));};
   const Activity=[SnakeGame,SoundSequence,QuantityGame,ForestGame,TalkingBoard,MissingBoard][index];const done=Object.keys(saved).filter(key=>saved[key]).length;
-  return <main className="p1-page"><header className="p1-hero"><div><span>PRIMARIA · P1</span><h1>Explora los números jugando</h1><p>Seis actividades táctiles y auditivas para reconocer secuencias, cantidades y relaciones.</p></div><div className="p1-score"><strong>{done}/6</strong><small>actividades exploradas</small></div></header><nav className="p1-activity-nav" aria-label="Actividades">{activities.map((activity,i)=><button className={`${i===index?'active ':''}${saved[activity[0]]?'done':''}`} onClick={()=>setIndex(i)} key={activity[0]}><span>{saved[activity[0]]?'✓':i+1}</span><b>{activity[1]}</b><small>{activity[2]}</small></button>)}</nav><Activity complete={complete}/><div className="p1-pagination"><button disabled={index===0} onClick={()=>setIndex(index-1)}><ChevronLeft/>Anterior</button><span>{index+1} de {activities.length}</span><button disabled={index===activities.length-1} onClick={()=>setIndex(index+1)}>Siguiente<ChevronRight/></button></div></main>;
+  return <main className="p1-page"><header className="p1-hero"><div><span>PRIMARIA · P1</span><h1>Explora los números jugando</h1><p>Seis actividades táctiles y auditivas para reconocer secuencias, cantidades y relaciones.</p></div><img className="p1-hero-art" src={backpackImage} alt=""/><div className="p1-score"><strong>{done}/6</strong><small>actividades exploradas</small></div></header><nav className="p1-activity-nav" aria-label="Actividades">{activities.map((activity,i)=><button className={`${i===index?'active ':''}${saved[activity[0]]?'done':''}`} onClick={()=>selectActivity(i)} key={activity[0]}><img src={activity[3]} alt=""/><span>{saved[activity[0]]?'✓':i+1}</span><b>{activity[1]}</b><small>{activity[2]}</small></button>)}</nav><Activity complete={complete}/><div className="p1-pagination"><button disabled={index===0} onClick={()=>selectActivity(index-1)}><ChevronLeft/>Anterior</button><span>{index+1} de {activities.length}</span><button disabled={index===activities.length-1} onClick={()=>selectActivity(index+1)}>Siguiente<ChevronRight/></button></div></main>;
 }
